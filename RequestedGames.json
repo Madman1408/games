@@ -1,7 +1,7 @@
 {
   "_metadata_": {
     "streamer": "MadMan1408",
-    "lastUpdated": "23.07.2026 08:29"
+    "lastUpdated": "23.07.2026 08:32"
   },
   "Repo": [
     {
@@ -29,6 +29,38 @@
       "userAvatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/d369f05a-3d9b-44c5-8618-2dfe19e35598-profile_image-600x600.png",
       "id": 1,
       "dateRequested": "23.07.2026 08:29",
+      "status": "В очереди",
+      "ourRating": "Без оценки",
+      "cried": false,
+      "isAuction": false
+    }
+  ],
+  "madman1408": [
+    {
+      "title": "Horizon Zero Dawn",
+      "year": "2017",
+      "type": "Игра",
+      "runtime": "~11 ч.",
+      "genres": "Action, RPG",
+      "studios": "Guerrilla Games (Изд: Sony Computer Entertainment)",
+      "budget": "PC, PlayStation 4",
+      "revenue": "Meta: 89",
+      "tmdbRating": "4,3",
+      "overview": "Horizon Zero Dawn is an experiment. A very impressive experiment that actually succeeded. \r\nHaving a very curious mix of cyberpunk and prehistorical styles and esthetic, the game provides us with quite a unique experience. We need to arm ourselves with arrows and a bow, with a spear or any other prehistorical-ish weapon in order to defeat out enemies - dinosaur-mechanisms that are spread around the world. If that wasn't enough, Aloy our main protagonist can control an AI named GAIA. What we're having here is an exciting connection with \"very old times\" and \"near future\", even though the game is set up in the 31st century. \r\nBeing an outcast with her father Rost, Aloy must restore her position in the tribe and save the world by stopping the Eclipse, a cult that wants to rule the world. Join her on that journey, exploring the world and people that live in such hard surroundings.",
+      "poster": "https://media.rawg.io/media/games/b7d/b7d3f1715fa8381a4e780173a197a615.jpg",
+      "backdrop": "https://media.rawg.io/media/screenshots/622/622af78d13d5f1a862fbad82ca0f3260.jpg",
+      "tagline": "",
+      "cast": [],
+      "director": {
+        "name": "Нет данных",
+        "photo": "https://via.placeholder.com/185x278?text=No+Photo"
+      },
+      "trailer": "",
+      "ageRating": "Teen",
+      "keywords": "",
+      "userAvatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/a8a6aa04-03ef-40e5-aae6-a8a1580e9d8c-profile_image-600x600.png",
+      "id": 2,
+      "dateRequested": "23.07.2026 08:32",
       "status": "В очереди",
       "ourRating": "Без оценки",
       "cried": false,
