@@ -425,9 +425,11 @@
         .modal-title-wrapper { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; }
         
         .modal-title { 
-            font-family: var(--font-title); font-size: 34px; font-weight: 700; margin: 0; 
+            font-family: var(--font-title); font-weight: 700; margin: 0; 
             color: #ffffff;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 0 15px rgba(92, 242, 138, 0.3);
+            /* Размер будет меняться через JS */
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
         }
 
         .modal-title-wrapper .copy-btn { 
@@ -442,7 +444,7 @@
 
         .modal-meta { color: var(--mint-light); font-size: 16px; font-weight: 600; margin-bottom: 20px; border-bottom: 1px dashed rgba(92, 242, 138, 0.2); padding-bottom: 15px; }
         
-        .modal-overview { color: var(--text-main); font-size: 16px; line-height: 1.7; margin-bottom: 30px; }
+        .modal-overview { color: var(--text-main); font-size: 16px; line-height: 1.7; margin-top: 30px; } /* Изменили margin-bottom на margin-top */
 
         .modal-grid { 
             display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; 
@@ -470,6 +472,31 @@
         .modal-requester-link:hover { transform: translateX(5px); }
         .modal-requester-link span { font-family: var(--font-text); font-size: 16px; color: var(--mint-main); transition: color 0.3s; font-weight: 700; }
         .modal-requester-link span:hover { color: #fff; text-shadow: 0 0 8px rgba(92, 242, 138, 0.6); }
+
+        /* Кнопка Steam на главной */
+        .steam-link-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: rgba(92, 242, 138, 0.15);
+            color: var(--mint-main);
+            border: 1px solid rgba(92, 242, 138, 0.3);
+            padding: 6px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-family: var(--font-text);
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .steam-link-btn:hover {
+            background: var(--mint-main);
+            color: var(--bg-deep);
+            box-shadow: 0 0 12px rgba(92, 242, 138, 0.5);
+            transform: translateY(-2px);
+        }
 
         /* СТИЛЬ ДЛЯ НИЖНЕГО БЕЙДЖА CREATED BY */
         .footer-badge {
@@ -499,6 +526,7 @@
             .modal-grid { grid-template-columns: 1fr; }
             .header-top h1 { font-size: 32px; }
             .header-top h1::before, .header-top h1::after { display: none; }
+            .modal-title { white-space: normal; } /* Отменяем обрезку на мобильных */
         }
     </style>
 </head>
@@ -547,7 +575,7 @@
                         <th style="width: 160px; min-width: 160px;">Постер</th>
                         <th style="width: 100%;">Описание</th>
                         <th style="width: 145px; min-width: 145px;">Заказал</th>
-                        <th style="width: 130px; min-width: 130px;">Платформы</th>
+                        <th style="width: 130px; min-width: 130px;">Steam</th>
                         <th style="width: 135px; min-width: 135px;">Статус</th>
                     </tr>
                 </thead>
@@ -590,6 +618,7 @@
                     <div><img id="modalPoster" class="modal-poster" src="" alt="Постер"></div>
                     <div class="modal-info-main">
                         <div class="modal-title-wrapper">
+                            <!-- ID добавлен к названию для JS логики изменения размера -->
                             <h2 class="modal-title" id="modalTitle">Название</h2>
                             <button class="copy-btn" id="modalCopyBtn" onclick="copyMovieNameFromModal()" title="Скопировать имя">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
@@ -597,8 +626,8 @@
                             <div id="modalBadges" style="display: flex; gap: 8px; margin-left: 10px;"></div>
                         </div>
                         <div class="modal-meta" id="modalMeta">2023 ✧ PC, PS5</div>
-                        <div class="modal-overview" id="modalOverview">Описание игры...</div>
-
+                        
+                        <!-- Сетка с информацией поднята ВВЕРХ -->
                         <div class="modal-grid">
                             <div class="grid-item">
                                 <div class="grid-label">Заказал</div>
@@ -612,15 +641,15 @@
                                 <div class="grid-label">День прохождения</div>
                                 <div id="modalDateWatched"></div>
                             </div>
-                            <div class="grid-item">
-                                <div class="grid-label">Цена / Оценка Meta</div>
-                                <div id="modalFinances"></div>
-                            </div>
                             <div class="grid-item full-width">
                                 <div class="grid-label">Разработчик / Издатель</div>
                                 <div class="grid-value" id="modalStudios" style="color: var(--text-muted); font-weight: normal;">Архив скрыт</div>
                             </div>
                         </div>
+
+                        <!-- Описание опущено ВНИЗ -->
+                        <div class="modal-overview" id="modalOverview">Описание игры...</div>
+
                     </div>
                 </div>
             </div>
@@ -810,16 +839,17 @@
             let displayStudios = movie.studios && movie.studios !== "Нет данных" ? movie.studios : "";
             const studiosHTML = displayStudios ? `<div class="movie-studios-list">${escapeHTML(displayStudios)}</div>` : '';
 
-            // Чтение платформ из нового чистого JSON
-            let displayRuntime = movie.platforms && movie.platforms !== 'Неизвестно' ? movie.platforms : 'PC';
-            
-            let runtimeDisplay = `
-                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; height: 100%;">
-                    <span class="badge-status" style="background: rgba(92,242,138,0.15); color: var(--mint-light); box-shadow: none;">ПЛАТФОРМЫ</span>
-                    <div class="time-box">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px; height:16px;"><path d="M21 15a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><line x1="15" y1="13" x2="15.01" y2="13"></line><line x1="18" y1="11" x2="18.01" y2="11"></line></svg> 
-                        <span>${displayRuntime}</span>
-                    </div></div>`;
+            // 🔥 Кнопка перехода в Steam (вместо Платформ) 🔥
+            let steamButtonHTML = '';
+            if (movie.steamAppId && !movie.steamAppId.startsWith('IGDB_')) {
+                steamButtonHTML = `
+                <a href="https://store.steampowered.com/app/${movie.steamAppId}/" target="_blank" class="steam-link-btn" onclick="event.stopPropagation();">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.366 0 0 5.361 0 11.979c0 4.673 2.666 8.71 6.55 10.741l3.528-5.111a4.237 4.237 0 0 1-1.637-2.61l-3.666 1.055c-.012-.08-.02-.158-.02-.24 0-2.483 2.015-4.5 4.5-4.5 1.956 0 3.614 1.25 4.23 2.996l4.636-1.921c.026-.145.041-.295.041-.45 0-2.656-2.155-4.81-4.81-4.81-2.656 0-4.812 2.154-4.812 4.81 0 .226.02.446.052.661l-3.374.97a3.023 3.023 0 0 0 .153-1.042c0-1.688 1.37-3.056 3.056-3.056 1.687 0 3.057 1.368 3.057 3.056 0 1.62-1.265 2.946-2.857 3.045l-3.606 5.228C10.71 23.822 11.336 24 11.98 24 18.602 24 24 18.634 24 11.979 24 5.361 18.602 0 11.979 0z"/></svg>
+                    В Steam
+                </a>`;
+            } else {
+                steamButtonHTML = `<span style="color: var(--text-muted); font-size: 12px; font-weight: 700;">Нет в Steam</span>`;
+            }
 
             const userColor = stringToColor(cleanNick);
             let avatarMarkup = movie.userAvatar && movie.userAvatar.startsWith('http') 
@@ -858,8 +888,8 @@
                     </div>
                 </td>
                 <td style="vertical-align: top;">
-                    <div style="display: flex; flex-direction: column; align-items: center;">
-                        ${runtimeDisplay}
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">
+                        ${steamButtonHTML}
                     </div>
                 </td>
                 <td style="vertical-align: top;">
@@ -885,14 +915,25 @@
         else { heroEl.style.display = 'none'; }
 
         document.getElementById('modalPoster').src = getSafePoster(movie.poster);
-        document.getElementById('modalTitle').textContent = movie.title || 'Безымянный';
+        
+        const titleEl = document.getElementById('modalTitle');
+        titleEl.textContent = movie.title || 'Безымянный';
+        
+        // 🔥 Логика авто-уменьшения размера шрифта для длинных названий 🔥
+        titleEl.style.fontSize = "34px"; // Сброс до стандарта
+        setTimeout(() => {
+            let currentSize = 34;
+            while (titleEl.scrollWidth > titleEl.clientWidth && currentSize > 18) {
+                currentSize -= 2;
+                titleEl.style.fontSize = currentSize + "px";
+            }
+        }, 10);
         
         let badgesHtml = `<span class="outline-badge">ID №${movie.id || 0}</span>`;
         if (movie.dlcCount && movie.dlcCount !== "0") {
             badgesHtml += `<span class="outline-badge" style="border-color: var(--cute-pink); color: var(--cute-pink);">DLC: ${movie.dlcCount}</span>`;
         }
 
-        // 🔥 КНОПКА STEAM (если есть steamAppId) 🔥
         if (movie.steamAppId && !movie.steamAppId.startsWith('IGDB_')) {
             badgesHtml += `<a href="https://store.steampowered.com/app/${movie.steamAppId}/" target="_blank" class="copy-btn" style="text-decoration: none; padding: 6px; border-radius: 8px; opacity: 1; transform: scale(1);" title="Открыть в Steam">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.366 0 0 5.361 0 11.979c0 4.673 2.666 8.71 6.55 10.741l3.528-5.111a4.237 4.237 0 0 1-1.637-2.61l-3.666 1.055c-.012-.08-.02-.158-.02-.24 0-2.483 2.015-4.5 4.5-4.5 1.956 0 3.614 1.25 4.23 2.996l4.636-1.921c.026-.145.041-.295.041-.45 0-2.656-2.155-4.81-4.81-4.81-2.656 0-4.812 2.154-4.812 4.81 0 .226.02.446.052.661l-3.374.97a3.023 3.023 0 0 0 .153-1.042c0-1.688 1.37-3.056 3.056-3.056 1.687 0 3.057 1.368 3.057 3.056 0 1.62-1.265 2.946-2.857 3.045l-3.606 5.228C10.71 23.822 11.336 24 11.98 24 18.602 24 24 18.634 24 11.979 24 5.361 18.602 0 11.979 0z"/></svg>
@@ -901,7 +942,6 @@
 
         document.getElementById('modalBadges').innerHTML = badgesHtml;
         
-        // Чтение платформ
         let platformsText = movie.platforms || "PC";
         let metaText = `${movie.year || '----'} ✧ ${escapeHTML(movie.type || 'Игра')} ✧ ${platformsText}`;
         
@@ -931,23 +971,6 @@
         } else {
              dateWatchedEl.innerHTML = `<div class="modal-grid-box" style="background: rgba(92,242,138,0.1); border-color: transparent;">Еще в очереди</div>`;
         }
-        
-        // 🔥 Чтение цены и метакритика 🔥
-        const financesEl = document.getElementById('modalFinances');
-        let priceText = movie.price || 'Неизвестно';
-        let metaScore = movie.metacriticScore || 'Нет оценок';
-        
-        financesEl.innerHTML = `
-            <div class="modal-grid-box" style="flex-direction: column; align-items: flex-start; gap: 6px;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; font-weight:800;">Цена:</span> 
-                    <span style="color:var(--mint-light);">${priceText}</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 8px;">
-                    <span style="font-size:12px; color:var(--text-muted); text-transform:uppercase; font-weight:800;">Metacritic:</span> 
-                    <span style="color:var(--mint-main);">${metaScore}</span>
-                </div>
-            </div>`;
 
         const cleanNick = movie.requestedBy.replace('@', '').trim();
         const requesterEl = document.getElementById('modalRequester');
