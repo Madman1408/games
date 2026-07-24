@@ -1,39 +1,9 @@
 {
   "_metadata_": {
     "streamer": "MadMan1408",
-    "lastUpdated": "24.07.2026 17:21"
+    "lastUpdated": "24.07.2026 17:23"
   },
   "madman1408": [
-    {
-      "title": "REDkit для игры «Ведьмак 3»",
-      "year": "2024",
-      "type": "Игра",
-      "runtime": "Windows",
-      "genres": "Разработка игр",
-      "studios": "CD PROJEKT RED, Yigsoft (Изд: CD PROJEKT RED)",
-      "budget": "Windows",
-      "revenue": "Цена: Бесплатно / Meta: Нет оценок",
-      "tmdbRating": "0.0",
-      "overview": "The Witcher 3 REDkit — универсальный инструмент для создания модов к «Ведьмак 3: Дикая охота» на ПК. С его помощью вы можете менять и расширять игровой мир. Создавайте новые земли, задания, анимации, персонажей и многое другое, управляя практически любыми элементами игры для реализации своих идей.",
-      "poster": "https://cdn.cloudflare.steamstatic.com/steam/apps/2684660/library_600x900_2x.jpg",
-      "backdrop": "https://store.akamai.steamstatic.com/images/storepagebackground/app/2684660?t=1770728435",
-      "tagline": "",
-      "cast": [],
-      "director": {
-        "name": "Нет данных",
-        "photo": "https://via.placeholder.com/185x278?text=No+Photo"
-      },
-      "trailer": "",
-      "ageRating": "Нет данных",
-      "keywords": "",
-      "userAvatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/a8a6aa04-03ef-40e5-aae6-a8a1580e9d8c-profile_image-600x600.png",
-      "id": 5,
-      "dateRequested": "24.07.2026 14:45",
-      "status": "В очереди",
-      "ourRating": "Без оценки",
-      "cried": false,
-      "isAuction": false
-    },
     {
       "title": "Ведьмак 3: Дикая Охота",
       "year": "2015",
