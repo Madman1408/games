@@ -244,7 +244,7 @@
             border: 2px solid var(--bg-deep);
         }
         
-        /* Иконка Steam теперь справа, над кнопкой копирования */
+        /* Иконка Steam располагается выше кнопки копирования */
         .card-steam-btn {
             position: absolute; right: 8px; bottom: 42px; z-index: 16;
             background: rgba(19, 15, 28, 0.85); border: 1px solid rgba(92, 242, 138, 0.4); color: var(--mint-main);
@@ -313,13 +313,15 @@
             text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 0 15px rgba(92, 242, 138, 0.3);
             flex-shrink: 1; min-width: 0; line-height: 1.2;
         }
-        .modal-title-wrapper .copy-btn { opacity: 0.8; transform: scale(1); background: rgba(92, 242, 138, 0.15); color: var(--mint-main); padding: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; border: none; cursor: pointer; border-radius: 8px; position: relative; top: 2px; flex-shrink: 0; margin-top: 2px; }
+        .modal-title-extras { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-top: 4px; }
+        .modal-year { color: var(--mint-light); font-size: 24px; font-weight: 600; opacity: 0.8; } 
+
+        .modal-title-wrapper .copy-btn { opacity: 0.8; transform: scale(1); background: rgba(92, 242, 138, 0.15); color: var(--mint-main); padding: 6px; display: inline-flex; align-items: center; justify-content: center; transition: all 0.3s; border: none; cursor: pointer; border-radius: 8px; }
         .modal-title-wrapper:hover .copy-btn { opacity: 1; }
         .modal-title-wrapper .copy-btn:hover { background: var(--mint-main); color: var(--bg-deep); box-shadow: 0 0 12px rgba(92, 242, 138, 0.5); }
 
-        .modal-meta-wrapper { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; border-bottom: 1px dashed rgba(92, 242, 138, 0.2); padding-bottom: 15px; flex-wrap: wrap; }
-        .modal-meta { color: var(--mint-light); font-size: 16px; font-weight: 600; }
-        .modal-overview { color: var(--text-main); font-size: 16px; line-height: 1.7; margin-top: 20px; }
+        .modal-meta-wrapper { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; border-bottom: 1px dashed rgba(92, 242, 138, 0.2); padding-bottom: 15px; flex-wrap: wrap; }
+        .modal-overview { color: var(--text-main); font-size: 16px; line-height: 1.7; margin-bottom: 30px; }
 
         .modal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; background: rgba(19, 15, 28, 0.5); padding: 25px; border-radius: 16px; border: 1px solid rgba(92, 242, 138, 0.15); }
         .modal-grid-box { font-size: 15px; color: var(--mint-light); font-weight: 700; background: rgba(34, 24, 54, 0.8); border: 1px solid rgba(92, 242, 138, 0.2); padding: 8px 16px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: inline-flex; justify-content: center; align-items: center; gap: 8px; width: fit-content; }
@@ -329,7 +331,7 @@
         .grid-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-text); font-weight: 800; }
         .grid-value { color: var(--mint-main); font-weight: 700; font-size: 16px; }
         
-        .modal-requester-link { cursor: pointer; transition: transform 0.3s; display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+        .modal-requester-link { cursor: pointer; transition: transform 0.3s; display: inline-flex; align-items: center; gap: 10px; }
         .modal-requester-link:hover { transform: translateX(5px); }
         .modal-requester-link span { font-family: var(--font-text); font-size: 16px; color: var(--mint-main); transition: color 0.3s; font-weight: 700; }
         .modal-requester-link span:hover { color: #fff; text-shadow: 0 0 8px rgba(92, 242, 138, 0.6); }
@@ -357,7 +359,6 @@
             .modal-grid { grid-template-columns: 1fr; }
             .header-top h1 { font-size: 32px; }
             .header-top h1::before, .header-top h1::after { display: none; }
-            .modal-title { white-space: normal; }
         }
         
         .legendary-table-badge, .legendary-badge {
@@ -405,8 +406,7 @@
                         <option value="order">По порядку</option>
                         <option value="date_asc">По дате заказов</option>
                         <option value="newest">Новые заказы</option>
-                        <option value="waiting">В очереди</option>
-                        <option value="playing">Играем сейчас</option>
+                        <option value="waiting">В очереди / Играем</option>
                         <option value="watched">Пройдено/Брошено</option>
                         <option value="auction">Аукцион</option>
                         <option value="emotions">Слёзы/Сгорела</option>
@@ -460,17 +460,25 @@
                 <div class="modal-body">
                     <div><img id="modalPoster" class="modal-poster" src="" alt="Постер"></div>
                     <div class="modal-info-main">
+                        
+                        <!-- ШАПКА КАК В ФИЛЬМАХ (Год перенесен к названию) -->
                         <div class="modal-title-wrapper">
                             <h2 class="modal-title" id="modalTitle">Название</h2>
-                            <button class="copy-btn" id="modalCopyBtn" onclick="copyMovieNameFromModal()" title="Скопировать имя">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
-                            </button>
+                            <div class="modal-title-extras">
+                                <span class="modal-year" id="modalYear"></span>
+                                <button class="copy-btn" id="modalCopyBtn" onclick="copyMovieNameFromModal()" title="Скопировать имя">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                                </button>
+                            </div>
                         </div>
                         
-                        <div class="modal-meta-wrapper">
-                            <div class="modal-meta" id="modalMeta">2023 ✧ PC, PS5</div>
-                            <div id="modalBadges" style="display: flex; gap: 8px;"></div>
-                        </div>
+                        <!-- ПЛАШКИ (Тип, Платформы, Steam, ID) -->
+                        <div class="modal-meta-wrapper" id="modalBadges"></div>
+                        
+                        <!-- ЖАНРЫ ИГР -->
+                        <div id="modalGenres" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;"></div>
+                        
+                        <div class="modal-overview" id="modalOverview">Описание игры...</div>
                         
                         <div class="modal-grid">
                             <div class="grid-item">
@@ -495,8 +503,6 @@
                                 <div class="grid-value" id="modalStudios" style="color: var(--text-muted); font-weight: normal;">Архив скрыт</div>
                             </div>
                         </div>
-
-                        <div class="modal-overview" id="modalOverview">Описание игры...</div>
 
                     </div>
                 </div>
@@ -668,7 +674,12 @@
         if (userFilterVal !== 'all') filtered = filtered.filter(m => m.requestedBy.toLowerCase() === userFilterVal);
         if (searchQuery.trim() !== '') filtered = filtered.filter(m => (m.title && m.title.toLowerCase().includes(searchQuery)) || (m.requestedBy && m.requestedBy.toLowerCase().includes(searchQuery)));
 
-        if (sortMode === 'waiting') { filtered = filtered.filter(m => m.status === 'В очереди').sort((a, b) => a.parsedDate - b.parsedDate); } 
+        if (sortMode === 'waiting') { filtered = filtered.filter(m => m.status === 'В очереди' || m.status === 'Играем').sort((a, b) => {
+            // Играем всегда выше чем В очереди, если выбрана эта фильтрация
+            if (a.status === 'Играем' && b.status !== 'Играем') return -1;
+            if (a.status !== 'Играем' && b.status === 'Играем') return 1;
+            return a.parsedDate - b.parsedDate;
+        }); } 
         else if (sortMode === 'playing') { filtered = filtered.filter(m => m.status === 'Играем').sort((a, b) => a.parsedDate - b.parsedDate); }
         else if (sortMode === 'watched') { filtered = filtered.filter(m => m.status === 'Пройдено' || m.status === 'Брошено' || m.status === 'Бросила').sort((a, b) => a.parsedDate - b.parsedDate); }
         else if (sortMode === 'auction') { filtered = filtered.filter(m => m.isAuction === true).sort((a, b) => a.parsedDate - b.parsedDate); }
@@ -730,22 +741,20 @@
 
         currentViewData.forEach((movie, index) => {
             
-            // Разделитель для порядка
+            // Логика разделителя: Группируем 'Играем' и 'В очереди' в одну единую группу.
             if (sortMode === 'order' && index > 0) {
                 const prevStatus = currentViewData[index - 1].status;
                 const currStatus = movie.status;
                 
-                // Объединяем "Играем" и "В очереди" в ОДНУ группу (группа 1), остальное в группу 2
                 const getGroup = (s) => (s === 'Играем' || s === 'В очереди' ? 1 : 2);
                 
                 if (getGroup(prevStatus) !== getGroup(currStatus)) {
-                    let dividerTitle = 'Пройдено / Брошено';
                     const dividerTr = document.createElement('tr');
                     dividerTr.innerHTML = `
                         <td colspan="5" style="padding: 30px 15px; cursor: default; border-bottom: 1px dashed rgba(92, 242, 138, 0.15);">
                             <div style="display: flex; align-items: center; justify-content: center;">
                                 <div style="flex-grow: 1; height: 2px; background: linear-gradient(to right, transparent, var(--mint-main)); opacity: 0.3;"></div>
-                                <span style="padding: 0 20px; font-family: var(--font-title); font-size: 18px; font-weight: 700; color: var(--mint-main); text-shadow: 0 0 10px rgba(92, 242, 138, 0.5); text-transform: uppercase; letter-spacing: 2px;">✨ ${dividerTitle} ✨</span>
+                                <span style="padding: 0 20px; font-family: var(--font-title); font-size: 18px; font-weight: 700; color: var(--mint-main); text-shadow: 0 0 10px rgba(92, 242, 138, 0.5); text-transform: uppercase; letter-spacing: 2px;">✨ Пройдено / Брошено ✨</span>
                                 <div style="flex-grow: 1; height: 2px; background: linear-gradient(to left, transparent, var(--mint-main)); opacity: 0.3;"></div>
                             </div>
                         </td>`;
@@ -845,22 +854,21 @@
 
         currentViewData.forEach((movie, index) => {
             
+            // Логика разделителя для карточек
             if (sortMode === 'order' && index > 0) {
                 const prevStatus = currentViewData[index - 1].status;
                 const currStatus = movie.status;
                 
-                // Объединяем "Играем" и "В очереди" в ОДНУ группу (группа 1), остальное в группу 2
                 const getGroup = (s) => (s === 'Играем' || s === 'В очереди' ? 1 : 2);
                 
                 if (getGroup(prevStatus) !== getGroup(currStatus)) {
-                    let dividerTitle = 'Пройдено / Брошено';
                     const dividerDiv = document.createElement('div');
                     dividerDiv.style.gridColumn = '1 / -1';
                     dividerDiv.innerHTML = `
                         <div style="width: 100%; border-top: 2px dashed rgba(92, 242, 138, 0.4); margin: 15px 0;"></div>
                         <div style="display: flex; align-items: center; justify-content: center; margin: 10px 0;">
                             <div style="flex-grow: 1; height: 2px; background: linear-gradient(to right, transparent, var(--mint-main)); opacity: 0.4;"></div>
-                            <span style="padding: 0 20px; font-family: var(--font-title); font-size: 20px; font-weight: 900; color: var(--mint-main); text-shadow: 0 0 15px rgba(92, 242, 138, 0.6); text-transform: uppercase; letter-spacing: 2px;">✨ ${dividerTitle} ✨</span>
+                            <span style="padding: 0 20px; font-family: var(--font-title); font-size: 20px; font-weight: 900; color: var(--mint-main); text-shadow: 0 0 15px rgba(92, 242, 138, 0.6); text-transform: uppercase; letter-spacing: 2px;">✨ Пройдено / Брошено ✨</span>
                             <div style="flex-grow: 1; height: 2px; background: linear-gradient(to left, transparent, var(--mint-main)); opacity: 0.4;"></div>
                         </div>
                         <div style="width: 100%; border-bottom: 2px dashed rgba(92, 242, 138, 0.4); margin: 15px 0 25px 0;"></div>`;
@@ -901,7 +909,6 @@
             const hasBannedStudios = movie.studios && movie.studios.includes('🔴');
             const bannedDotMarkup = hasBannedStudios ? `<div class="banned-dot" title="Запрещенная студия!"></div>` : '';
             
-            // Динамические классы для кнопок, чтобы они уворачивались от шарика
             const copyBtnClass = hasBannedStudios ? 'card-copy-btn shifted' : 'card-copy-btn';
             const steamBtnClass = hasBannedStudios ? 'card-steam-btn shifted' : 'card-steam-btn';
 
@@ -1046,8 +1053,10 @@
 
         document.getElementById('modalPoster').src = getSafePoster(movie.poster);
         
+        // 1. ЗАГОЛОВОК И ГОД
         const titleEl = document.getElementById('modalTitle');
         titleEl.textContent = movie.title || 'Безымянный';
+        document.getElementById('modalYear').textContent = movie.year || '----';
         
         titleEl.style.fontSize = "34px"; 
         titleEl.style.whiteSpace = 'nowrap';
@@ -1072,13 +1081,39 @@
             }
         }, 10);
         
-        let badgesHtml = `<span class="outline-badge">ID №${movie.id || 0}</span>`;
+        // 2. ВЕРХНИЕ ПЛАШКИ (НАД ПУНКТИРОМ)
+        let badgesHtml = '';
+        let displayType = escapeHTML(movie.type || 'Игра');
+        badgesHtml += `<span class="outline-badge">${displayType}</span>`;
+
+        let platformsText = movie.platforms || "PC";
+        badgesHtml += `<span class="outline-badge">${escapeHTML(platformsText)}</span>`;
+
+        badgesHtml += `<span class="outline-badge">ID №${movie.id || 0}</span>`;
+        
+        // Кнопка Steam тоже может быть тут для красоты, если есть
+        if (movie.steamAppId && !movie.steamAppId.startsWith('IGDB_')) {
+            badgesHtml += `
+            <a href="https://store.steampowered.com/app/${movie.steamAppId}/" target="_blank" class="steam-link-btn" style="padding: 3px 10px; font-size: 11px; margin-left: 5px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 4px;"><path d="M11.979 0C5.366 0 0 5.361 0 11.979c0 4.673 2.666 8.71 6.55 10.741l3.528-5.111a4.237 4.237 0 0 1-1.637-2.61l-3.666 1.055c-.012-.08-.02-.158-.02-.24 0-2.483 2.015-4.5 4.5-4.5 1.956 0 3.614 1.25 4.23 2.996l4.636-1.921c.026-.145.041-.295.041-.45 0-2.656-2.155-4.81-4.81-4.81-2.656 0-4.812 2.154-4.812 4.81 0 .226.02.446.052.661l-3.374.97a3.023 3.023 0 0 0 .153-1.042c0-1.688 1.37-3.056 3.056-3.056 1.687 0 3.057 1.368 3.057 3.056 0 1.62-1.265 2.946-2.857 3.045l-3.606 5.228C10.71 23.822 11.336 24 11.98 24 18.602 24 24 18.634 24 11.979 24 5.361 18.602 0 11.979 0z"/></svg>
+                В Steam
+            </a>`;
+        }
+
         document.getElementById('modalBadges').innerHTML = badgesHtml;
         
-        let platformsText = movie.platforms || "PC";
-        let metaText = `${movie.year || '----'} ✧ ${escapeHTML(movie.type || 'Игра')} ✧ ${platformsText}`;
-        
-        document.getElementById('modalMeta').innerHTML = metaText;
+        // 3. ЖАНРЫ (ПОД ПУНКТИРОМ)
+        let genresHtml = '';
+        if (movie.genres && movie.genres !== "Нет данных") {
+            const genresList = movie.genres.split(',').map(g => g.trim()).filter(g => g);
+            genresList.forEach(g => {
+                genresHtml += `<span class="outline-badge">${escapeHTML(g)}</span>`;
+            });
+        } else {
+            genresHtml = `<span class="outline-badge">Нет жанра</span>`;
+        }
+        document.getElementById('modalGenres').innerHTML = genresHtml;
+
         document.getElementById('modalOverview').textContent = movie.detailedDesc || movie.overview || 'Данные об игре утеряны...';
         
         const dateReqEl = document.getElementById('modalDateReq');
