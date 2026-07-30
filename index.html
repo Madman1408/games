@@ -244,14 +244,16 @@
             border: 2px solid var(--bg-deep);
         }
         
+        /* Иконка Steam теперь справа, над кнопкой копирования */
         .card-steam-btn {
-            position: absolute; left: 8px; bottom: 8px; z-index: 16;
+            position: absolute; right: 8px; bottom: 42px; z-index: 16;
             background: rgba(19, 15, 28, 0.85); border: 1px solid rgba(92, 242, 138, 0.4); color: var(--mint-main);
             cursor: pointer; padding: 6px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
             transition: all 0.3s; opacity: 0; transform: scale(0.8); text-decoration: none;
         }
         .card-view-item:hover .card-steam-btn { opacity: 1; transform: scale(1); }
         .card-steam-btn:hover { background: var(--mint-main); color: var(--bg-deep); box-shadow: 0 0 10px rgba(92, 242, 138, 0.5); }
+        .card-steam-btn.shifted { bottom: 66px; }
 
         .card-copy-btn {
             position: absolute; right: 8px; bottom: 8px; z-index: 16;
@@ -732,10 +734,12 @@
             if (sortMode === 'order' && index > 0) {
                 const prevStatus = currentViewData[index - 1].status;
                 const currStatus = movie.status;
-                const getPrio = (s) => (s === 'Играем' ? 1 : s === 'В очереди' ? 2 : 3);
                 
-                if (getPrio(prevStatus) !== getPrio(currStatus)) {
-                    let dividerTitle = currStatus === 'В очереди' ? 'В очереди' : 'Пройдено / Брошено';
+                // Объединяем "Играем" и "В очереди" в ОДНУ группу (группа 1), остальное в группу 2
+                const getGroup = (s) => (s === 'Играем' || s === 'В очереди' ? 1 : 2);
+                
+                if (getGroup(prevStatus) !== getGroup(currStatus)) {
+                    let dividerTitle = 'Пройдено / Брошено';
                     const dividerTr = document.createElement('tr');
                     dividerTr.innerHTML = `
                         <td colspan="5" style="padding: 30px 15px; cursor: default; border-bottom: 1px dashed rgba(92, 242, 138, 0.15);">
@@ -844,10 +848,12 @@
             if (sortMode === 'order' && index > 0) {
                 const prevStatus = currentViewData[index - 1].status;
                 const currStatus = movie.status;
-                const getPrio = (s) => (s === 'Играем' ? 1 : s === 'В очереди' ? 2 : 3);
                 
-                if (getPrio(prevStatus) !== getPrio(currStatus)) {
-                    let dividerTitle = currStatus === 'В очереди' ? 'В очереди' : 'Пройдено / Брошено';
+                // Объединяем "Играем" и "В очереди" в ОДНУ группу (группа 1), остальное в группу 2
+                const getGroup = (s) => (s === 'Играем' || s === 'В очереди' ? 1 : 2);
+                
+                if (getGroup(prevStatus) !== getGroup(currStatus)) {
+                    let dividerTitle = 'Пройдено / Брошено';
                     const dividerDiv = document.createElement('div');
                     dividerDiv.style.gridColumn = '1 / -1';
                     dividerDiv.innerHTML = `
@@ -894,12 +900,15 @@
 
             const hasBannedStudios = movie.studios && movie.studios.includes('🔴');
             const bannedDotMarkup = hasBannedStudios ? `<div class="banned-dot" title="Запрещенная студия!"></div>` : '';
+            
+            // Динамические классы для кнопок, чтобы они уворачивались от шарика
             const copyBtnClass = hasBannedStudios ? 'card-copy-btn shifted' : 'card-copy-btn';
+            const steamBtnClass = hasBannedStudios ? 'card-steam-btn shifted' : 'card-steam-btn';
 
             let steamIconBtn = '';
             if (movie.steamAppId && !movie.steamAppId.startsWith('IGDB_')) {
                 steamIconBtn = `
-                <a href="https://store.steampowered.com/app/${movie.steamAppId}/" target="_blank" class="card-steam-btn" onclick="event.stopPropagation();" title="Открыть в Steam">
+                <a href="https://store.steampowered.com/app/${movie.steamAppId}/" target="_blank" class="${steamBtnClass}" onclick="event.stopPropagation();" title="Открыть в Steam">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.366 0 0 5.361 0 11.979c0 4.673 2.666 8.71 6.55 10.741l3.528-5.111a4.237 4.237 0 0 1-1.637-2.61l-3.666 1.055c-.012-.08-.02-.158-.02-.24 0-2.483 2.015-4.5 4.5-4.5 1.956 0 3.614 1.25 4.23 2.996l4.636-1.921c.026-.145.041-.295.041-.45 0-2.656-2.155-4.81-4.81-4.81-2.656 0-4.812 2.154-4.812 4.81 0 .226.02.446.052.661l-3.374.97a3.023 3.023 0 0 0 .153-1.042c0-1.688 1.37-3.056 3.056-3.056 1.687 0 3.057 1.368 3.057 3.056 0 1.62-1.265 2.946-2.857 3.045l-3.606 5.228C10.71 23.822 11.336 24 11.98 24 18.602 24 24 18.634 24 11.979 24 5.361 18.602 0 11.979 0z"/></svg>
                 </a>`;
             }
