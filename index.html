@@ -135,7 +135,7 @@
         td:nth-child(2)::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at 25% 50%, rgba(92, 242, 138, 0.05) 0%, transparent 70%); z-index: -1; pointer-events: none; transition: opacity 0.3s ease; opacity: 0; }
         tr.movie-row:hover td:nth-child(2)::before { opacity: 1; }
 
-        .poster-wrapper { width: 140px; height: 210px; overflow: hidden; margin: 0 auto; box-shadow: 0 8px 20px rgba(0,0,0,0.5); border: 2px solid rgba(92, 242, 138, 0.4); border-radius: 12px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .poster-wrapper { width: 140px; height: 210px; overflow: hidden; margin: 0 auto; box-shadow: 0 8px 20px rgba(0,0,0,0.5); border: 2px solid rgba(92, 242, 138, 0.4); border-radius: 12px; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); background: var(--bg-deep); }
         .poster-wrapper img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; } 
         tr.movie-row:has(.poster-wrapper:hover) .poster-wrapper { box-shadow: 0 12px 25px rgba(92, 242, 138, 0.3); border-color: var(--mint-main); }
         
@@ -195,7 +195,7 @@
             border: 1px dashed rgba(92, 242, 138, 0.3); border-radius: 12px; pointer-events: none; z-index: 10;
         }
 
-        .card-top { position: relative; width: 100%; padding-top: 135%; overflow: hidden; border-bottom: 2px solid var(--mint-dark); transition: border-color 0.3s; }
+        .card-top { position: relative; width: 100%; padding-top: 135%; overflow: hidden; border-bottom: 2px solid var(--mint-dark); transition: border-color 0.3s; background: var(--bg-deep); }
         .card-view-item:hover .card-top { border-color: var(--mint-main); }
         .card-poster { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
         .card-view-item:hover .card-poster { transform: scale(1.05); }
@@ -300,7 +300,7 @@
         .modal-hero::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, var(--bg-velvet) 0%, transparent 100%); }
 
         .modal-body { padding: 0 40px 40px 40px; position: relative; margin-top: -120px; z-index: 2; display: flex; gap: 35px; }
-        .modal-poster { width: 200px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 2px solid var(--mint-main); align-self: flex-start; }
+        .modal-poster { width: 200px; border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 2px solid var(--mint-main); align-self: flex-start; background: var(--bg-deep); }
         
         .modal-info-main { flex: 1; background: rgba(34, 24, 54, 0.98); padding: 25px; border-radius: 20px; border: 1px solid rgba(92, 242, 138, 0.1); overflow: hidden; }
         
@@ -465,6 +465,7 @@
                     <div><img id="modalPoster" class="modal-poster" src="" alt="Постер"></div>
                     <div class="modal-info-main">
                         
+                        <!-- ШАПКА КАК В ФИЛЬМАХ (Год перенесен к названию) -->
                         <div class="modal-title-wrapper">
                             <h2 class="modal-title" id="modalTitle">Название</h2>
                             <div class="modal-title-extras">
@@ -475,8 +476,10 @@
                             </div>
                         </div>
                         
+                        <!-- ПЛАШКИ (Тип, Steam, ID) -->
                         <div class="modal-meta-wrapper" id="modalBadges"></div>
                         
+                        <!-- ЖАНРЫ ИГР -->
                         <div id="modalGenres" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;"></div>
                         
                         <div class="modal-overview" id="modalOverview">Описание игры...</div>
@@ -815,7 +818,7 @@
             const auctionHTML = movie.isAuction ? `<div style="color: var(--warm-star); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; margin-top: 8px;">✦ Аукцион ✦</div>` : '';
 
             tr.innerHTML = `
-                <td><div class="poster-wrapper"><img src="${posterUrl}" alt=""></div></td>
+                <td><div class="poster-wrapper"><img src="${posterUrl}" onerror="this.onerror=null; this.src='${fallbackPoster}';" alt=""></div></td>
                 <td>
                     <div class="movie-info">
                         <div class="movie-header">
@@ -855,6 +858,7 @@
             if (sortMode === 'order' && index > 0) {
                 const prevStatus = currentViewData[index - 1].status;
                 const currStatus = movie.status;
+                
                 const getGroup = (s) => (s === 'Играем' || s === 'В очереди' ? 1 : 2);
                 
                 if (getGroup(prevStatus) !== getGroup(currStatus)) {
@@ -906,7 +910,7 @@
             const bannedDotMarkup = hasBannedStudios ? `<div class="banned-dot" title="Запрещенная студия!"></div>` : '';
             const copyBtnClass = hasBannedStudios ? 'card-copy-btn shifted' : 'card-copy-btn';
 
-            // Иконка Steam для низа карточки
+            // Иконка Steam вынесена вниз рядом с годом
             let gridSteamBtn = '';
             if (movie.steamAppId && !movie.steamAppId.startsWith('IGDB_')) {
                 gridSteamBtn = `
@@ -921,7 +925,7 @@
             
             card.innerHTML = `
                 <div class="card-top">
-                    <img src="${posterUrl}" class="card-poster" alt="">
+                    <img src="${posterUrl}" class="card-poster" onerror="this.onerror=null; this.src='${fallbackPoster}';" alt="">
                     ${bannedDotMarkup}
                     <button class="${copyBtnClass}" onclick="copyMovieNameFromTable(event, '${safeTitle}', '${movie.year || ''}', this)" title="Скопировать название">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
@@ -1048,7 +1052,9 @@
         if (movie.backdrop) { heroEl.style.backgroundImage = `url('${movie.backdrop}')`; heroEl.style.display = 'block'; } 
         else { heroEl.style.display = 'none'; }
 
-        document.getElementById('modalPoster').src = getSafePoster(movie.poster);
+        const posterEl = document.getElementById('modalPoster');
+        posterEl.src = getSafePoster(movie.poster);
+        posterEl.onerror = function() { this.onerror = null; this.src = fallbackPoster; };
         
         // 1. ЗАГОЛОВОК И ГОД
         const titleEl = document.getElementById('modalTitle');
@@ -1082,9 +1088,6 @@
         let badgesHtml = '';
         let displayType = escapeHTML(movie.type || 'Игра');
         badgesHtml += `<span class="outline-badge">${displayType}</span>`;
-
-        let platformsText = movie.platforms || "PC";
-        badgesHtml += `<span class="outline-badge">${escapeHTML(platformsText)}</span>`;
 
         badgesHtml += `<span class="outline-badge">ID №${movie.id || 0}</span>`;
         
