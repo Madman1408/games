@@ -480,7 +480,7 @@
       "ourRating": "Без оценки",
       "cried": false,
       "burned": false,
-      "isAuction": false
+      "isAuction": true
     }
   ]
 }
