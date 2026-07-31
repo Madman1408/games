@@ -325,7 +325,7 @@
         .steam-modal-badge { display: inline-flex; align-items: center; gap: 4px; text-decoration: none; cursor: pointer; transition: all 0.3s ease; }
         .steam-modal-badge:hover { background: var(--mint-main); color: var(--bg-deep); box-shadow: 0 0 10px rgba(92, 242, 138, 0.5); }
 
-        .modal-overview { color: var(--text-main); font-size: 16px; line-height: 1.7; margin-bottom: 30px; }
+        .modal-overview { color: var(--text-main); font-size: 16px; line-height: 1.7; margin-top: 25px; margin-bottom: 10px; }
 
         .modal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; background: rgba(19, 15, 28, 0.5); padding: 25px; border-radius: 16px; border: 1px solid rgba(92, 242, 138, 0.15); }
         .modal-grid-box { font-size: 15px; color: var(--mint-light); font-weight: 700; background: rgba(34, 24, 54, 0.8); border: 1px solid rgba(92, 242, 138, 0.2); padding: 8px 16px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: inline-flex; justify-content: center; align-items: center; gap: 8px; width: fit-content; }
@@ -479,8 +479,6 @@
                         
                         <div id="modalGenres" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;"></div>
                         
-                        <div class="modal-overview" id="modalOverview">Описание игры...</div>
-                        
                         <div class="modal-grid">
                             <div class="grid-item">
                                 <div class="grid-label">Заказал</div>
@@ -505,6 +503,8 @@
                             </div>
                         </div>
 
+                        <div class="modal-overview" id="modalOverview">Описание игры...</div>
+                        
                     </div>
                 </div>
             </div>
