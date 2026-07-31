@@ -332,10 +332,6 @@
         .steam-modal-badge { display: inline-flex; align-items: center; gap: 4px; text-decoration: none; cursor: pointer; transition: all 0.3s ease; }
         .steam-modal-badge:hover { background: var(--mint-main); color: var(--bg-deep); box-shadow: 0 0 10px rgba(92, 242, 138, 0.5); }
 
-        /* ДОБАВЛЕННЫЙ СТИЛЬ ЗАГОЛОВКА */
-        .modal-overview-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-text); font-weight: 800; margin-top: 25px; margin-bottom: 0; }
-        .modal-overview { color: var(--text-main); font-size: 16px; line-height: 1.7; margin-top: 8px; margin-bottom: 10px; }
-
         .modal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; background: rgba(19, 15, 28, 0.5); padding: 25px; border-radius: 16px; border: 1px solid rgba(92, 242, 138, 0.15); }
         .modal-grid-box { font-size: 15px; color: var(--mint-light); font-weight: 700; background: rgba(34, 24, 54, 0.8); border: 1px solid rgba(92, 242, 138, 0.2); padding: 8px 16px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: inline-flex; justify-content: center; align-items: center; gap: 8px; width: fit-content; }
 
@@ -343,6 +339,11 @@
         .grid-item.full-width { grid-column: 1 / -1; } 
         .grid-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-text); font-weight: 800; }
         .grid-value { color: var(--mint-main); font-weight: 700; font-size: 16px; }
+
+        /* ДОБАВЛЕННЫЙ СТИЛЬ ЗАГОЛОВКА И КОНТЕЙНЕРА */
+        .modal-overview-container { background: rgba(19, 15, 28, 0.5); padding: 25px; border-radius: 16px; border: 1px solid rgba(92, 242, 138, 0.15); margin-top: 15px; margin-bottom: 10px; }
+        .modal-overview-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-text); font-weight: 800; margin-top: 0; margin-bottom: 8px; }
+        .modal-overview { color: var(--text-main); font-size: 16px; line-height: 1.7; margin-top: 0; margin-bottom: 0; }
         
         .modal-requester-link { cursor: pointer; transition: transform 0.3s; display: inline-flex; align-items: center; gap: 10px; }
         .modal-requester-link:hover { transform: translateX(5px); }
@@ -512,9 +513,11 @@
                             </div>
                         </div>
 
-                        <!-- ДОБАВЛЕННЫЙ ЗАГОЛОВОК -->
-                        <div class="modal-overview-label">Описание</div>
-                        <div class="modal-overview" id="modalOverview">Описание игры...</div>
+                        <!-- КОНТЕЙНЕР ДЛЯ ОПИСАНИЯ -->
+                        <div class="modal-overview-container">
+                            <div class="modal-overview-label">Описание</div>
+                            <div class="modal-overview" id="modalOverview">Описание игры...</div>
+                        </div>
                         
                     </div>
                 </div>
