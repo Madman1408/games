@@ -737,10 +737,13 @@
         renderArea.innerHTML = tableHTML;
         const tbody = document.getElementById('table-body');
         const sortMode = document.getElementById('sortSelect').value;
+        
+        const activeCount = currentViewData.filter(m => m.status === 'Играем' || m.status === 'В очереди').length;
+        const showDivider = activeCount >= 4;
 
         currentViewData.forEach((movie, index) => {
             
-            if (sortMode === 'order' && index > 0) {
+            if (sortMode === 'order' && index > 0 && showDivider) {
                 const prevStatus = currentViewData[index - 1].status;
                 const currStatus = movie.status;
                 const getGroup = (s) => (s === 'Играем' || s === 'В очереди' ? 1 : 2);
@@ -814,7 +817,7 @@
             const auctionHTML = movie.isAuction ? `<div style="color: var(--warm-star); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; margin-top: 8px;">✦ Аукцион ✦</div>` : '';
 
             tr.innerHTML = `
-                <td><div class="poster-wrapper"><img src="${posterUrl}" onerror="this.onerror=null; this.src=fallbackPoster;" alt=""></div></td>
+                <td><div class="poster-wrapper"><img src="${posterUrl}" onerror="this.onerror=null; this.src='${fallbackPoster}';" alt=""></div></td>
                 <td>
                     <div class="movie-info">
                         <div class="movie-header">
@@ -848,10 +851,13 @@
         const gridContainer = document.createElement('div');
         gridContainer.className = 'movies-grid';
         const sortMode = document.getElementById('sortSelect').value;
+        
+        const activeCount = currentViewData.filter(m => m.status === 'Играем' || m.status === 'В очереди').length;
+        const showDivider = activeCount >= 4;
 
         currentViewData.forEach((movie, index) => {
             
-            if (sortMode === 'order' && index > 0) {
+            if (sortMode === 'order' && index > 0 && showDivider) {
                 const prevStatus = currentViewData[index - 1].status;
                 const currStatus = movie.status;
                 
@@ -906,13 +912,21 @@
             const bannedDotMarkup = hasBannedStudios ? `<div class="banned-dot" title="Запрещенная студия!"></div>` : '';
             const copyBtnClass = hasBannedStudios ? 'card-copy-btn shifted' : 'card-copy-btn';
 
+            let gridSteamBtn = '';
+            if (movie.steamAppId && !movie.steamAppId.startsWith('IGDB_')) {
+                gridSteamBtn = `
+                <a href="https://store.steampowered.com/app/${movie.steamAppId}/" target="_blank" class="grid-steam-link" onclick="event.stopPropagation();" title="Открыть в Steam">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M11.979 0C5.366 0 0 5.361 0 11.979c0 4.673 2.666 8.71 6.55 10.741l3.528-5.111a4.237 4.237 0 0 1-1.637-2.61l-3.666 1.055c-.012-.08-.02-.158-.02-.24 0-2.483 2.015-4.5 4.5-4.5 1.956 0 3.614 1.25 4.23 2.996l4.636-1.921c.026-.145.041-.295.041-.45 0-2.656-2.155-4.81-4.81-4.81-2.656 0-4.812 2.154-4.812 4.81 0 .226.02.446.052.661l-3.374.97a3.023 3.023 0 0 0 .153-1.042c0-1.688 1.37-3.056 3.056-3.056 1.687 0 3.057 1.368 3.057 3.056 0 1.62-1.265 2.946-2.857 3.045l-3.606 5.228C10.71 23.822 11.336 24 11.98 24 18.602 24 24 18.634 24 11.979 24 5.361 18.602 0 11.979 0z"/></svg> Steam
+                </a>`;
+            }
+
             const card = document.createElement('div');
             card.className = 'card-view-item';
             card.onclick = () => openModal(index);
             
             card.innerHTML = `
                 <div class="card-top">
-                    <img src="${posterUrl}" class="card-poster" onerror="this.onerror=null; this.src=fallbackPoster;" alt="">
+                    <img src="${posterUrl}" class="card-poster" onerror="this.onerror=null; this.src='${fallbackPoster}';" alt="">
                     ${bannedDotMarkup}
                     <button class="${copyBtnClass}" onclick="copyMovieNameFromTable(event, '${safeTitle}', '${movie.year || ''}', this)" title="Скопировать название">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
@@ -937,6 +951,7 @@
                     <div style="margin-top: auto; width: 100%;">
                         <div class="card-date-meta" style="display: flex; align-items: center; justify-content: center; gap: 6px;">
                             <span>${movie.year || '----'}</span>
+                            ${gridSteamBtn ? `<span style="color: var(--mint-dark);">✧</span> ${gridSteamBtn}` : ''}
                         </div>
                         <div class="card-queue-box">
                             <span class="card-queue-label">Заказ от</span>
