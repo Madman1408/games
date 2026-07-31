@@ -715,8 +715,29 @@
                 const priorityA = getPriority(a.status);
                 const priorityB = getPriority(b.status);
                 
+                // 1. Сначала сортируем по приоритету статуса (Играем -> В очереди -> Пройдено/Брошено)
                 if (priorityA !== priorityB) return priorityA - priorityB;
-                return a.parsedDate - b.parsedDate;
+                
+                // 2. Если статусы "Играем" (1) или "В очереди" (2) -> старые заказы первее
+                if (priorityA === 1 || priorityA === 2) {
+                    return a.parsedDate - b.parsedDate;
+                }
+                
+                // 3. Если статусы "Пройдено" или "Брошено" (3) -> законченные позже всех первее
+                if (priorityA === 3) {
+                    // Используем встроенную функцию для получения таймстемпа даты прохождения
+                    const parsedWatchA = parseDateObj(a.dateWatched);
+                    const parsedWatchB = parseDateObj(b.dateWatched);
+                    
+                    if (parsedWatchA !== parsedWatchB) {
+                        return parsedWatchB - parsedWatchA; // По убыванию даты (свежие сверху)
+                    }
+                    
+                    // Резервный вариант, если даты прохождения нет или они одинаковые
+                    return b.parsedDate - a.parsedDate; 
+                }
+                
+                return 0;
             });
         }
         
