@@ -27,7 +27,7 @@
 
         body {
             background-color: var(--bg-deep);
-            background-image: url('background.png');
+            background-image: url('background.webp');
             color: var(--text-main);
             font-family: var(--font-text);
             margin: 0;
@@ -204,12 +204,11 @@
 
         .card-top { position: relative; width: 100%; padding-top: 135%; overflow: hidden; border-bottom: 2px solid var(--mint-dark); transition: border-color 0.3s; background: var(--bg-deep); }
         .card-view-item:hover .card-top { border-color: var(--mint-main); }
-        .card-poster { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-        .card-view-item:hover .card-poster { transform: scale(1.05); }
+        .card-poster { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;}
 
         .card-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(19,15,28,0.1) 40%, rgba(19,15,28,0.95) 100%);
+            background: linear-gradient(to bottom, rgba(19,15,28,0.1) 40%, rgba(19,15,28,0.45) 100%);
             display: flex; flex-direction: column; justify-content: space-between; padding: 10px; z-index: 2;
             box-sizing: border-box;
         }
@@ -292,7 +291,7 @@
             border-radius: 24px; transform: scale(0.95) translateY(20px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); scroll-behavior: smooth; 
         }
         .modal-overlay.active .modal-content { transform: scale(1) translateY(0); }
-        .modal-inner { background: url(background1.png); border-radius: 18px; min-height: 100%; overflow: hidden; }
+        .modal-inner { background: url(background1.webp); border-radius: 18px; min-height: 100%; overflow: hidden; }
 
         .close-btn {
             position: absolute; top: 15px; right: 20px; color: var(--text-main); cursor: pointer; z-index: 10; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; 
