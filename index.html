@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Игровая</title>
+    <title>Кинотеатр</title>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700;900&family=Nunito:ital,wght@0,400;0,600;0,700;0,900;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -147,10 +147,10 @@
         tr.movie-row:has(.poster-wrapper:hover) .poster-wrapper { box-shadow: 0 12px 25px rgba(92, 242, 138, 0.3); border-color: var(--mint-main); }
         
         .movie-info { display: flex; flex-direction: column; gap: 8px; padding-left: 10px; overflow: hidden; }
-        .movie-header { display: flex; align-items: flex-start; justify-content: flex-start; gap: 12px; width: 100%; }
+        .movie-header { display: flex; align-items: flex-start; justify-content: flex-start; gap: 12px; width: 100%; margin-bottom: 5px; } 
         .movie-title { font-size: 24px; font-weight: 700; color: #fff; font-family: var(--font-title); text-shadow: 0 3px 6px rgba(0,0,0,0.5), 0 0 15px rgba(92, 242, 138, 0.4); flex: 0 1 auto; min-width: 0; line-height: 1.2; }
         .movie-meta-box { display: flex; align-items: center; gap: 10px; flex-shrink: 0; margin-top: 1px; }
-        .movie-year { color: var(--mint-light); font-size: 18px; font-weight: 600; opacity: 0.8; white-space: nowrap; flex-shrink: 0; }
+        .movie-year { color: var(--mint-light); font-size: 18px; font-weight: 600; opacity: 0.8; white-space: nowrap; flex-shrink: 0; } 
         
         .copy-btn { background: rgba(92, 242, 138, 0.1); border: 1px solid transparent; color: var(--mint-main); cursor: pointer; padding: 4px; border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.3s; opacity: 0; transform: scale(0.8); position: relative; top: 2px; flex-shrink: 0; }
         tr.movie-row:hover .copy-btn { opacity: 1; transform: scale(1); }
@@ -331,12 +331,31 @@
         .steam-modal-badge { display: inline-flex; align-items: center; gap: 4px; text-decoration: none; cursor: pointer; transition: all 0.3s ease; }
         .steam-modal-badge:hover { background: var(--mint-main); color: var(--bg-deep); box-shadow: 0 0 10px rgba(92, 242, 138, 0.5); }
 
-        .modal-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; background: rgba(19, 15, 28, 0.5); padding: 25px; border-radius: 16px; border: 1px solid rgba(92, 242, 138, 0.15); }
-        .modal-grid-box { font-size: 15px; color: var(--mint-light); font-weight: 700; background: rgba(34, 24, 54, 0.8); border: 1px solid rgba(92, 242, 138, 0.2); padding: 8px 16px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: inline-flex; justify-content: center; align-items: center; gap: 8px; width: fit-content; }
+        /* ИЗМЕНЕНА СЕТКА ДЛЯ МОДАЛКИ ПО ТЗ */
+        .modal-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            background: rgba(19, 15, 28, 0.5); 
+            border-radius: 16px; 
+            border: 1px solid rgba(92, 242, 138, 0.15); 
+            overflow: hidden; /* Чтобы края не вылезали за радиус */
+        }
+        
+        /* Класс для добавления третьей колонки (ОТМЕТКИ) */
+        .modal-grid.has-tags {
+            grid-template-columns: repeat(3, 1fr);
+        }
 
-        .grid-item { font-size: 14px; display: flex; flex-direction: column; gap: 8px; }
+        .modal-grid-box { font-size: 15px; color: var(--mint-light); font-weight: 700; background: rgba(34, 24, 54, 0.8); border: 1px solid rgba(92, 242, 138, 0.2); padding: 8px 16px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: inline-flex; justify-content: center; align-items: center; gap: 8px; width: fit-content; margin-top: 4px; }
+        
+        .grid-item { font-size: 14px; display: flex; flex-direction: column; gap: 4px; padding: 20px 25px; box-sizing: border-box; }
+        
+        /* Границы между ячейками и строками */
+        .grid-item.border-right { border-right: 1px dashed rgba(92, 242, 138, 0.3); }
+        .grid-item.border-bottom { border-bottom: 1px dashed rgba(92, 242, 138, 0.3); }
+        
         .grid-item.full-width { grid-column: 1 / -1; } 
-        .grid-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-text); font-weight: 800; }
+        .grid-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-text); font-weight: 800; margin-bottom: 4px; }
         .grid-value { color: var(--mint-main); font-weight: 700; font-size: 16px; }
 
         /* ДОБАВЛЕННЫЙ СТИЛЬ ЗАГОЛОВКА И КОНТЕЙНЕРА */
@@ -344,10 +363,10 @@
         .modal-overview-label { color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-text); font-weight: 800; margin-top: 0; margin-bottom: 8px; }
         .modal-overview { color: var(--text-main); font-size: 16px; line-height: 1.7; margin-top: 0; margin-bottom: 0; }
         
-        .modal-requester-link { cursor: pointer; transition: transform 0.3s; display: inline-flex; align-items: center; gap: 10px; }
+        .modal-requester-link { cursor: pointer; transition: transform 0.3s; display: inline-flex; align-items: center; gap: 10px; margin-bottom: 8px; }
         .modal-requester-link:hover { transform: translateX(5px); }
-        .modal-requester-link span { font-family: var(--font-text); font-size: 16px; color: var(--mint-main); transition: color 0.3s; font-weight: 700; }
-        .modal-requester-link span:hover { color: #fff; text-shadow: 0 0 8px rgba(92, 242, 138, 0.6); }
+        .modal-requester-link span.name-text { font-family: var(--font-text); font-size: 16px; color: var(--mint-main); transition: color 0.3s; font-weight: 700; }
+        .modal-requester-link:hover span.name-text { color: #fff; text-shadow: 0 0 8px rgba(92, 242, 138, 0.6); }
 
         .footer-badge { display: flex; align-items: center; gap: 10px; justify-content: center; margin-top: 30px; padding-bottom: 20px; background: transparent; cursor: pointer; transition: all 0.3s ease; opacity: 0.8; }
         .footer-badge:hover { opacity: 1; }
@@ -369,7 +388,14 @@
             .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
             .modal-body { flex-direction: column; margin-top: -60px; padding: 20px; }
             .modal-poster { width: 140px; margin: 0 auto; }
-            .modal-grid { grid-template-columns: 1fr; }
+            
+            /* ФИКС СЕТКИ НА ТЕЛЕФОНЕ ДЛЯ МОДАЛКИ */
+            .modal-grid { grid-template-columns: 1fr !important; }
+            .grid-item.border-right { border-right: none !important; }
+            .grid-item { border-bottom: 1px dashed rgba(92, 242, 138, 0.3); }
+            #modalTagsColumn { grid-row: auto !important; grid-column: 1 / -1 !important; border-bottom: 1px dashed rgba(92, 242, 138, 0.3); padding-left: 25px !important;}
+            .grid-item.full-width { border-bottom: none; }
+
             .header-top h1 { font-size: 32px; }
             .header-top h1::before, .header-top h1::after { display: none; }
         }
@@ -488,28 +514,40 @@
                         
                         <div id="modalGenres" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;"></div>
                         
-                        <div class="modal-grid">
-                            <div class="grid-item">
-                                <div class="grid-label">Заказал</div>
-                                <div class="grid-value modal-requester-link" id="modalRequester" title="Перейти на канал"></div>
-                            </div>
+                        <!-- НОВАЯ СЕТКА МОДАЛЬНОГО ОКНА -->
+                        <div class="modal-grid" id="modalMainGrid" style="gap: 0; padding: 0;">
                             
-                            <div class="grid-item">
-                                <div class="grid-label">Статус</div>
-                                <div id="modalStatusLabel" style="margin-top: 4px;"></div>
+                            <!-- ROW 1 -->
+                            <div class="grid-item border-bottom border-right" id="modalRequesterCol">
+                                <div class="grid-label">Заказал</div>
+                                <div class="grid-value" id="modalRequesterBlock" style="display: flex; flex-direction: column; align-items: flex-start;"></div>
                             </div>
-                            <div class="grid-item">
+                            <div class="grid-item border-bottom" id="modalStatusCol">
+                                <div class="grid-label">Статус</div>
+                                <div id="modalStatusLabel"></div>
+                            </div>
+                            <!-- ОТМЕТКИ В ПОЛОСЕ ОЦЕНКИ -->
+                            <div class="grid-item border-bottom" id="modalTagsColumn" style="grid-row: span 2; display: none; padding-left: 25px;">
+                                <div class="grid-label">Отметки</div>
+                                <div id="modalTagsBlock" style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;"></div>
+                            </div>
+
+                            <!-- ROW 2 -->
+                            <div class="grid-item border-bottom border-right" id="modalDateReqCol">
                                 <div class="grid-label">День заказа</div>
                                 <div id="modalDateReq"></div>
                             </div>
-                            <div class="grid-item">
+                            <div class="grid-item border-bottom" id="modalDateWatchedCol">
                                 <div class="grid-label" id="modalWatchedLabel">День прохождения</div>
                                 <div id="modalDateWatched"></div>
                             </div>
-                            <div class="grid-item full-width">
+
+                            <!-- ROW 3 -->
+                            <div class="grid-item full-width" style="border-bottom: none;">
                                 <div class="grid-label">Разработчик / Издатель</div>
-                                <div class="grid-value" id="modalStudios" style="color: var(--text-muted); font-weight: normal;">Архив скрыт</div>
+                                <div class="grid-value" id="modalStudios" style="color: var(--text-muted); font-weight: normal; margin-top: 4px;">Архив скрыт</div>
                             </div>
+
                         </div>
 
                         <!-- КОНТЕЙНЕР ДЛЯ ОПИСАНИЯ -->
@@ -1200,49 +1238,65 @@
         }
         document.getElementById('modalStatusLabel').innerHTML = statusTextHTML;
         
-        let dateHtml = '';
-        if ((isWatched || isDropped) && movie.dateWatched) {
-             dateHtml += `<div class="modal-grid-box" style="margin-top: 0;">${movie.dateWatched.split(' ')[0]}</div>`;
-             
-             if (movie.ourRating && movie.ourRating !== "Без оценки") {
-                 const parsedRating = parseFloat(movie.ourRating);
-                 if (parsedRating === 1000) {
-                     dateHtml += `<div class="modal-grid-box legendary-table-badge" style="margin-top: 0; flex-direction: column; gap: 2px; padding: 6px 16px; line-height: 1.1;"><span style="font-size: 10px; text-transform: uppercase; opacity: 0.9;">Наша Оценка:</span><span style="font-size: 18px;">1000</span></div>`;
-                 } else {
-                     const rColor = getRatingColor(movie.ourRating);
-                     dateHtml += `<div class="modal-grid-box" style="margin-top: 0; color: ${rColor}; border-color: ${rColor};">Наша Оценка: ${movie.ourRating}</div>`;
-                 }
-             }
-        } else if (isPlaying) {
-             dateHtml += `<div class="modal-grid-box" style="background: rgba(255,219,88,0.1); border-color: transparent; color: #ffdb58; margin-top: 0;">В процессе...</div>`;
+        let watchedHtml = '';
+        if (isPlaying) {
+            watchedHtml = `<div class="modal-grid-box" style="margin-top: 0; background: rgba(34, 24, 54, 0.9); border-color: rgba(255, 219, 88, 0.4); color: #ffd700;">В процессе...</div>`;
+        } else if ((isWatched || isDropped) && movie.dateWatched) {
+            watchedHtml = `<div class="modal-grid-box" style="margin-top: 0;">${movie.dateWatched.split(' ')[0]}</div>`;
         } else {
-             dateHtml += `<div class="modal-grid-box" style="background: rgba(92,242,138,0.1); border-color: transparent; margin-top: 0;">Еще в очереди</div>`;
+            watchedHtml = `<div class="modal-grid-box" style="background: rgba(92,242,138,0.1); border-color: transparent; margin-top: 0;">Еще в очереди</div>`;
         }
+        dateWatchedEl.innerHTML = `<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">${watchedHtml}</div>`;
+        
+        // --- ОТМЕТКИ В ОТДЕЛЬНОЙ КОЛОНКЕ ---
+        const tagsBlock = document.getElementById('modalTagsBlock');
+        const modalMainGrid = document.getElementById('modalMainGrid');
+        const statusCol = document.getElementById('modalStatusCol');
+        const dateWatchedCol = document.getElementById('modalDateWatchedCol');
+        let tagsHtml = '';
 
+        if ((isWatched || isDropped) && movie.ourRating && movie.ourRating !== "Без оценки") {
+             const parsedRating = parseFloat(movie.ourRating);
+             if (parsedRating === 1000) {
+                 tagsHtml += `<div class="modal-grid-box legendary-table-badge" style="margin-top: 0; flex-direction: column; gap: 2px; padding: 4px 16px; line-height: 1.1;"><span style="font-size: 10px; text-transform: uppercase; opacity: 0.9;">Наша Оценка:</span><span style="font-size: 16px;">1000</span></div>`;
+             } else {
+                 const rColor = getRatingColor(movie.ourRating);
+                 tagsHtml += `<div class="modal-grid-box" style="margin-top: 0; color: ${rColor}; border-color: ${rColor};">Наша Оценка: ${movie.ourRating}</div>`;
+             }
+        }
         if (movie.cried) {
-            dateHtml += `<div class="modal-grid-box" style="margin-top: 0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="var(--mint-light)" stroke="var(--mint-light)" stroke-width="1" style="margin-right:4px;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg> Слёзы</div>`;
+            tagsHtml += `<div class="modal-grid-box" style="margin-top: 0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--mint-light)" stroke="var(--mint-light)" stroke-width="1" style="margin-right: 4px;"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg> Слёзы</div>`;
         }
         if (movie.burned) {
-            dateHtml += `<div class="modal-grid-box" style="margin-top: 0; color: #ff6b6b; border-color: #ff6b6b; box-shadow: 0 0 8px rgba(255,107,107,0.3);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg> Сгорела</div>`;
+            tagsHtml += `<div class="modal-grid-box" style="margin-top: 0; color: #ff6b6b; border-color: #ff6b6b; background: rgba(255, 107, 107, 0.1);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg> Сгорела</div>`;
+        }
+        
+        const tagsCol = document.getElementById('modalTagsColumn');
+        if (tagsHtml === '') {
+            tagsCol.style.display = 'none';
+            modalMainGrid.classList.remove('has-tags');
+            statusCol.classList.remove('border-right');
+            dateWatchedCol.classList.remove('border-right');
+        } else {
+            tagsCol.style.display = 'flex';
+            tagsBlock.innerHTML = tagsHtml;
+            modalMainGrid.classList.add('has-tags');
+            statusCol.classList.add('border-right');
+            dateWatchedCol.classList.add('border-right');
         }
 
-        dateWatchedEl.innerHTML = `<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">${dateHtml}</div>`;
-
         const cleanNick = movie.requestedBy.replace('@', '').trim();
-        const requesterEl = document.getElementById('modalRequester');
-        
         const userColor = stringToColor(cleanNick);
         let avatarMarkup = movie.userAvatar && movie.userAvatar.startsWith('http') 
             ? `<img src="${movie.userAvatar}" class="req-avatar" style="width:32px; height:32px; border-width:2px; border-radius:50%; object-fit:cover; margin-right:10px;" alt="">` 
             : `<div class="req-avatar" style="width:32px; height:32px; font-size:14px; border-width:2px; background-color: ${userColor}; border-color: ${userColor}; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-right:10px; color:var(--bg-deep); font-weight:800;">${getInitials(cleanNick)}</div>`;
             
-        let reqInner = `<div style="display:flex; align-items:center;">${avatarMarkup}<span>${cleanNick}</span></div>`;
+        let reqInner = `<div class="modal-requester-link hover-active" onclick="window.open('https://twitch.tv/${cleanNick}', '_blank')" style="display:flex; align-items:center; margin-bottom: 8px;">${avatarMarkup}<span class="name-text">${cleanNick}</span></div>`;
         if (movie.isAuction) {
-            reqInner += `<div style="color: var(--warm-star); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; margin-top: 4px; text-shadow: 0 0 5px rgba(0,0,0,0.8);">✦ Аукцион ✦</div>`;
+            reqInner += `<div class="modal-grid-box" style="margin-top: 0; margin-bottom: 6px; color: var(--warm-star); border-color: var(--warm-star); background: rgba(34, 24, 54, 0.9); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">✦ Аукцион ✦</div>`;
         }
         
-        requesterEl.innerHTML = `<div style="display:flex; flex-direction:column; align-items:flex-start;">${reqInner}</div>`;
-        requesterEl.onclick = () => window.open(`https://twitch.tv/${cleanNick}`, '_blank');
+        document.getElementById('modalRequesterBlock').innerHTML = reqInner;
 
         document.getElementById('modalStudios').textContent = movie.studios === "Нет данных" || !movie.studios ? "Архив скрыт" : movie.studios;
 
