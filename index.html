@@ -461,15 +461,15 @@
     <div class="container">
         <div class="content-wrapper">
             <div class="header">
-                <a href="https://cherteya.github.io/lists/" class="back-btn">
+                <a href="#" class="back-btn">
                     <svg class="icon-3d-effect" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                     В Архивы
                 </a>
 
-                <div class="creator-badge" onclick="window.open('https://twitch.tv/cherteya', '_blank')">
-                    <img src="https://static-cdn.jtvnw.net/user-default-pictures-uv/41780b5a-def8-11e9-94d9-784f43822e80-profile_image-70x70.png" id="cherteyaAvatar" alt="cherteya">
+                <div class="creator-badge" onclick="window.open('https://twitch.tv/sarachuma', '_blank')">
+                    <img src="https://static-cdn.jtvnw.net/user-default-pictures-uv/41780b5a-def8-11e9-94d9-784f43822e80-profile_image-70x70.png" id="sarachumaAvatar" alt="sarachuma">
                     <div class="creator-info">
-                        <span class="creator-name text-3d-effect">cherteya</span>
+                        <span class="creator-name text-3d-effect">sarachuma</span>
                     </div>
                 </div>
                 
@@ -672,10 +672,10 @@
 
     async function loadCreatorAvatars() {
         try {
-            const res1 = await fetch('https://api.ivr.fi/v2/twitch/user?login=cherteya');
+            const res1 = await fetch('https://api.ivr.fi/v2/twitch/user?login=sarachuma');
             const data1 = await res1.json();
             if (data1 && data1.length > 0 && data1[0].logo) {
-                const pAv = document.getElementById('cherteyaAvatar');
+                const pAv = document.getElementById('sarachumaAvatar');
                 if(pAv) pAv.src = data1[0].logo.replace('300x300', '150x150');
             }
             
