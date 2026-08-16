@@ -209,7 +209,7 @@
         .req-avatar { width: 44px; height: 44px; border-radius: 2px; display: flex; align-items: center; justify-content: center; font-family: var(--font-title); font-size: 22px; color: var(--bg-deep); font-weight: 700; box-shadow: 0 5px 15px rgba(0,0,0,0.6); object-fit: cover; border: 2px solid var(--accent-main); transition: all 0.3s; background: var(--text-main); }
         .req-name { font-family: var(--font-title); font-size: 16px; font-weight: 700; color: var(--text-main); transition: all 0.3s; letter-spacing: 1px; }
         
-        .date-badge, .time-box { font-size: 12px; color: var(--accent-light); font-weight: 600; background: rgba(3, 6, 36, 0.9); border: 1px solid rgba(254, 0, 0, 0.3); padding: 6px 14px; border-radius: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: inline-flex; justify-content: center; align-items: center; gap: 6px; font-family: var(--font-title); letter-spacing: 1px;}
+        .date-badge, .time-box { font-size: 12px; color: var(--accent-light); font-weight: 600; background: rgba(3, 6, 36, 0.9); border: 1px solid rgba(254, 0, 0, 0.3); padding: 4px 10px; border-radius: 2px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); display: inline-flex; justify-content: center; align-items: center; gap: 6px; font-family: var(--font-title); letter-spacing: 1px;}
         .date-badge { margin-top: 10px; }
         
         .badge-status { font-size: 12px; font-weight: 900; text-align: center; display: inline-flex; justify-content: center; align-items: center; text-transform: uppercase; letter-spacing: 2px; font-family: var(--font-title); color: var(--bg-deep); border-radius: 2px; padding: 4px 12px; margin-bottom: 8px; box-shadow: 0 4px 15px rgba(254, 0, 0, 0.5); min-width: 85px; }
@@ -254,7 +254,7 @@
         .card-status { background: var(--accent-main); color: var(--bg-deep); padding: 2px 4px; border-radius: 2px; font-size: 8px; font-family: var(--font-title); font-weight: 900; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 5px 15px rgba(0,0,0,0.8); max-width: 50%; overflow: hidden; text-overflow: ellipsis; }
         
         .card-bottom-badges { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; position: absolute; bottom: 10px; left: 10px; z-index: 12;}
-        .card-mini-badge { font-size: 10px; font-family: var(--font-title); font-weight: 800; text-transform: uppercase; background: rgba(3, 6, 36, 0.9); border: 1px solid rgba(254, 0, 0, 0.4); padding: 4px 8px; border-radius: 2px; display: flex; align-items: center; gap: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.8); backdrop-filter: blur(4px); letter-spacing: 1px; }
+        .card-mini-badge { font-size: 8px; font-family: var(--font-title); font-weight: 800; text-transform: uppercase; background: rgba(3, 6, 36, 0.9); border: 1px solid rgba(254, 0, 0, 0.4); padding: 4px 8px; border-radius: 2px; display: flex; align-items: center; gap: 4px; box-shadow: 0 5px 15px rgba(0,0,0,0.8); backdrop-filter: blur(4px); letter-spacing: 1px; }
         .card-mini-badge.auction { color: var(--warm-star); border-color: var(--warm-star); }
         .card-mini-badge.cried { color: var(--text-main); border-color: var(--accent-main); }
         .card-mini-badge.burned { color: var(--accent-light); border-color: var(--accent-light); }
@@ -1379,7 +1379,7 @@
                  tagsHtml += `<div class="modal-grid-box legendary-badge" style="margin-top: 0; flex-direction: column; gap: 2px; padding: 4px 16px; line-height: 1.1;"><span style="font-size: 10px; text-transform: uppercase; opacity: 0.9;">Наша Оценка:</span><span style="font-size: 16px; font-family: var(--font-title);">1000</span></div>`;
              } else {
                  const rColor = getRatingColor(movie.ourRating);
-                 tagsHtml += `<div class="modal-grid-box" style="margin-top: 0; color: ${rColor}; border-color: ${rColor};">Наша Оценка: ${movie.ourRating}</div>`;
+                 tagsHtml += `<div class="modal-grid-box" style="margin-top: 0; color: ${rColor}; border-color: ${rColor}; padding: 6px 8px; ">Наша Оценка: ${movie.ourRating}</div>`;
              }
         }
         if (movie.cried) {
