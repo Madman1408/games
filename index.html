@@ -1061,13 +1061,13 @@
             if (movie.isAuction) bottomBadges += `<div class="card-mini-badge auction">✦ Аукцион ✦</div>`;
             if (movie.cried) bottomBadges += `<div class="card-mini-badge cried"><svg class="icon-3d-effect" width="12" height="12" viewBox="0 0 24 24" fill="var(--text-main)" stroke="var(--text-main)" stroke-width="1"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg> Слёзы</div>`;
             if (movie.burned) bottomBadges += `<div class="card-mini-badge burned"><svg class="icon-3d-effect" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg> Сгорела</div>`;
-            if (movie.difficulty) bottomBadges += `<div class="card-mini-badge" style="color: var(--text-main); border-color: rgba(255,255,255,0.3);">🟡 ${formatDifficulty(movie.difficulty)}</div>`;
+            if (movie.difficulty) bottomBadges += `<div class="card-mini-badge" style="color: var(--text-main); border-color: rgba(255,255,255,0.3); font-size: 8px;">🟡 ${formatDifficulty(movie.difficulty)}</div>`;
             
             if ((isWatched || isDropped || isTried) && movie.ourRating && movie.ourRating !== "Без оценки") {
                 const rColor = getRatingColor(movie.ourRating);
                 bottomBadges += parseFloat(movie.ourRating) === 1000 
                     ? `<div class="card-mini-badge rating legendary-badge">Оценка: 1000</div>` 
-                    : `<div class="card-mini-badge rating" style="color: ${rColor}; border-color: ${rColor};">Оценка: ${movie.ourRating}</div>`;
+                    : `<div class="card-mini-badge rating" style="color: ${rColor}; border-color: ${rColor}; font-size: 10px;">Оценка: ${movie.ourRating}</div>`;
             }
 
             let avatarMarkup = movie.userAvatar && movie.userAvatar.startsWith('http') ? `<img src="${movie.userAvatar}" class="card-user-avatar" alt="">` : `<div class="card-user-avatar" style="background-color: var(--bg-deep); color: var(--text-main);">${getInitials(cleanNick)}</div>`;
