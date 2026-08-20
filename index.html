@@ -559,18 +559,20 @@
                             </div>
 							
 							
-							<!-- НОВЫЙ БЛОК ЦЕН (ОТЦЕНТРИРОВАННЫЙ В КОЛОНКУ) -->
+							<!-- БЛОК ЦЕН С ДИНАМИЧЕСКИМ ПОКАЗОМ ПОДСКАЗКИ -->
                             <div class="grid-item full-width border-bottom" id="modalPriceCol">
                                 <div style="display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; width: 100%;">
                                     
-                                    <!-- Верхняя часть: Цены и сноска -->
+                                    <!-- Верхняя часть: Цены и динамическая подсказка -->
                                     <div style="display: flex; flex-direction: column; align-items: center;">
                                         <div class="grid-label" style="margin-bottom: 6px;">
                                             Цены <span style="text-transform: none; opacity: 0.6; font-size: 10px; font-weight: 600;">(обновлено <span id="modalDatePrice"></span>)</span>
                                         </div>
                                         <div class="grid-value" id="modalPrice" style="color: var(--mint-light); font-size: 16px; font-weight: 900; letter-spacing: 0.5px;"></div>
-                                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px; font-weight: 600;">
-                                            <span style="color: var(--cute-pink);">*</span> Знак ~ означает, что товара в этом регионе нет (конвертация по курсу)
+                                        
+                                        <!-- Подсказка видна только если есть знак ~ -->
+                                        <div id="priceNotice" style="font-size: 11px; color: var(--text-muted); margin-top: 6px; font-weight: 600; display: none;">
+                                            <span style="color: var(--cute-pink);">*</span> Знак <span style="color: var(--mint-main); font-weight: 900; font-size: 13px;">~</span> означает, что товара в этом регионе нет (конвертация по курсу)
                                         </div>
                                     </div>
 
@@ -1341,9 +1343,19 @@
         const datePriceEl = document.getElementById('modalDatePrice');
         const priceEl = document.getElementById('modalPrice');
         const updateCmdEl = document.getElementById('modalUpdateCmd');
+        const priceNoticeEl = document.getElementById('priceNotice'); 
 
         datePriceEl.textContent = movie.datePriceUpdated ? movie.datePriceUpdated.split(' ')[0] : 'неизвестно';
-        priceEl.textContent = movie.price && movie.price !== "Неизвестно" ? movie.price : "Цена не найдена / Скрыта";
+        
+        const priceText = movie.price && movie.price !== "Неизвестно" ? movie.price : "Цена не найдена / Скрыта";
+        priceEl.textContent = priceText;
+
+        // ПРОВЕРКА НА ЗНАК ~ (если есть, показываем подсказку, если нет — скрываем)
+        if (priceText.includes('~')) {
+            priceNoticeEl.style.display = 'block';
+        } else {
+            priceNoticeEl.style.display = 'none';
+        }
         
         const titleForCmd = (movie.title || 'Безымянный').trim();
         const yearForCmd = (movie.year && movie.year !== '----' && movie.year !== '????') ? ` ${movie.year}` : '';
