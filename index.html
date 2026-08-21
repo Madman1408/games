@@ -365,7 +365,7 @@
         .modal-title-wrapper:hover .copy-btn { opacity: 1; }
         .modal-title-wrapper .copy-btn:hover { background: var(--mint-main); color: var(--bg-deep); box-shadow: 0 0 12px rgba(92, 242, 138, 0.5); }
         
-        .modal-meta-wrapper { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; border-bottom: 1px dashed rgba(92, 242, 138, 0.2); padding-bottom: 15px; flex-wrap: wrap; }
+        .modal-meta-wrapper { margin-bottom: 12px; border-bottom: 1px dashed rgba(92, 242, 138, 0.2); padding-bottom: 15px; }
         
         .modal-overview { color: var(--text-main); font-size: 16px; line-height: 1.7; margin-bottom: 30px; }
 
@@ -546,9 +546,6 @@
                         <option value="waiting">В ожидании</option>
                         <option value="watched">Смотрели</option>
                         <option value="auction">Аукцион</option>
-                   <!-- <option value="theme">Тем. неделя</option> -->
-                   <!-- <option value="marvel">Марвел</option> -->
-                   <!-- <option value="banned">Баны</option> -->
                         <option value="cried">Вызвали слёзы</option>
                     </select>
                     
@@ -601,9 +598,7 @@
                         <div class="modal-overview" id="modalOverview"></div>
                         <div class="modal-crew-section" id="modalCrewSection"></div>
                         
-                        
                         <div class="modal-grid" id="modalMainGrid" style="gap: 0; padding: 0;">
-                            
                             
                             <div class="grid-item border-bottom border-right" id="modalRequesterCol">
                                 <div class="grid-label">Заказал</div>
@@ -619,7 +614,6 @@
                                 <div id="modalTagsBlock" style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;"></div>
                             </div>
 
-                            
                             <div class="grid-item border-bottom border-right" id="modalDateReqCol">
                                 <div class="grid-label">День заказа</div>
                                 <div id="modalDateReq"></div>
@@ -629,10 +623,8 @@
                                 <div id="modalDateWatched"></div>
                             </div>
 
-                            
                             <div id="modalRow3Wrapper" class="grid-item full-width border-bottom" style="padding: 0;"></div>
 
-                            
                             <div class="grid-item full-width" style="border-bottom: none;">
                                 <div class="grid-label">Студии</div>
                                 <div class="grid-value" id="modalStudios" style="color: var(--text-muted); font-weight: normal; margin-top: 4px;">Архив скрыт</div>
@@ -779,20 +771,16 @@
             let isUnwatchedA = a.status === 'Не смотрели'; 
             let isUnwatchedB = b.status === 'Не смотрели'; 
 
-            
             if (isWatchingA && !isWatchingB) return -1;
             if (!isWatchingA && isWatchingB) return 1;
 
-            
             if (isUnwatchedA && !isUnwatchedB) return -1;
             if (!isUnwatchedA && isUnwatchedB) return 1;
 
-            
             if ((isWatchingA && isWatchingB) || (isUnwatchedA && isUnwatchedB)) {
                 return a.parsedDate - b.parsedDate;
             }
 
-            
             let dateA = a.dateWatched ? parseDateObj(a.dateWatched) : a.parsedDate; 
             let dateB = b.dateWatched ? parseDateObj(b.dateWatched) : b.parsedDate; 
             return dateB - dateA; 
@@ -820,8 +808,6 @@
         currentViewData = filtered; renderView();
     }
 
-    
-    
     function renderView() {
         const renderArea = document.getElementById('render-area');
         renderArea.innerHTML = '';
@@ -831,19 +817,13 @@
             return;
         }
 
-        
         if (window.innerWidth <= 768) {
             renderGridMode(renderArea);
         } else {
-            
             if (viewMode === 'list') renderTableMode(renderArea);
             else renderGridMode(renderArea);
         }
     }
-    
-    
-    
-    
 
     function renderTableMode(renderArea) {
         let tableHTML = `
@@ -901,15 +881,21 @@
                 statusText = `<span class="badge-status" style="background: rgba(41, 128, 185, 0.9); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 4px 10px rgba(0,0,0,0.4);">В ОЧЕРЕДИ</span>`;
             }
             
+            // НОВАЯ ЛОГИКА ФОРМИРОВАНИЯ КОЛОНКИ СТАТУСА (ВМЕСТЕ С КНОПКОЙ ТГ)
             let watchedDetails = '';
+            
+            // 1. Сначала дата просмотра (если есть)
             if (isWatched && movie.dateWatched) {
                 watchedDetails += `<div class="date-badge" style="margin-top: 0; width: fit-content;">${movie.dateWatched.split(' ')[0]}</div>`;
-				
-				// ТГ ПОСТ ТЕПЕРЬ ТУТ (сразу после даты просмотра)
-                if (movie.postUrl) {
-                    watchedDetails += `<a href="${movie.postUrl}" target="_blank" class="tg-link-btn" style="margin-top: 0; width: fit-content;" onclick="event.stopPropagation();"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ</a>`;
-                }
-				
+            }
+            
+            // 2. Затем кнопка ТГ (будет выведена строго под датой, либо под статусом "в очереди")
+            if (movie.postUrl) {
+                watchedDetails += `<a href="${movie.postUrl}" target="_blank" class="tg-link-btn" style="margin-top: 0; width: fit-content; padding: 4px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;" onclick="event.stopPropagation();"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ</a>`;
+            }
+            
+            // 3. А потом уже остальные метки (Оценка, слёзы и тд)
+            if (isWatched && movie.dateWatched) {
                 if (movie.ourRating && movie.ourRating !== "Без оценки") {
                     const parsedRating = parseFloat(movie.ourRating);
                     if (parsedRating === 1000) watchedDetails += `<div class="date-badge legendary-badge" style="margin-top: 0; width: fit-content; flex-direction: column; gap: 2px; padding: 4px 14px; line-height: 1.1;"><span style="font-size: 10px; text-transform: uppercase; opacity: 0.9;">Наша Оценка:</span><span style="font-size: 16px;">1000</span></div>`;
@@ -927,6 +913,7 @@
             if (movie.isBanned) {
                 watchedDetails += `<div class="date-badge" style="margin-top: 0; width: fit-content; background: #e74c3c; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 0 10px rgba(231, 76, 60, 0.4);">Получили БАН</div>`;
             }
+            
             const watchedDateHTML = watchedDetails ? `<div style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-top: 8px;">${watchedDetails}</div>` : '';
 
             const tmdbBadge = movie.tmdbRating ? `<span class="tmdb-badge">TMDB ${movie.tmdbRating}</span>` : '';
@@ -963,7 +950,6 @@
             const auctionHTML = movie.isAuction ? `<div class="date-badge" style="margin-top: 8px; color: var(--warm-star); border-color: var(--warm-star); background: rgba(34, 24, 54, 0.9); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">✦ Аукцион ✦</div>` : '';
             const seasonHTML = movie.requestedSeason > 0 ? `<div class="date-badge" style="margin-top: 8px; color: #fff; border-color: var(--mint-main); font-size: 13px;">${movie.requestedSeason} сезон</div>` : '';
 
-            
             tr.innerHTML = `
                 <td><div class="poster-wrapper"><img src="${posterUrl}" onerror="handlePosterError(this)" alt=""></div></td>
                 <td>
@@ -1217,32 +1203,40 @@
         
         document.getElementById('modalYear').textContent = movie.year || '----';
         
-        let badgesHtml = '';
+        // НОВАЯ ЛОГИКА ДЛЯ МОДАЛЬНОГО ОКНА (КНОПКА ТГ НА НОВОЙ СТРОКЕ)
+        let badgesTopRow = '';
         let displayType = escapeHTML(movie.type || 'Фильм');
         if (displayType.toLowerCase().includes('мульт')) displayType = 'Мульт';
-        badgesHtml += `<span class="outline-badge">${displayType}</span>`;
+        badgesTopRow += `<span class="outline-badge">${displayType}</span>`;
 
         if (movie.runtime && movie.runtime !== "Неизвестно" && movie.runtime !== "Нет данных") {
-            badgesHtml += `<span class="outline-badge">${escapeHTML(movie.runtime)}</span>`;
+            badgesTopRow += `<span class="outline-badge">${escapeHTML(movie.runtime)}</span>`;
         }
 
-        if (movie.tmdbRating) badgesHtml += `<span class="tmdb-badge">TMDB ${movie.tmdbRating}</span>`;
-        if (movie.ageRating && movie.ageRating !== "Нет данных") badgesHtml += `<span class="outline-badge">${movie.ageRating}</span>`;
-        badgesHtml += `<span class="outline-badge">ID №${movie.id || 0}</span>`;
+        if (movie.tmdbRating) badgesTopRow += `<span class="tmdb-badge">TMDB ${movie.tmdbRating}</span>`;
+        if (movie.ageRating && movie.ageRating !== "Нет данных") badgesTopRow += `<span class="outline-badge">${movie.ageRating}</span>`;
+        badgesTopRow += `<span class="outline-badge">ID №${movie.id || 0}</span>`;
         
+        // Нижний ряд бейджиков (кнопки)
+        let badgesBottomRow = '';
         if (movie.postUrl) {
-            badgesHtml += `
+            badgesBottomRow += `
             <a href="${movie.postUrl}" target="_blank" class="outline-badge tg-modal-badge" onclick="event.stopPropagation();">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 ТГ ПОСТ
             </a>`;
         }
-
         if (movie.kinopoiskId && isOnlineBtnVisible) {
-            badgesHtml += `<a href="https://kinomix.web.app/movie/${movie.kinopoiskId}" target="_blank" class="watch-online-btn" style="margin-left: 4px;" onclick="event.stopPropagation();">Смотреть Онлайн</a>`;
+            badgesBottomRow += `<a href="https://kinomix.web.app/movie/${movie.kinopoiskId}" target="_blank" class="watch-online-btn" style="margin-left: 0;" onclick="event.stopPropagation();">Смотреть Онлайн</a>`;
         }
         
-        document.getElementById('modalBadges').innerHTML = badgesHtml;
+        let finalBadgesHTML = `
+            <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">${badgesTopRow}</div>
+                ${badgesBottomRow ? `<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">${badgesBottomRow}</div>` : ''}
+            </div>
+        `;
+        document.getElementById('modalBadges').innerHTML = finalBadgesHTML;
         
         let genresHtml = '';
         if (movie.genres && movie.genres !== "Нет данных") {
@@ -1259,7 +1253,6 @@
         
         const isWatched = movie.status === "Смотрели";
         
-        
         let statusTextHTML = '';
         if (movie.isWatching) {
             statusTextHTML = `<span class="badge-status" style="background: #ffd700; color: #130f1c; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4); margin:0; padding:6px 12px; font-size: 13px;">СМОТРИМ</span>`;
@@ -1270,7 +1263,6 @@
         }
         document.getElementById('modalStatusLabel').innerHTML = statusTextHTML;
 
-        
         document.getElementById('modalDateReq').innerHTML = movie.dateRequested ? `<div class="modal-grid-box">${movie.dateRequested.split(' ')[0]}</div>` : `<div class="grid-value" style="color: var(--text-muted); font-weight: normal;">Нет данных</div>`;
         
         const dateWatchedEl = document.getElementById('modalDateWatched');
@@ -1283,7 +1275,6 @@
             watchedHtml = `<div class="modal-grid-box" style="background: rgba(92,242,138,0.1); border-color: transparent;">Еще не смотрели</div>`; 
         }
         dateWatchedEl.innerHTML = `<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px;">${watchedHtml}</div>`;
-        
         
         const tagsBlock = document.getElementById('modalTagsBlock');
         const modalMainGrid = document.getElementById('modalMainGrid');
@@ -1319,8 +1310,6 @@
             dateWatchedCol.classList.add('border-right');
         }
         
-
-        
         let financesValue = (movie.budget || movie.revenue) ? `<div class="modal-grid-box" style="margin-top: 4px;">${movie.budget || '0 $'} / ${movie.revenue || '0 $'}</div>` : `<div class="grid-value" style="color: var(--text-muted); font-weight: normal; margin-top: 4px;">0 $ / 0 $</div>`;
         let isSeries = movie.seasons && movie.episodes && String(movie.seasons) !== "0" && String(movie.episodes) !== "0";
         
@@ -1349,11 +1338,9 @@
         }
         document.getElementById('modalRow3Wrapper').innerHTML = row3Html;
         
-
         const cleanNick = movie.requestedBy.replace('@', '').trim();
         const userColor = stringToColor(cleanNick);
         let avatarMarkup = movie.userAvatar && movie.userAvatar.startsWith('http') ? `<img src="${movie.userAvatar}" class="req-avatar" style="width:32px; height:32px; border-width:2px; border-radius:50%; object-fit:cover; margin-right:10px;" alt="">` : `<div class="req-avatar" style="width:32px; height:32px; font-size:14px; border-width:2px; background-color: ${userColor}; border-color: ${userColor}; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-right:10px; color:var(--bg-deep); font-weight:800;">${getInitials(cleanNick)}</div>`;
-        
         
         let reqInner = `<div class="modal-requester-link hover-active" onclick="window.open('https://twitch.tv/${cleanNick}', '_blank')" style="display:flex; align-items:center; margin-bottom: 8px;">${avatarMarkup}<span class="name-text">${cleanNick}</span></div>`;
         if (movie.isAuction) reqInner += `<div class="modal-grid-box" style="margin-top: 0; margin-bottom: 6px; color: var(--warm-star); border-color: var(--warm-star); background: rgba(34, 24, 54, 0.9); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">✦ Аукцион ✦</div>`;
@@ -1361,7 +1348,6 @@
         
         document.getElementById('modalRequesterBlock').innerHTML = reqInner;
         
-
         let dirHtml = '', castHtml = '';
         if (movie.director && movie.director.name && movie.director.name !== "Нет данных") dirHtml = `<div class="modal-crew-group"><div class="grid-label">Творец</div><div class="crew-card director"><img src="${getSafePhoto(movie.director.photo)}" alt=""><span>${escapeHTML(movie.director.name)}</span></div></div>`;
         if (Array.isArray(movie.cast) && movie.cast.length > 0) castHtml = `<div class="modal-crew-group"><div class="grid-label">Лица</div><div class="modal-crew-list">${movie.cast.map(a => `<div class="crew-card"><img src="${getSafePhoto(a.photo)}" alt=""><span>${escapeHTML(a.name || '')}</span></div>`).join('')}</div></div>`;
