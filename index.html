@@ -291,9 +291,10 @@
             position: absolute; right: 8px; bottom: 8px; z-index: 16;
             background: rgba(19, 15, 28, 0.85); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8;
             cursor: pointer; padding: 6px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
-            transition: all 0.3s; opacity: 0; transform: scale(0.8);
+            transition: all 0.3s; 
+            opacity: 1; transform: scale(1); /* Теперь кнопка ТГ видна всегда */
         }
-        .card-view-item:hover .card-tg-btn { opacity: 1; transform: scale(1); }
+        /* Строчку с hover для .card-tg-btn мы удалили, она больше не нужна */
         .card-tg-btn:hover { background: #38bdf8; color: var(--bg-deep); box-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
 
         .tg-modal-badge {
@@ -484,9 +485,9 @@
                 
                 <div class="controls-panel">
                 
-                    <a href="wishlist.html" class="wishlist-link-btn">
+                    <a href="https://cherteya.github.io/wishlist/" class="wishlist-link-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                        В Вишлист
+                        WISHLIST
                     </a>
                 
                     <input type="text" id="searchInput" class="search-box" placeholder="Поиск..." oninput="applyFilters()">
