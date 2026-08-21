@@ -1217,8 +1217,14 @@
         if (movie.ageRating && movie.ageRating !== "Нет данных") badgesTopRow += `<span class="outline-badge">${movie.ageRating}</span>`;
         badgesTopRow += `<span class="outline-badge">ID №${movie.id || 0}</span>`;
         
-        // Нижний ряд бейджиков (кнопки)
+				
+		
+		
+		// Нижний ряд бейджиков (кнопки)
         let badgesBottomRow = '';
+        if (movie.kinopoiskId && isOnlineBtnVisible) {
+            badgesBottomRow += `<a href="https://kinomix.web.app/movie/${movie.kinopoiskId}" target="_blank" class="watch-online-btn" style="margin-left: 0;" onclick="event.stopPropagation();">Смотреть Онлайн</a>`;
+        }
         if (movie.postUrl) {
             badgesBottomRow += `
             <a href="${movie.postUrl}" target="_blank" class="outline-badge tg-modal-badge" onclick="event.stopPropagation();">
@@ -1226,9 +1232,8 @@
                 ТГ ПОСТ
             </a>`;
         }
-        if (movie.kinopoiskId && isOnlineBtnVisible) {
-            badgesBottomRow += `<a href="https://kinomix.web.app/movie/${movie.kinopoiskId}" target="_blank" class="watch-online-btn" style="margin-left: 0;" onclick="event.stopPropagation();">Смотреть Онлайн</a>`;
-        }
+		
+		
         
         let finalBadgesHTML = `
             <div style="display: flex; flex-direction: column; gap: 8px; width: 100%;">
