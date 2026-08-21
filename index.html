@@ -393,8 +393,8 @@
 
         .donate-buttons-grid {
             display: flex;
-            flex-direction: column;
-            gap: 6px;
+            flex-direction: row; /* Теперь кнопки в один ряд */
+            gap: 8px; /* Расстояние между кнопками */
             width: 100%;
         }
         
@@ -402,17 +402,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            padding: 8px 0;
+            flex: 1; /* Позволяет кнопкам растянуться равномерно */
+            height: 38px; /* Фиксированная высота для красивых квадратиков */
             border-radius: 10px;
-            font-family: var(--font-text);
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             text-decoration: none;
             transition: all 0.3s ease;
             box-sizing: border-box;
+        }
+
+        /* Анимация увеличения иконки при наведении */
+        .don-btn svg {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .don-btn:hover svg {
+            transform: scale(1.25);
         }
 
         /* DonationAlerts - Оранжевый */
@@ -911,12 +914,33 @@
                             <span class="price-value">${priceText}</span>
                         </div>
                         
-                        <!-- Кнопки донатов -->
+						<!-- Кнопки донатов -->
                         <div class="donate-buttons-grid">
-                            <a href="https://www.donationalerts.com/" target="_blank" class="don-btn da-btn" onclick="event.stopPropagation();">DonationAlerts</a>
-                            <a href="https://donatepay.ru/" target="_blank" class="don-btn dp-btn" onclick="event.stopPropagation();">DonatePay</a>
-                            <a href="https://send.monobank.ua/" target="_blank" class="don-btn mono-btn" onclick="event.stopPropagation();">monobank</a>
+                            <!-- DonationAlerts -->
+                            <a href="https://www.donationalerts.com/" target="_blank" class="don-btn da-btn" onclick="event.stopPropagation();" title="Донат через DonationAlerts">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                    <polygon points="10 9 15 12 10 15 10 9"></polygon>
+                                </svg>
+                            </a>
+                            
+                            <!-- DonatePay -->
+                            <a href="https://donatepay.ru/" target="_blank" class="don-btn dp-btn" onclick="event.stopPropagation();" title="Донат через DonatePay">
+                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                                    <line x1="2" y1="10" x2="22" y2="10"></line>
+                                    <circle cx="16" cy="15" r="2"></circle>
+                                </svg>
+                            </a>
+                            
+                            <!-- monobank -->
+                            <a href="https://send.monobank.ua/" target="_blank" class="don-btn mono-btn" onclick="event.stopPropagation();" title="Донат через monobank">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7A7.982 7.982 0 0 1 21 15c0 4.42-4.03 8-9 8s-9-3.58-9-8c0-2.34.89-4.5 2-6.14 0 0-1.82-6.42-.42-7 1.39-.58 4.64.26 6.42 2.26.65-.17 1.33-.26 2-.26z"></path>
+                                </svg>
+                            </a>
                         </div>
+						
                     </div>
                 </div>
             `;
