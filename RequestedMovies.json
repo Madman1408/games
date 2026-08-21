@@ -1,60 +1,10 @@
 {
   "_metadata_": {
     "streamer": "cherteya",
-    "lastUpdated": "19.08.2026 15:50",
+    "lastUpdated": "21.08.2026 16:39",
     "isOnlineBtnVisible": true
   },
   "MadMan1408": [
-    {
-      "title": "Собачья жизнь 2",
-      "year": "2019",
-      "type": "Фильм",
-      "runtime": "1 ч 49 мин",
-      "genres": "семейный, приключения, драма",
-      "studios": "🟢 Amblin Entertainment, 🟢 Reliance Entertainment, 🟢 Walden Media, 🟢 Alibaba Pictures Group, 🟢 Pariah",
-      "budget": "16.000.000 $",
-      "revenue": "78.871.079 $",
-      "tmdbRating": "8.055",
-      "overview": "Старый пес Бадди прожил несколько жизней, прежде чем воссоединиться со своим первым хозяином. Но на этом цепь его перерождений не оборвалась. Он возвращается в теле щенка, получает кличку Молли и выполняет новую миссию – принести счастье проблемной девочке-подростку СиДжей.",
-      "poster": "https://image.tmdb.org/t/p/w500/nTIYb1c3JcqFRo9V1RIzflsJTmj.jpg",
-      "tagline": "«Настоящей дружбе одной жизни мало»",
-      "backdrop": "https://image.tmdb.org/t/p/original/i109vzdCkG7W3H9FxHmfpZjgh61.jpg",
-      "cast": [
-        {
-          "name": "Марж Хелгенбергер",
-          "photo": "https://image.tmdb.org/t/p/w185/wPfXSAsk1l9Ry2sqN1Ei8GwjI9E.jpg"
-        },
-        {
-          "name": "Бетти Гилпин",
-          "photo": "https://image.tmdb.org/t/p/w185/6GvlDnnKM0WxBt0jUipBJw5VgD5.jpg"
-        },
-        {
-          "name": "헨리",
-          "photo": "https://image.tmdb.org/t/p/w185/apbaSap49dGzaE6TcmUshTWN25q.jpg"
-        },
-        {
-          "name": "Кэтрин Прескотт",
-          "photo": "https://image.tmdb.org/t/p/w185/h4K970PqPapI69OBd84aP0GYIiF.jpg"
-        }
-      ],
-      "director": {
-        "name": "Гейл Манкусо",
-        "photo": "https://image.tmdb.org/t/p/w185/yacqdjB95BaD28ZW1zhy3yeBujm.jpg"
-      },
-      "trailer": "https://www.youtube.com/watch?v=snPqBDbvpE0",
-      "ageRating": "12+",
-      "keywords": "reincarnation, sequel, growing up, dog, animal shelter",
-      "userAvatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/a8a6aa04-03ef-40e5-aae6-a8a1580e9d8c-profile_image-600x600.png",
-      "collection": "Собачья жизнь (Коллекция)",
-      "id": 26,
-      "dateRequested": "26.07.2026 11:58",
-      "status": "Не смотрели",
-      "ourRating": "Без оценки",
-      "cried": false,
-      "isAuction": false,
-      "kinopoiskId": "1122114",
-      "kinopoiskUrl": "https://www.kinopoisk.ru/film/1122114/"
-    },
     {
       "title": "Лучше не бывает",
       "year": "1997",
@@ -355,6 +305,62 @@
       "ourRating": "Без оценки",
       "cried": false,
       "isAuction": false
+    },
+    {
+      "title": "Собачья жизнь 2",
+      "year": "2019",
+      "type": "Фильм",
+      "runtime": "1 ч 49 мин",
+      "genres": "семейный, приключения, драма",
+      "studios": "🟢 Amblin Entertainment, 🟢 Reliance Entertainment, 🟢 Walden Media, 🟢 Alibaba Pictures Group, 🟢 Pariah",
+      "budget": "16.000.000 $",
+      "revenue": "78.871.079 $",
+      "tmdbRating": "8.055",
+      "overview": "Старый пес Бадди прожил несколько жизней, прежде чем воссоединиться со своим первым хозяином. Но на этом цепь его перерождений не оборвалась. Он возвращается в теле щенка, получает кличку Молли и выполняет новую миссию – принести счастье проблемной девочке-подростку СиДжей.",
+      "poster": "https://image.tmdb.org/t/p/w500/nTIYb1c3JcqFRo9V1RIzflsJTmj.jpg",
+      "tagline": "«Настоящей дружбе одной жизни мало»",
+      "backdrop": "https://image.tmdb.org/t/p/original/i109vzdCkG7W3H9FxHmfpZjgh61.jpg",
+      "cast": [
+        {
+          "name": "Марж Хелгенбергер",
+          "photo": "https://image.tmdb.org/t/p/w185/wPfXSAsk1l9Ry2sqN1Ei8GwjI9E.jpg"
+        },
+        {
+          "name": "Бетти Гилпин",
+          "photo": "https://image.tmdb.org/t/p/w185/6GvlDnnKM0WxBt0jUipBJw5VgD5.jpg"
+        },
+        {
+          "name": "헨리",
+          "photo": "https://image.tmdb.org/t/p/w185/apbaSap49dGzaE6TcmUshTWN25q.jpg"
+        },
+        {
+          "name": "Кэтрин Прескотт",
+          "photo": "https://image.tmdb.org/t/p/w185/h4K970PqPapI69OBd84aP0GYIiF.jpg"
+        }
+      ],
+      "director": {
+        "name": "Гейл Манкусо",
+        "photo": "https://image.tmdb.org/t/p/w185/yacqdjB95BaD28ZW1zhy3yeBujm.jpg"
+      },
+      "trailer": "https://www.youtube.com/watch?v=snPqBDbvpE0",
+      "ageRating": "12+",
+      "keywords": "reincarnation, sequel, growing up, dog, animal shelter",
+      "userAvatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/a8a6aa04-03ef-40e5-aae6-a8a1580e9d8c-profile_image-600x600.png",
+      "collection": "Собачья жизнь (Коллекция)",
+      "id": 26,
+      "dateRequested": "26.07.2026 11:58",
+      "status": "Не смотрели",
+      "ourRating": "Без оценки",
+      "cried": false,
+      "isAuction": false,
+      "kinopoiskId": "1122114",
+      "kinopoiskUrl": "https://www.kinopoisk.ru/film/1122114/",
+      "altPoster": "https://images-s.kinorium.com/movie/poster/398028/w1500_57487193.jpg",
+      "postUrl": "https://t.me/cherteyart/222",
+      "isBanned": false,
+      "isTheme": false,
+      "isWatching": false,
+      "isMarvel": false
     }
   ],
   "bazar_gure": [
