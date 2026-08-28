@@ -250,9 +250,6 @@
         .card-copy-btn:hover { background: var(--mint-main); color: var(--bg-deep); box-shadow: 0 0 10px rgba(92, 242, 138, 0.5); }
         .card-copy-btn.shifted { bottom: 42px; }
 
-
-
-
         /* ---- НОВЫЕ КНОПКИ ТЕЛЕГРАМ ---- */
         .tg-link-btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 6px;
@@ -276,10 +273,6 @@
             color: #38bdf8; border-color: rgba(56, 189, 248, 0.5); background: rgba(56, 189, 248, 0.05);
         }
         .tg-modal-badge:hover { background: #38bdf8; color: var(--bg-deep); box-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
-
-
-
-
 
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -372,29 +365,42 @@
         ::-webkit-scrollbar-thumb { background: var(--mint-dark); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--mint-main); }
 
-		
-		/* ---- НОВЫЕ СТИЛИ ДЛЯ ЦЕН И КНОПОК ДОНАТА (ПЛИТКА) ---- */
+        /* ---- ОБНОВЛЕННЫЕ СТИЛИ ДЛЯ ЦЕН И КНОПОК ДОНАТА (ПЛИТКА) ---- */
         .card-price-box {
-            background: rgba(19, 15, 28, 0.8);
-            border: 1px dashed rgba(92, 242, 138, 0.4);
-            border-radius: 12px;
-            padding: 8px;
-            text-align: center;
-            margin-bottom: 10px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 12px;
         }
-        .card-price-box .price-value {
-            color: #fff;
+
+        .price-badge {
+            background: rgba(92, 242, 138, 0.05);
+            border: 1px solid rgba(92, 242, 138, 0.3);
+            color: var(--mint-light);
+            padding: 4px 8px;
+            border-radius: 8px;
+            font-size: 11px;
             font-family: var(--font-text);
-            font-size: 14px;
             font-weight: 800;
             letter-spacing: 0.5px;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .card-view-item:hover .price-badge {
+            border-color: var(--mint-main);
+            background: rgba(92, 242, 138, 0.15);
+            color: #fff;
+            box-shadow: 0 0 8px rgba(92, 242, 138, 0.2);
+            transform: translateY(-1px);
         }
 
         .donate-buttons-grid {
             display: flex;
-            flex-direction: row; /* Теперь кнопки в один ряд */
-            gap: 8px; /* Расстояние между кнопками */
+            flex-direction: row;
+            gap: 8px;
             width: 100%;
         }
         
@@ -402,15 +408,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex: 1; /* Позволяет кнопкам растянуться равномерно */
-            height: 38px; /* Фиксированная высота для красивых квадратиков */
+            flex: 1;
+            height: 38px;
             border-radius: 10px;
             text-decoration: none;
             transition: all 0.3s ease;
             box-sizing: border-box;
         }
 
-        /* Анимация увеличения иконки при наведении */
         .don-btn svg {
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -430,8 +435,6 @@
         .mono-btn { background: rgba(255, 255, 255, 0.05); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.2); }
         .mono-btn:hover { background: #ffffff; color: #000000; box-shadow: 0 0 12px rgba(255, 255, 255, 0.5); transform: translateY(-2px); }
 
-
-			
         @media (max-width: 1024px) {
             .movies-grid { grid-template-columns: repeat(4, 1fr); }
         }
@@ -667,7 +670,6 @@
         });
     }
 
-
     function copyMovieNameFromTable(event, title, year, btnElement) {
         event.stopPropagation();
         copyTextToClipboard(title, btnElement);
@@ -676,7 +678,6 @@
         if (currentModalMovie) copyTextToClipboard(currentModalMovie.title || '', document.getElementById('modalCopyBtn'));
     }
     
-	
     function copyUpdateCmdFromModal(btnElement) {
         if (currentModalMovie) {
             const title = (currentModalMovie.title || '').trim();
@@ -684,7 +685,6 @@
             copyTextToClipboard(cmd, btnElement);
         }
     }
-
 
     async function loadCreatorAvatars() {
         try {
@@ -846,13 +846,6 @@
         autoResizeTitles();
     }
 
-
-
-
-
-
-
-
     function renderGridMode(renderArea) {
         const gridContainer = document.createElement('div');
         gridContainer.className = 'movies-grid';
@@ -862,8 +855,17 @@
             const cleanTitle = escapeHTML(movie.title || 'Безымянный');
             const safeTitle = (movie.title || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
             
-            // Получаем цену (логика как в модальном окне)
+            // Получаем цену
             const priceText = movie.price && movie.price !== "Неизвестно" ? movie.price : "Цена не найдена";
+
+            // Разбиваем строку цен на отдельные бейджи
+            let priceBadgesMarkup = '';
+            if (priceText !== "Цена не найдена") {
+                const prices = priceText.split('/').map(p => p.trim());
+                priceBadgesMarkup = prices.map(p => `<span class="price-badge">${escapeHTML(p)}</span>`).join('');
+            } else {
+                priceBadgesMarkup = `<span class="price-badge" style="opacity: 0.6;">Нет цены</span>`;
+            }
 
             const hasPost = !!movie.postUrl;
             let copyBtnClass = 'card-copy-btn';
@@ -912,10 +914,10 @@
                         
                         <!-- Блок цены -->
                         <div class="card-price-box">
-                            <span class="price-value">${priceText}</span>
+                            ${priceBadgesMarkup}
                         </div>
                         
-						<!-- Кнопки донатов -->
+                        <!-- Кнопки донатов -->
                         <div class="donate-buttons-grid">
                             <!-- DonationAlerts -->
                             <a href="https://www.donationalerts.com/" target="_blank" class="don-btn da-btn" onclick="event.stopPropagation();" title="Донат через DonationAlerts">
@@ -943,7 +945,7 @@
                                 </svg>
                             </a>
                         </div>
-						
+                        
                     </div>
                 </div>
             `;
@@ -953,13 +955,6 @@
         renderArea.appendChild(gridContainer);
         autoResizeTitles(); 
     }
-	
-	
-	
-	
-	
-	
-	
 
     function autoResizeTitles() {
         setTimeout(() => {
@@ -1137,19 +1132,17 @@
         const priceText = movie.price && movie.price !== "Неизвестно" ? movie.price : "Цена не найдена / Скрыта";
         priceEl.textContent = priceText;
 
-        // ПРОВЕРКА НА ЗНАК ~ (если есть, показываем подсказку, если нет — скрываем)
+        // ПРОВЕРКА НА ЗНАК ~
         if (priceText.includes('~')) {
             priceNoticeEl.style.display = 'block';
         } else {
             priceNoticeEl.style.display = 'none';
         }
         
-		
         const titleForCmd = (movie.title || 'Безымянный').trim();
         updateCmdEl.textContent = `!gz ${titleForCmd} (data)`;
 
         document.getElementById('modalStudios').textContent = movie.studios === "Нет данных" || !movie.studios ? "Архив скрыт" : movie.studios;
-
 
         modal.classList.add('active'); document.body.style.overflow = 'hidden'; 
     }
