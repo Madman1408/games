@@ -384,7 +384,7 @@
             color: var(--mint-light);
             padding: 6px 4px;
             border-radius: 8px;
-            font-size: 11px;
+            font-size: 15px; 
             font-family: var(--font-text);
             font-weight: 800;
             letter-spacing: 0.5px;
@@ -492,9 +492,13 @@
                 
                 <div class="controls-panel">
                     <input type="text" id="searchInput" class="search-box" placeholder="Поиск по вишлисту..." oninput="applyFilters()">
+                    
+                    <!-- ДОБАВЛЕНА СОРТИРОВКА ПО ЦЕНЕ -->
                     <select id="sortSelect" class="sort-select" onchange="applyFilters()">
                         <option value="newest">По дате добавления (Новые)</option>
                         <option value="oldest">По дате добавления (Старые)</option>
+                        <option value="price_asc">По цене (Сначала дешевые)</option>
+                        <option value="price_desc">По цене (Сначала дорогие)</option>
                     </select>
 
                     <button class="view-toggle-btn" id="viewToggleBtn" onclick="toggleViewMode()">
@@ -718,6 +722,19 @@
         return new Date(dmy[2], dmy[1]-1, dmy[0]).getTime();
     }
 
+    /* ФУНКЦИЯ ДЛЯ ВЫДЕЛЕНИЯ ЧИСЛА ИЗ СТРОКИ С ЦЕНОЙ */
+    function getNumericPrice(priceStr) {
+        if (!priceStr || priceStr === "Неизвестно" || priceStr === "Цена не найдена") return Infinity;
+        if (priceStr.toLowerCase().includes('бесплатно') || priceStr.toLowerCase().includes('free')) return 0;
+        
+        const match = priceStr.match(/[\d\s]+[,.]?\d*/);
+        if (match) {
+            const num = parseFloat(match[0].replace(/\s/g, '').replace(',', '.'));
+            return isNaN(num) ? Infinity : num;
+        }
+        return Infinity;
+    }
+
     async function loadMovies() {
         const renderArea = document.getElementById('render-area');
         try {
@@ -739,6 +756,7 @@
         }
     }
 
+    /* ОБНОВЛЕННЫЙ ФИЛЬТР С ПОДДЕРЖКОЙ СОРТИРОВКИ ПО ЦЕНЕ */
     function applyFilters() {
         const searchQuery = document.getElementById('searchInput').value.toLowerCase();
         let sortMode = document.getElementById('sortSelect').value;
@@ -751,8 +769,21 @@
         
         if (sortMode === 'newest') {
             filtered.sort((a, b) => b.parsedDate - a.parsedDate);
-        } else {
+        } else if (sortMode === 'oldest') {
             filtered.sort((a, b) => a.parsedDate - b.parsedDate);
+        } else if (sortMode === 'price_asc' || sortMode === 'price_desc') {
+            const isDesc = sortMode === 'price_desc';
+            filtered.sort((a, b) => {
+                let pa = getNumericPrice(a.price);
+                let pb = getNumericPrice(b.price);
+                
+                // Значения Infinity всегда кидаем в конец
+                if (pa === Infinity && pb === Infinity) return 0;
+                if (pa === Infinity) return 1; 
+                if (pb === Infinity) return -1;
+                
+                return isDesc ? pb - pa : pa - pb;
+            });
         }
         
         currentViewData = filtered; 
