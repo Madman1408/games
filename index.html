@@ -220,11 +220,14 @@
             font-size: 12px; font-weight: 800; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             width: 100%; box-sizing: border-box; text-transform: uppercase; letter-spacing: 1px; line-height: 1;
         }
+        
         .list-da-btn { background: rgba(245, 130, 32, 0.1); color: #f58220; border: 1px solid rgba(245, 130, 32, 0.3); }
         .list-da-btn:hover { background: #f58220; color: #130f1c; box-shadow: 0 0 15px rgba(245, 130, 32, 0.5); transform: translateY(-2px); border-color: #f58220; }
 
-        .list-dx-btn { background: rgba(129, 140, 248, 0.1); color: #818cf8; border: 1px solid rgba(129, 140, 248, 0.3); }
-        .list-dx-btn:hover { background: #818cf8; color: #130f1c; box-shadow: 0 0 15px rgba(129, 140, 248, 0.5); transform: translateY(-2px); border-color: #818cf8; }
+        /* DonateX - Фиолетовый */
+        .list-dx-btn { background: rgba(176, 91, 255, 0.1); color: #b05bff; border: 1px solid rgba(176, 91, 255, 0.3); }
+        .list-dx-btn:hover { background: #b05bff; color: #ffffff; box-shadow: 0 0 15px rgba(176, 91, 255, 0.5); transform: translateY(-2px); border-color: #b05bff; }
+
 
         .movies-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; padding: 20px; }
         
@@ -458,16 +461,16 @@
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .don-btn:hover svg {
-            transform: scale(1.25);
+            transform: scale(1.15);
         }
 
         /* DonationAlerts - Оранжевый */
         .da-btn { background: rgba(245, 130, 32, 0.1); color: #f58220; border: 1px solid rgba(245, 130, 32, 0.3); }
         .da-btn:hover { background: #f58220; color: #130f1c; box-shadow: 0 0 15px rgba(245, 130, 32, 0.5); transform: translateY(-2px); border-color: #f58220; }
 
-        /* DonateX - Фиолетово-синий */
-        .dx-btn { background: rgba(129, 140, 248, 0.1); color: #818cf8; border: 1px solid rgba(129, 140, 248, 0.3); }
-        .dx-btn:hover { background: #818cf8; color: #130f1c; box-shadow: 0 0 15px rgba(129, 140, 248, 0.5); transform: translateY(-2px); border-color: #818cf8; }
+        /* DonateX - Фиолетовый */
+        .dx-btn { background: rgba(176, 91, 255, 0.1); color: #b05bff; border: 1px solid rgba(176, 91, 255, 0.3); }
+        .dx-btn:hover { background: #b05bff; color: #ffffff; box-shadow: 0 0 15px rgba(176, 91, 255, 0.5); transform: translateY(-2px); border-color: #b05bff; }
 
         @media (max-width: 1024px) {
             .movies-grid { grid-template-columns: repeat(4, 1fr); }
@@ -639,9 +642,22 @@
                                         </a>
                                         <!-- DonateX -->
                                         <a href="https://donatex.gg/sarachuma" target="_blank" class="list-don-btn list-dx-btn" style="height: 42px; border-radius: 2px; font-size: 13px;" title="Донат через DonateX">
-                                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <circle cx="12" cy="12" r="10"></circle>
-                                                <path d="M8 8l8 8M16 8l-8 8"></path>
+                                            <svg width="20" height="20" viewBox="22 1 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <defs>
+                                                    <linearGradient id="ring" x1="23" y1="44" x2="66" y2="4" gradientUnits="userSpaceOnUse">
+                                                        <stop offset="0" stop-color="#20B8FF"/>
+                                                        <stop offset="0.48" stop-color="#6678FF"/>
+                                                        <stop offset="1" stop-color="#B05BFF"/>
+                                                    </linearGradient>
+                                                    <linearGradient id="x" x1="32" y1="36" x2="58" y2="10" gradientUnits="userSpaceOnUse">
+                                                        <stop offset="0" stop-color="#37AFFF"/>
+                                                        <stop offset="0.48" stop-color="#6D79FF"/>
+                                                        <stop offset="1" stop-color="#C46AFF"/>
+                                                    </linearGradient>
+                                                </defs>
+                                                <circle cx="45" cy="24" r="21.15" stroke="url(#ring)" stroke-width="1.05"/>
+                                                <path d="M31.2 10.2h8.1l19.1 27.6h-8.2L31.2 10.2Z" fill="url(#x)"/>
+                                                <path d="M51.7 10.2h7.4L40.7 37.8h-7.6l18.6-27.6Z" fill="url(#x)"/>
                                             </svg>
                                             DONATEX
                                         </a>
@@ -900,9 +916,22 @@
                     </a>
                     <!-- DonateX -->
                     <a href="https://donatex.gg/sarachuma" target="_blank" class="list-don-btn list-dx-btn" onclick="event.stopPropagation();" title="Донат через DonateX">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M8 8l8 8M16 8l-8 8"></path>
+                        <svg width="20" height="20" viewBox="22 1 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="ring" x1="23" y1="44" x2="66" y2="4" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0" stop-color="#20B8FF"/>
+                                    <stop offset="0.48" stop-color="#6678FF"/>
+                                    <stop offset="1" stop-color="#B05BFF"/>
+                                </linearGradient>
+                                <linearGradient id="x" x1="32" y1="36" x2="58" y2="10" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0" stop-color="#37AFFF"/>
+                                    <stop offset="0.48" stop-color="#6D79FF"/>
+                                    <stop offset="1" stop-color="#C46AFF"/>
+                                </linearGradient>
+                            </defs>
+                            <circle cx="45" cy="24" r="21.15" stroke="url(#ring)" stroke-width="1.05"/>
+                            <path d="M31.2 10.2h8.1l19.1 27.6h-8.2L31.2 10.2Z" fill="url(#x)"/>
+                            <path d="M51.7 10.2h7.4L40.7 37.8h-7.6l18.6-27.6Z" fill="url(#x)"/>
                         </svg>
                         DONATEX
                     </a>
@@ -1031,9 +1060,22 @@
                             </a>
                             <!-- DonateX -->
                             <a href="https://donatex.gg/sarachuma" target="_blank" class="don-btn dx-btn" onclick="event.stopPropagation();" title="Донат через DonateX">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <path d="M8 8l8 8M16 8l-8 8"></path>
+                                <svg width="22" height="22" viewBox="22 1 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <defs>
+                                        <linearGradient id="ring" x1="23" y1="44" x2="66" y2="4" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0" stop-color="#20B8FF"/>
+                                            <stop offset="0.48" stop-color="#6678FF"/>
+                                            <stop offset="1" stop-color="#B05BFF"/>
+                                        </linearGradient>
+                                        <linearGradient id="x" x1="32" y1="36" x2="58" y2="10" gradientUnits="userSpaceOnUse">
+                                            <stop offset="0" stop-color="#37AFFF"/>
+                                            <stop offset="0.48" stop-color="#6D79FF"/>
+                                            <stop offset="1" stop-color="#C46AFF"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <circle cx="45" cy="24" r="21.15" stroke="url(#ring)" stroke-width="1.05"/>
+                                    <path d="M31.2 10.2h8.1l19.1 27.6h-8.2L31.2 10.2Z" fill="url(#x)"/>
+                                    <path d="M51.7 10.2h7.4L40.7 37.8h-7.6l18.6-27.6Z" fill="url(#x)"/>
                                 </svg>
                             </a>
                         </div>
