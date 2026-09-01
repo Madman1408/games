@@ -483,11 +483,12 @@
             .controls-panel { width: 100%; order: 3; margin-top: 10px; }
 
             /* --- ФИКС МОДАЛЬНОГО ОКНА ДЛЯ ПЛАНШЕТОВ --- */
-            /* Постер сверху, текст снизу, НО сетку характеристик не ломаем! */
-            .modal-body { flex-direction: column; margin-top: -60px; padding: 20px; }
-            .modal-poster { width: 160px; margin: 0 auto; }
+            /* ПОДНИМАЕМ ПОСТЕР ВЫШЕ (было -60px, стало -90px) */
+            .modal-body { flex-direction: column; margin-top: -90px; padding: 20px; }
             
-            /* Возвращаем красивый отступ для колонки с тегами, если она есть */
+            /* Делаем картинку блочной, чтобы margin: 0 auto сработал железно */
+            .modal-poster { display: block; width: 160px; margin: 0 auto; }
+            
             #modalTagsColumn { padding-left: 25px !important; }
         }
 
@@ -504,9 +505,6 @@
             .header-top h1::before, .header-top h1::after { display: none; }
             .controls-panel { order: 4; flex-direction: column; align-items: center; width: 100%; gap: 10px; margin-top: 0; box-sizing: border-box; }
             .search-box, .sort-select { width: 100%; max-width: 100%; margin: 0; box-sizing: border-box; }
-            
-            /* Обрати внимание: мы убрали отсюда центрирование жанров и слом таблицы! 
-               На 768px они останутся красивыми, как на iPad Air. */
         }
 
         @media (max-width: 600px) {
@@ -519,25 +517,27 @@
             .flex-row-responsive { flex-direction: column; }
             .flex-col-half.border-right-dashed { border-right: none; border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
 
-            /* --- ЦЕНТРИРОВАНИЕ И СЕТКА 2x2 ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ --- */
-            .modal-crew-section { justify-content: center; }
+            /* --- ЦЕНТРИРОВАНИЕ ТЕЛЕФОНОВ --- */
+            .modal-crew-section { justify-content: center; text-align: center; }
             .modal-crew-group { align-items: center; }
             .modal-crew-list { justify-content: center; max-width: 175px; }
             #modalGenres { justify-content: center !important; }
 
             .grid-item, .flex-col-half { align-items: center !important; text-align: center; }
             #modalRequesterBlock, #modalTagsBlock, #modalDateWatched > div { align-items: center !important; }
+
+            /* --- РЕШАЕМ ПРОБЛЕМУ С ТОЧКАМИ (ТРОЕТОЧИЕМ) --- */
+            /* Разрешаем названию переноситься на новые строки и центрируем его вместе с годом */
+            .modal-title-wrapper { flex-direction: column; align-items: center; text-align: center; }
+            .modal-title { font-size: 26px !important; white-space: normal !important; text-align: center; }
+            .modal-meta-wrapper { justify-content: center; }
         }
 
         @media (max-width: 480px) {
             .movies-grid { grid-template-columns: 1fr; } /* На телефонах 1 карточка в ряд */
             .header-top h1 { font-size: 24px; line-height: 1.2; }
-            .modal-title { font-size: 24px !important; white-space: normal !important; text-align: center; }
-            .modal-title-wrapper { flex-direction: column; align-items: center; text-align: center; }
+            .modal-title { font-size: 24px !important; }
             .modal-poster { width: 120px; }
-            .modal-meta-wrapper { justify-content: center; }
-            .modal-crew-section { justify-content: center; text-align: center; }
-            .crew-section { flex-wrap: wrap; justify-content: center; }
         }
         /* --- КОНЕЦ АДАПТИВА --- */
 
