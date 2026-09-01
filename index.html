@@ -473,11 +473,37 @@
 
         /* Выделяем модальное окно специально для планшетов (включая iPad Air 820px) */
         @media (max-width: 1024px) {
-            /* Переводим модалку в вертикальный вид */
+            /* --- ФИКС ШАПКИ (Чтобы не наезжали кнопки) --- */
+            .header { 
+                display: flex; 
+                flex-wrap: wrap; 
+                justify-content: space-between; 
+                align-items: center; 
+                padding: 25px 20px 20px;
+            }
+            .back-btn, .creator-badge { 
+                position: relative; /* Отменяем жесткую привязку к краям */
+                top: auto; left: auto; right: auto;
+                order: 1; /* Кнопки на первую строку */
+            }
+            .header-top { 
+                width: 100%; 
+                order: 2; /* Заголовок спускаем на вторую строку */
+                margin-top: 15px; 
+            }
+            .header-top h1 { 
+                font-size: 42px; /* Чуть уменьшаем шрифт для аккуратности */
+            }
+            .controls-panel {
+                width: 100%;
+                order: 3; /* Панель управления на третью строку */
+                margin-top: 10px;
+            }
+
+            /* --- ФИКС МОДАЛЬНОГО ОКНА --- */
             .modal-body { flex-direction: column; margin-top: -60px; padding: 20px; }
             .modal-poster { width: 160px; margin: 0 auto; }
             
-            /* Схлопываем сетку в 1 колонку */
             .modal-grid { grid-template-columns: 1fr !important; }
             .grid-item.border-right { border-right: none !important; }
             .grid-item { border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
@@ -486,7 +512,7 @@
             .flex-row-responsive { flex-direction: column; }
             .flex-col-half.border-right-dashed { border-right: none; border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
 
-            /* --- НАШЕ ЦЕНТРИРОВАНИЕ ДЛЯ ПЛАНШЕТОВ И МОБИЛОК --- */
+            /* Наше центрирование для планшетов */
             .modal-crew-section { justify-content: center; }
             .modal-crew-group { align-items: center; }
             .modal-crew-list { justify-content: center; max-width: 175px; }
@@ -496,18 +522,19 @@
         }
 
         @media (max-width: 768px) {
-            /* Основная сетка и шапка для телефонов */
             .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
             .modal-poster { width: 140px; }
 
-            .controls-panel { flex-direction: column; align-items: stretch; width: 100%; box-sizing: border-box; }
-            .search-box, .sort-select { width: 100%; max-width: none; margin-bottom: 5px; }
-
-            .header { display: flex; flex-direction: column; align-items: center; gap: 15px; padding: 20px 10px; }
-            .back-btn { position: relative; top: 0; left: 0; align-self: center; justify-content: center; width: 100%; box-sizing: border-box; }
-            .creator-badge { position: relative; top: 0; right: 0; align-self: center; }
-            .header-top h1 { font-size: 28px; margin: 5px 0 10px 0; text-align: center; }
+            /* Шапка для телефонов (Выстраиваем всё в одну колонку) */
+            .header { flex-direction: column; justify-content: center; gap: 15px; padding: 20px 10px; }
+            .back-btn { width: 100%; justify-content: center; order: 1; }
+            .creator-badge { order: 2; }
+            .header-top { order: 3; margin-top: 0; }
+            .header-top h1 { font-size: 28px; margin: 0 0 10px 0; }
             .header-top h1::before, .header-top h1::after { display: none; }
+            
+            .controls-panel { order: 4; flex-direction: column; align-items: stretch; margin-top: 5px; }
+            .search-box, .sort-select { width: 100%; max-width: none; margin-bottom: 5px; }
         }
 
         @media (max-width: 480px) {
