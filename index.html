@@ -525,16 +525,54 @@
             .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
             .modal-poster { width: 140px; }
 
-            /* Шапка для телефонов (Выстраиваем всё в одну колонку) */
-            .header { flex-direction: column; justify-content: center; gap: 15px; padding: 20px 10px; }
-            .back-btn { width: 100%; justify-content: center; order: 1; }
-            .creator-badge { order: 2; }
-            .header-top { order: 3; margin-top: 0; }
-            .header-top h1 { font-size: 28px; margin: 0 0 10px 0; }
+            /* Чиним шапку: аккуратное центрирование без растягивания на весь экран */
+            .header { 
+                flex-direction: column; 
+                justify-content: center; 
+                align-items: center; 
+                gap: 15px; 
+                padding: 20px 15px; /* Чуть больше отступ по бокам, чтобы инпуты не прилипали к краям */
+                box-sizing: border-box;
+            }
+            
+            .back-btn { 
+                order: 1;
+                width: auto; /* Убираем уродливое растягивание */
+                margin: 0;
+            }
+            .creator-badge { 
+                order: 2; 
+                margin: 0;
+            }
+            
+            .header-top { 
+                order: 3; 
+                width: 100%; 
+                margin-top: 5px; 
+            }
+            .header-top h1 { 
+                font-size: 32px; 
+                margin: 0 0 10px 0; 
+                text-align: center; 
+            }
             .header-top h1::before, .header-top h1::after { display: none; }
             
-            .controls-panel { order: 4; flex-direction: column; align-items: stretch; margin-top: 5px; }
-            .search-box, .sort-select { width: 100%; max-width: none; margin-bottom: 5px; }
+            /* Чиним фильтры, чтобы они не вылезали за рамки */
+            .controls-panel { 
+                order: 4; 
+                flex-direction: column; 
+                align-items: center; 
+                width: 100%; 
+                gap: 10px; /* Используем gap вместо margin для идеального расстояния */
+                margin-top: 0; 
+                box-sizing: border-box;
+            }
+            .search-box, .sort-select { 
+                width: 100%; 
+                max-width: 100%; 
+                margin: 0; 
+                box-sizing: border-box; /* Жестко удерживаем внутри контейнера */
+            }
         }
 
         @media (max-width: 480px) {
