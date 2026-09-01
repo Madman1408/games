@@ -495,7 +495,7 @@
             .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
             .modal-poster { width: 140px; }
 
-            /* Шапка для телефонов */
+            /* Шапка для планшетов поменьше и телефонов */
             .header { flex-direction: column; justify-content: center; align-items: center; gap: 15px; padding: 20px 15px; box-sizing: border-box; }
             .back-btn { width: auto; margin: 0; order: 1; justify-content: center; }
             .creator-badge { order: 2; margin: 0; }
@@ -504,7 +504,12 @@
             .header-top h1::before, .header-top h1::after { display: none; }
             .controls-panel { order: 4; flex-direction: column; align-items: center; width: 100%; gap: 10px; margin-top: 0; box-sizing: border-box; }
             .search-box, .sort-select { width: 100%; max-width: 100%; margin: 0; box-sizing: border-box; }
+            
+            /* Обрати внимание: мы убрали отсюда центрирование жанров и слом таблицы! 
+               На 768px они останутся красивыми, как на iPad Air. */
+        }
 
+        @media (max-width: 600px) {
             /* --- СЛОМ СЕТКИ СТАТИСТИКИ (В 1 КОЛОНКУ) ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ --- */
             .modal-grid { grid-template-columns: 1fr !important; }
             .grid-item.border-right { border-right: none !important; }
@@ -525,7 +530,7 @@
         }
 
         @media (max-width: 480px) {
-            .movies-grid { grid-template-columns: 1fr; }
+            .movies-grid { grid-template-columns: 1fr; } /* На телефонах 1 карточка в ряд */
             .header-top h1 { font-size: 24px; line-height: 1.2; }
             .modal-title { font-size: 24px !important; white-space: normal !important; text-align: center; }
             .modal-title-wrapper { flex-direction: column; align-items: center; text-align: center; }
