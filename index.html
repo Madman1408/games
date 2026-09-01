@@ -465,42 +465,25 @@
 
 
 
+
+
+
 		/* --- НАЧАЛО АДАПТИВА --- */
         @media (max-width: 1150px) {
             #viewToggleBtn { display: none !important; }
             .movies-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
-        /* Выделяем модальное окно специально для планшетов (включая iPad Air 820px) */
         @media (max-width: 1024px) {
-            /* --- ФИКС ШАПКИ (Чтобы не наезжали кнопки) --- */
-            .header { 
-                display: flex; 
-                flex-wrap: wrap; 
-                justify-content: space-between; 
-                align-items: center; 
-                padding: 25px 20px 20px;
-            }
-            .back-btn, .creator-badge { 
-                position: relative; /* Отменяем жесткую привязку к краям */
-                top: auto; left: auto; right: auto;
-                order: 1; /* Кнопки на первую строку */
-            }
-            .header-top { 
-                width: 100%; 
-                order: 2; /* Заголовок спускаем на вторую строку */
-                margin-top: 15px; 
-            }
-            .header-top h1 { 
-                font-size: 42px; /* Чуть уменьшаем шрифт для аккуратности */
-            }
-            .controls-panel {
-                width: 100%;
-                order: 3; /* Панель управления на третью строку */
-                margin-top: 10px;
-            }
+            /* --- ФИКС ШАПКИ --- */
+            .header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 25px 20px 20px; }
+            .back-btn, .creator-badge { position: relative; top: auto; left: auto; right: auto; order: 1; }
+            .header-top { width: 100%; order: 2; margin-top: 15px; }
+            .header-top h1 { font-size: 42px; }
+            .controls-panel { width: 100%; order: 3; margin-top: 10px; }
 
-            /* --- ФИКС МОДАЛЬНОГО ОКНА --- */
+            /* --- ФИКС МОДАЛЬНОГО ОКНА ДЛЯ ПЛАНШЕТОВ --- */
+            /* Переводим в колонку, но оставляем выравнивание по левому краю (в 1 строку) */
             .modal-body { flex-direction: column; margin-top: -60px; padding: 20px; }
             .modal-poster { width: 160px; margin: 0 auto; }
             
@@ -511,78 +494,33 @@
             .grid-item.full-width { border-bottom: none; }
             .flex-row-responsive { flex-direction: column; }
             .flex-col-half.border-right-dashed { border-right: none; border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
-
-            /* Наше центрирование для планшетов */
-            .modal-crew-section { justify-content: center; }
-            .modal-crew-group { align-items: center; }
-            .modal-crew-list { justify-content: center; max-width: 175px; }
-
-			/* Центрируем жанры */
-            #modalGenres { 
-                justify-content: center !important; 
-            }
-
-
-            .grid-item, .flex-col-half { align-items: center !important; text-align: center; }
-            #modalRequesterBlock, #modalTagsBlock, #modalDateWatched > div { align-items: center !important; }
         }
 
         @media (max-width: 768px) {
             .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
             .modal-poster { width: 140px; }
 
-            /* Чиним шапку: аккуратное центрирование без растягивания на весь экран */
-            .header { 
-                flex-direction: column; 
-                justify-content: center; 
-                align-items: center; 
-                gap: 15px; 
-                padding: 20px 15px; /* Чуть больше отступ по бокам, чтобы инпуты не прилипали к краям */
-                box-sizing: border-box;
-            }
-            
-            .back-btn { 
-                order: 1;
-                width: auto; /* Убираем уродливое растягивание */
-                margin: 0;
-            }
-            .creator-badge { 
-                order: 2; 
-                margin: 0;
-            }
-            
-            .header-top { 
-                order: 3; 
-                width: 100%; 
-                margin-top: 5px; 
-            }
-            .header-top h1 { 
-                font-size: 32px; 
-                margin: 0 0 10px 0; 
-                text-align: center; 
-            }
+            /* Шапка для телефонов */
+            .header { flex-direction: column; justify-content: center; align-items: center; gap: 15px; padding: 20px 15px; box-sizing: border-box; }
+            .back-btn { width: auto; margin: 0; order: 1; justify-content: center; }
+            .creator-badge { order: 2; margin: 0; }
+            .header-top { order: 3; width: 100%; margin-top: 5px; }
+            .header-top h1 { font-size: 32px; margin: 0 0 10px 0; text-align: center; }
             .header-top h1::before, .header-top h1::after { display: none; }
-            
-            /* Чиним фильтры, чтобы они не вылезали за рамки */
-            .controls-panel { 
-                order: 4; 
-                flex-direction: column; 
-                align-items: center; 
-                width: 100%; 
-                gap: 10px; /* Используем gap вместо margin для идеального расстояния */
-                margin-top: 0; 
-                box-sizing: border-box;
-            }
-            .search-box, .sort-select { 
-                width: 100%; 
-                max-width: 100%; 
-                margin: 0; 
-                box-sizing: border-box; /* Жестко удерживаем внутри контейнера */
-            }
+            .controls-panel { order: 4; flex-direction: column; align-items: center; width: 100%; gap: 10px; margin-top: 0; box-sizing: border-box; }
+            .search-box, .sort-select { width: 100%; max-width: 100%; margin: 0; box-sizing: border-box; }
+
+            /* --- ЦЕНТРИРОВАНИЕ И СЕТКА 2x2 ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ --- */
+            .modal-crew-section { justify-content: center; }
+            .modal-crew-group { align-items: center; }
+            .modal-crew-list { justify-content: center; max-width: 175px; }
+            #modalGenres { justify-content: center !important; }
+
+            .grid-item, .flex-col-half { align-items: center !important; text-align: center; }
+            #modalRequesterBlock, #modalTagsBlock, #modalDateWatched > div { align-items: center !important; }
         }
 
         @media (max-width: 480px) {
-            /* Ультра-узкие экраны */
             .movies-grid { grid-template-columns: 1fr; }
             .header-top h1 { font-size: 24px; line-height: 1.2; }
             .modal-title { font-size: 24px !important; white-space: normal !important; text-align: center; }
@@ -593,6 +531,15 @@
             .crew-section { flex-wrap: wrap; justify-content: center; }
         }
         /* --- КОНЕЦ АДАПТИВА --- */
+
+
+
+
+
+
+
+
+
 
 
 
