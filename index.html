@@ -494,6 +494,31 @@
             .creator-badge { position: relative; top: 0; right: 0; align-self: center; }
             .header-top h1 { font-size: 28px; margin: 5px 0 10px 0; text-align: center; }
             .header-top h1::before, .header-top h1::after { display: none; }
+			
+			
+			
+			/* --- ЦЕНТРИРОВАНИЕ ТОЛЬКО ДЛЯ МОБИЛОК --- */
+            
+            /* Сетка 2x2 для актеров */
+            .modal-crew-section { justify-content: center; }
+            .modal-crew-group { align-items: center; }
+            .modal-crew-list { justify-content: center; max-width: 175px; }
+
+            /* Центрирование сетки статистики */
+            .grid-item, .flex-col-half { 
+                align-items: center !important; 
+                text-align: center; 
+            }
+            
+            /* Перебиваем инлайн-стили JS */
+            #modalRequesterBlock, 
+            #modalTagsBlock, 
+            #modalDateWatched > div { 
+                align-items: center !important; 
+            }
+			
+			
+			
         }
 
         @media (max-width: 480px) {
