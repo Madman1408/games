@@ -464,34 +464,35 @@
 
 
 
-
-
-
-
 		/* --- НАЧАЛО АДАПТИВА --- */
         @media (max-width: 1150px) {
             #viewToggleBtn { display: none !important; }
             .movies-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
+        /* На 1024px (iPad Pro) чиним шапку, но модалку оставляем как на ПК (постер слева) */
         @media (max-width: 1024px) {
-            /* --- ФИКС ШАПКИ --- */
             .header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 25px 20px 20px; }
             .back-btn, .creator-badge { position: relative; top: auto; left: auto; right: auto; order: 1; }
             .header-top { width: 100%; order: 2; margin-top: 15px; }
             .header-top h1 { font-size: 42px; }
             .controls-panel { width: 100%; order: 3; margin-top: 10px; }
 
-            /* --- ПЕРЕВОД МОДАЛКИ В КОЛОНКУ (ПОСТЕР СВЕРХУ И ПО ЦЕНТРУ) ТЕПЕРЬ С 1024px --- */
+            /* Сжимаем отступы модалки, чтобы на 1024px всё красиво влезло в строку */
+            .modal-body { padding: 0 20px 30px 20px; gap: 20px; }
+            .modal-poster { width: 180px; }
+        }
+
+        /* А вот всё, что СТРОГО МЕНЬШЕ 1024px (820px, 912px) — переводим в колонку с постером по центру */
+        @media (max-width: 1023px) {
             .modal-body { flex-direction: column; margin-top: -90px; padding: 20px; }
             .modal-poster { display: block; width: 160px; margin: 0 auto; }
-            
             #modalTagsColumn { padding-left: 25px !important; }
         }
 
         @media (max-width: 768px) {
             .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
-            .modal-poster { width: 140px; } /* На телефонах постер делаем чуть меньше */
+            .modal-poster { width: 140px; } 
             
             /* Шапка для планшетов поменьше и телефонов */
             .header { flex-direction: column; justify-content: center; align-items: center; gap: 15px; padding: 20px 15px; box-sizing: border-box; }
@@ -530,7 +531,7 @@
         }
 
         @media (max-width: 480px) {
-            .movies-grid { grid-template-columns: 1fr; } /* На телефонах 1 карточка в ряд */
+            .movies-grid { grid-template-columns: 1fr; } 
             .header-top h1 { font-size: 24px; line-height: 1.2; }
             .modal-title { font-size: 24px !important; }
             .modal-poster { width: 120px; }
@@ -540,19 +541,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-        
         
     
         .legendary-badge {
