@@ -482,14 +482,16 @@
             .header-top h1 { font-size: 42px; }
             .controls-panel { width: 100%; order: 3; margin-top: 10px; }
 
-            /* --- МОДАЛЬНОЕ ОКНО: ОСТАВЛЯЕМ КАК НА ПК (ПОСТЕР СЛЕВА) --- */
-            /* Чуть сжимаем отступы, чтобы на 820px текст не задыхался */
-            .modal-body { padding: 0 20px 30px 20px; gap: 20px; }
-            .modal-poster { width: 180px; }
+            /* --- ПЕРЕВОД МОДАЛКИ В КОЛОНКУ (ПОСТЕР СВЕРХУ И ПО ЦЕНТРУ) ТЕПЕРЬ С 1024px --- */
+            .modal-body { flex-direction: column; margin-top: -90px; padding: 20px; }
+            .modal-poster { display: block; width: 160px; margin: 0 auto; }
+            
+            #modalTagsColumn { padding-left: 25px !important; }
         }
 
         @media (max-width: 768px) {
             .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
+            .modal-poster { width: 140px; } /* На телефонах постер делаем чуть меньше */
             
             /* Шапка для планшетов поменьше и телефонов */
             .header { flex-direction: column; justify-content: center; align-items: center; gap: 15px; padding: 20px 15px; box-sizing: border-box; }
@@ -500,10 +502,6 @@
             .header-top h1::before, .header-top h1::after { display: none; }
             .controls-panel { order: 4; flex-direction: column; align-items: center; width: 100%; gap: 10px; margin-top: 0; box-sizing: border-box; }
             .search-box, .sort-select { width: 100%; max-width: 100%; margin: 0; box-sizing: border-box; }
-
-            /* --- ПЕРЕВОД МОДАЛКИ В КОЛОНКУ (ПОСТЕР СВЕРХУ) НАЧИНАЕТСЯ ТОЛЬКО ЗДЕСЬ --- */
-            .modal-body { flex-direction: column; margin-top: -90px; padding: 20px; }
-            .modal-poster { display: block; width: 160px; margin: 0 auto; }
         }
 
         @media (max-width: 600px) {
