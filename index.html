@@ -483,17 +483,12 @@
             .controls-panel { width: 100%; order: 3; margin-top: 10px; }
 
             /* --- ФИКС МОДАЛЬНОГО ОКНА ДЛЯ ПЛАНШЕТОВ --- */
-            /* Переводим в колонку, но оставляем выравнивание по левому краю (в 1 строку) */
+            /* Постер сверху, текст снизу, НО сетку характеристик не ломаем! */
             .modal-body { flex-direction: column; margin-top: -60px; padding: 20px; }
             .modal-poster { width: 160px; margin: 0 auto; }
             
-            .modal-grid { grid-template-columns: 1fr !important; }
-            .grid-item.border-right { border-right: none !important; }
-            .grid-item { border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
-            #modalTagsColumn { grid-row: auto !important; grid-column: 1 / -1 !important; border-bottom: 1px solid rgba(254, 0, 0, 0.3); padding-left: 0 !important;}
-            .grid-item.full-width { border-bottom: none; }
-            .flex-row-responsive { flex-direction: column; }
-            .flex-col-half.border-right-dashed { border-right: none; border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
+            /* Возвращаем красивый отступ для колонки с тегами, если она есть */
+            #modalTagsColumn { padding-left: 25px !important; }
         }
 
         @media (max-width: 768px) {
@@ -509,6 +504,15 @@
             .header-top h1::before, .header-top h1::after { display: none; }
             .controls-panel { order: 4; flex-direction: column; align-items: center; width: 100%; gap: 10px; margin-top: 0; box-sizing: border-box; }
             .search-box, .sort-select { width: 100%; max-width: 100%; margin: 0; box-sizing: border-box; }
+
+            /* --- СЛОМ СЕТКИ СТАТИСТИКИ (В 1 КОЛОНКУ) ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ --- */
+            .modal-grid { grid-template-columns: 1fr !important; }
+            .grid-item.border-right { border-right: none !important; }
+            .grid-item { border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
+            #modalTagsColumn { grid-row: auto !important; grid-column: 1 / -1 !important; border-bottom: 1px solid rgba(254, 0, 0, 0.3); padding-left: 0 !important;}
+            .grid-item.full-width { border-bottom: none; }
+            .flex-row-responsive { flex-direction: column; }
+            .flex-col-half.border-right-dashed { border-right: none; border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
 
             /* --- ЦЕНТРИРОВАНИЕ И СЕТКА 2x2 ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ --- */
             .modal-crew-section { justify-content: center; }
