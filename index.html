@@ -482,20 +482,15 @@
             .header-top h1 { font-size: 42px; }
             .controls-panel { width: 100%; order: 3; margin-top: 10px; }
 
-            /* --- ФИКС МОДАЛЬНОГО ОКНА ДЛЯ ПЛАНШЕТОВ --- */
-            /* ПОДНИМАЕМ ПОСТЕР ВЫШЕ (было -60px, стало -90px) */
-            .modal-body { flex-direction: column; margin-top: -90px; padding: 20px; }
-            
-            /* Делаем картинку блочной, чтобы margin: 0 auto сработал железно */
-            .modal-poster { display: block; width: 160px; margin: 0 auto; }
-            
-            #modalTagsColumn { padding-left: 25px !important; }
+            /* --- МОДАЛЬНОЕ ОКНО: ОСТАВЛЯЕМ КАК НА ПК (ПОСТЕР СЛЕВА) --- */
+            /* Чуть сжимаем отступы, чтобы на 820px текст не задыхался */
+            .modal-body { padding: 0 20px 30px 20px; gap: 20px; }
+            .modal-poster { width: 180px; }
         }
 
         @media (max-width: 768px) {
             .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
-            .modal-poster { width: 140px; }
-
+            
             /* Шапка для планшетов поменьше и телефонов */
             .header { flex-direction: column; justify-content: center; align-items: center; gap: 15px; padding: 20px 15px; box-sizing: border-box; }
             .back-btn { width: auto; margin: 0; order: 1; justify-content: center; }
@@ -505,10 +500,14 @@
             .header-top h1::before, .header-top h1::after { display: none; }
             .controls-panel { order: 4; flex-direction: column; align-items: center; width: 100%; gap: 10px; margin-top: 0; box-sizing: border-box; }
             .search-box, .sort-select { width: 100%; max-width: 100%; margin: 0; box-sizing: border-box; }
+
+            /* --- ПЕРЕВОД МОДАЛКИ В КОЛОНКУ (ПОСТЕР СВЕРХУ) НАЧИНАЕТСЯ ТОЛЬКО ЗДЕСЬ --- */
+            .modal-body { flex-direction: column; margin-top: -90px; padding: 20px; }
+            .modal-poster { display: block; width: 160px; margin: 0 auto; }
         }
 
         @media (max-width: 600px) {
-            /* --- СЛОМ СЕТКИ СТАТИСТИКИ (В 1 КОЛОНКУ) ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ --- */
+            /* --- СЛОМ СЕТКИ СТАТИСТИКИ (В 1 КОЛОНКУ) --- */
             .modal-grid { grid-template-columns: 1fr !important; }
             .grid-item.border-right { border-right: none !important; }
             .grid-item { border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
@@ -526,8 +525,7 @@
             .grid-item, .flex-col-half { align-items: center !important; text-align: center; }
             #modalRequesterBlock, #modalTagsBlock, #modalDateWatched > div { align-items: center !important; }
 
-            /* --- РЕШАЕМ ПРОБЛЕМУ С ТОЧКАМИ (ТРОЕТОЧИЕМ) --- */
-            /* Разрешаем названию переноситься на новые строки и центрируем его вместе с годом */
+            /* --- РЕШАЕМ ПРОБЛЕМУ С ТРОЕТОЧИЕМ (ДЛИННЫЕ НАЗВАНИЯ) --- */
             .modal-title-wrapper { flex-direction: column; align-items: center; text-align: center; }
             .modal-title { font-size: 26px !important; white-space: normal !important; text-align: center; }
             .modal-meta-wrapper { justify-content: center; }
