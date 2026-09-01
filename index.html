@@ -460,6 +460,16 @@
 
 
 
+		/* --- Сдвиг колонок Заказчик, Длительность и Статус левее --- */
+        th:nth-child(5), 
+        td:nth-child(5) {
+            width: 200px !important;        /* Увеличиваем общую ширину (изначально было 120) */
+            min-width: 200px !important;
+            padding-right: 80px !important; /* Создаем невидимый отступ-бампер справа */
+            box-sizing: border-box;         /* Сохраняем идеальное центрирование в оставшихся 120px */
+        }
+
+
 		 @media (max-width: 1550px) { .girl-col { display: none; } }
 
 
