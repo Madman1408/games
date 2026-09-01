@@ -467,17 +467,18 @@
 
 		/* --- НАЧАЛО АДАПТИВА --- */
         @media (max-width: 1150px) {
-            /* Скрываем таблицу раньше, чтобы не сплющивало описание постеров */
             #viewToggleBtn { display: none !important; }
             .movies-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
-        @media (max-width: 768px) {
-            .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
+        /* Выделяем модальное окно специально для планшетов (включая iPad Air 820px) */
+        @media (max-width: 1024px) {
+            /* Переводим модалку в вертикальный вид */
             .modal-body { flex-direction: column; margin-top: -60px; padding: 20px; }
-            .modal-poster { width: 140px; margin: 0 auto; }
-            .modal-grid { grid-template-columns: 1fr !important; }
+            .modal-poster { width: 160px; margin: 0 auto; }
             
+            /* Схлопываем сетку в 1 колонку */
+            .modal-grid { grid-template-columns: 1fr !important; }
             .grid-item.border-right { border-right: none !important; }
             .grid-item { border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
             #modalTagsColumn { grid-row: auto !important; grid-column: 1 / -1 !important; border-bottom: 1px solid rgba(254, 0, 0, 0.3); padding-left: 0 !important;}
@@ -485,7 +486,20 @@
             .flex-row-responsive { flex-direction: column; }
             .flex-col-half.border-right-dashed { border-right: none; border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
 
-            /* Резиновая панель управления */
+            /* --- НАШЕ ЦЕНТРИРОВАНИЕ ДЛЯ ПЛАНШЕТОВ И МОБИЛОК --- */
+            .modal-crew-section { justify-content: center; }
+            .modal-crew-group { align-items: center; }
+            .modal-crew-list { justify-content: center; max-width: 175px; }
+
+            .grid-item, .flex-col-half { align-items: center !important; text-align: center; }
+            #modalRequesterBlock, #modalTagsBlock, #modalDateWatched > div { align-items: center !important; }
+        }
+
+        @media (max-width: 768px) {
+            /* Основная сетка и шапка для телефонов */
+            .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
+            .modal-poster { width: 140px; }
+
             .controls-panel { flex-direction: column; align-items: stretch; width: 100%; box-sizing: border-box; }
             .search-box, .sort-select { width: 100%; max-width: none; margin-bottom: 5px; }
 
@@ -494,35 +508,10 @@
             .creator-badge { position: relative; top: 0; right: 0; align-self: center; }
             .header-top h1 { font-size: 28px; margin: 5px 0 10px 0; text-align: center; }
             .header-top h1::before, .header-top h1::after { display: none; }
-			
-			
-			
-			/* --- ЦЕНТРИРОВАНИЕ ТОЛЬКО ДЛЯ МОБИЛОК --- */
-            
-            /* Сетка 2x2 для актеров */
-            .modal-crew-section { justify-content: center; }
-            .modal-crew-group { align-items: center; }
-            .modal-crew-list { justify-content: center; max-width: 175px; }
-
-            /* Центрирование сетки статистики */
-            .grid-item, .flex-col-half { 
-                align-items: center !important; 
-                text-align: center; 
-            }
-            
-            /* Перебиваем инлайн-стили JS */
-            #modalRequesterBlock, 
-            #modalTagsBlock, 
-            #modalDateWatched > div { 
-                align-items: center !important; 
-            }
-			
-			
-			
         }
 
         @media (max-width: 480px) {
-            /* На телефонах переводим сетку в 1 колонку, иначе карточки будут нечитаемыми */
+            /* Ультра-узкие экраны */
             .movies-grid { grid-template-columns: 1fr; }
             .header-top h1 { font-size: 24px; line-height: 1.2; }
             .modal-title { font-size: 24px !important; white-space: normal !important; text-align: center; }
@@ -532,7 +521,7 @@
             .modal-crew-section { justify-content: center; text-align: center; }
             .crew-section { flex-wrap: wrap; justify-content: center; }
         }
-        /* --- КОНЕЦ АДАПТИВА --- */А
+        /* --- КОНЕЦ АДАПТИВА --- */
 
 
 
