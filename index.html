@@ -460,34 +460,65 @@
 
 
 
-		/* --- Сдвиг колонок Заказчик, Длительность и Статус левее --- */
-        th:nth-child(5), 
-        td:nth-child(5) {
-            width: 175px !important;        /* Увеличиваем общую ширину (изначально было 120) */
-            min-width: 175px !important;
-            padding-right: 35px !important; /* Создаем невидимый отступ-бампер справа */
-            box-sizing: border-box;         /* Сохраняем идеальное центрирование в оставшихся 120px */
-        }
+		
 
 
 		 @media (max-width: 1550px) { .girl-col { display: none; } }
 
 
-		/* --- ДЛЯ БОЛЬШИХ МОНИТОРОВ (Full HD 1920px и шире) --- */
-        @media (min-width: 1800px) {
+
+
+
+
+		
+		/* --- АДАПТИВ ДЛЯ БОЛЬШИХ ЭКРАНОВ (2K / 1440p и выше) --- */
+        @media (min-width: 1920px) {
+            /* Увеличиваем главный контейнер */
             .container {
-                max-width: 1300px; /* Было 1150px, делаем шире */
+                max-width: 1600px; 
+            }
+            
+            /* Делаем 8 колонок вместо 6, чтобы карточки сохранили пропорции */
+            .movies-grid {
+                grid-template-columns: repeat(8, 1fr);
+                gap: 20px;
+            }
+            
+            /* Расширяем модальное окно */
+            .modal-content {
+                max-width: 1300px;
+            }
+            
+            /* Немного увеличиваем постер внутри модалки */
+            .modal-poster {
+                width: 250px;
+            }
+            
+            /* Заголовок делаем крупнее под стать экрану */
+            .header-top h1 {
+                font-size: 64px;
+            }
+        }
+
+        @media (min-width: 2560px) {
+            /* Персонально для 2K (1440p) мониторов на весь экран */
+            .container {
+                max-width: 2100px;
+            }
+            
+            /* 10 колонок для идеального отображения плиток */
+            .movies-grid {
+                grid-template-columns: repeat(10, 1fr);
             }
             
             .modal-content {
-                max-width: 1100px; /* Чуть растягиваем и модальное окно для пропорций (было 1000px) */
+                max-width: 1600px;
             }
             
-            /* Если захочешь, чтобы карточки не становились слишком огромными, 
-               можешь раскомментировать строку ниже и сделать 7 колонок вместо 6 */
-             .movies-grid { grid-template-columns: repeat(7, 1fr); } 
+            .modal-poster {
+                width: 300px;
+            }
         }
-		
 
 
 
