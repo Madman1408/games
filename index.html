@@ -533,17 +533,6 @@
             .modal-content { max-width: 1150px; }
             .modal-poster { width: 250px; }
             .header-top h1 { font-size: 54px; }
-            
-            /* Расширяем боковые колонки, чтобы сжать описание к центру */
-            th:nth-child(1), td:nth-child(1) { width: 180px !important; min-width: 180px !important; } /* Постер */
-            .poster-wrapper { width: 160px !important; height: 240px !important; } 
-            th:nth-child(3), td:nth-child(3) { width: 160px !important; min-width: 160px !important; } /* Добавлено */
-            th:nth-child(4), td:nth-child(4) { width: 150px !important; min-width: 150px !important; } /* Цены */
-            th:nth-child(5), td:nth-child(5) { width: 180px !important; min-width: 180px !important; } /* Ссылки */
-            th:nth-child(6), td:nth-child(6) { width: 190px !important; min-width: 190px !important; } /* Донат */
-            
-            /* Делаем так, чтобы текст описания не растягивался в бесконечную строчку */
-            .movie-overview-text, .movie-review-text { max-width: 650px; font-size: 16px; line-height: 1.6; }
         }
         
         @media (min-width: 2560px) {
@@ -558,22 +547,27 @@
                 z-index: -2; pointer-events: none;
             }
             
-            /* Расширяем боковые колонки, чтобы сжать описание к центру */
-            th:nth-child(1), td:nth-child(1) { width: 220px !important; min-width: 220px !important; }
-            .poster-wrapper { width: 180px !important; height: 270px !important; } 
-            th:nth-child(3), td:nth-child(3) { width: 200px !important; min-width: 200px !important; }
-            th:nth-child(4), td:nth-child(4) { width: 200px !important; min-width: 200px !important; } /* Цены */
-            th:nth-child(5), td:nth-child(5) { width: 250px !important; min-width: 250px !important; } /* Ссылки */
-            th:nth-child(6), td:nth-child(6) { width: 250px !important; min-width: 250px !important; } /* Донат */
+            /* --- СУЖАЕМ ОПИСАНИЕ: Отдаем пространство боковым колонкам --- */
+            th:nth-child(1), td:nth-child(1) { width: 200px !important; min-width: 200px !important; }
+            .poster-wrapper { width: 170px !important; height: 255px !important; } 
             
-            /* Ограничиваем максимальную ширину текста и увеличиваем шрифт */
-            .movie-overview-text, .movie-review-text { font-size: 17px; line-height: 1.6; max-width: 900px; }
+            th:nth-child(3), td:nth-child(3) { width: 220px !important; min-width: 220px !important; }
+            th:nth-child(4), td:nth-child(4) { width: 220px !important; min-width: 220px !important; }
+            th:nth-child(5), td:nth-child(5) { width: 220px !important; min-width: 220px !important; }
+            th:nth-child(6), td:nth-child(6) { width: 220px !important; min-width: 220px !important; }
+            
+            .movie-overview-text, .movie-review-text { font-size: 16px; line-height: 1.6; }
 
+            /* --- ФИКС КНОПОК И ОТМЕТОК ДЛЯ 2K --- */
             /* Ограничиваем ширину плашек, чтобы они не растягивались на всю 2K колонку */
             .steam-link-btn, .tg-link-btn, .play-link-btn { max-width: 140px !important; }
             .list-don-btn { max-width: 160px !important; }
             .price-badge { max-width: 120px !important; }
+            
+            /* Жестко запрещаем переносы строк внутри оценок и тегов */
+            .date-badge { white-space: nowrap !important; }
         }
+		
 
         /* 3. НЕБОЛЬШИЕ НОУТБУКИ (1280px - 1400px) - Баланс колонок */
         @media (max-width: 1400px) {
