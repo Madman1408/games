@@ -1407,10 +1407,11 @@
 			
 			
 			if (movie.isBanned) bottomBadges += `<div class="card-mini-badge" style="color: #fff; background: rgba(231, 76, 60, 0.85); border-color: #e74c3c; padding: 1px 8px 1px 4px;">🚫 БАН</div>`;
-            if (movie.requestedSeason && movie.requestedSeason > 0) bottomBadges += `<div class="card-mini-badge" style="color: #fff; border-color: var(--mint-main);">СЕЗОН ${movie.requestedSeason}</div>`;
             
             const epsCount = movie.requestedEpisodes || 0;
             if (epsCount > 0) bottomBadges += `<div class="card-mini-badge" style="color: #fff; border-color: var(--mint-main);">${getEpisodeWord(epsCount)}</div>`;
+
+            if (movie.requestedSeason && movie.requestedSeason > 0) bottomBadges += `<div class="card-mini-badge" style="color: #fff; border-color: var(--mint-main);">СЕЗОН ${movie.requestedSeason}</div>`;
 
             let avatarMarkup = movie.userAvatar && movie.userAvatar.startsWith('http') ? `<img src="${movie.userAvatar}" class="card-user-avatar" alt="">` : `<div class="card-user-avatar" style="background-color: ${userColor}; border-color: ${userColor}; color: var(--bg-deep); font-weight: 900;">${getInitials(cleanNick)}</div>`;
 
