@@ -1435,7 +1435,7 @@
             const hasBannedStudios = movie.studios && movie.studios.includes('🔴');
             // Оборачиваем красную точку в такой же темный квадрат, как и остальные кнопки
             const bannedDotMarkup = hasBannedStudios ? `
-                <div title="Запрещенная студия!" style="background: rgba(19, 15, 28, 0.85); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: help; margin: 0;">
+                <div title="Запрещенная студия!" style="background: rgba(19, 15, 28, 0.85); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0;">
                     <div style="width: 14px; height: 14px; background-color: #ff4757; border-radius: 50%; box-shadow: 0 0 8px rgba(255, 71, 87, 0.8);"></div>
                 </div>
             ` : '';
