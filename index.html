@@ -1200,11 +1200,11 @@
 			
 			
             if (movie.postUrl) {
-                watchedDetails += `<a href="${movie.postUrl}" target="_blank" class="tg-link-btn" style="margin-top: 0; width: fit-content; padding: 4px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;" onclick="event.stopPropagation();"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ</a>`;
+                watchedDetails += `<a href="${movie.postUrl}" target="_blank" class="tg-link-btn" style="margin-top: 0; width: fit-content; padding: 4px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;" onclick="event.stopPropagation();" title="Открыть основной пост"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ</a>`;
             }
             
             if (movie.reviewUrl) {
-                watchedDetails += `<a href="${movie.reviewUrl}" target="_blank" class="tg-link-btn" style="margin-top: 4px; width: fit-content; padding: 4px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;" onclick="event.stopPropagation();" title="Читать отзыв"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> ТГ ОТЗЫВ</a>`;
+                watchedDetails += `<a href="${movie.reviewUrl}" target="_blank" class="tg-link-btn" style="margin-top: 4px; width: fit-content; padding: 4px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;" onclick="event.stopPropagation();" title="Читать отзыв в Telegram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ</a>`;
             }
             
             if (isWatched && movie.dateWatched) {
@@ -1397,7 +1397,6 @@
 			
 			if (movie.isBanned) bottomBadges += `<div class="card-mini-badge" style="color: #fff; background: rgba(231, 76, 60, 0.85); border-color: #e74c3c; padding: 1px 8px 1px 4px;">🚫 БАН</div>`;
             if (movie.requestedSeason && movie.requestedSeason > 0) bottomBadges += `<div class="card-mini-badge" style="color: #fff; border-color: var(--mint-main);">СЕЗОН ${movie.requestedSeason}</div>`;
-            if (movie.reviewText && movie.reviewText.trim() !== "") bottomBadges += `<div class="card-mini-badge" style="color: var(--warm-star); border-color: var(--warm-star);">✨ Отзыв</div>`;
 
             let avatarMarkup = movie.userAvatar && movie.userAvatar.startsWith('http') ? `<img src="${movie.userAvatar}" class="card-user-avatar" alt="">` : `<div class="card-user-avatar" style="background-color: ${userColor}; border-color: ${userColor}; color: var(--bg-deep); font-weight: 900;">${getInitials(cleanNick)}</div>`;
 
@@ -1410,7 +1409,7 @@
 
             let tgReviewBtnMarkup = movie.reviewUrl ? `
                 <a href="${movie.reviewUrl}" target="_blank" class="card-tg-btn" onclick="event.stopPropagation();" title="Читать отзыв в Telegram">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 </a>
             ` : '';
 
