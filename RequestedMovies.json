@@ -1,7 +1,7 @@
 {
   "_metadata_": {
     "streamer": "MadMan1408",
-    "lastUpdated": "15.09.2026 08:10",
+    "lastUpdated": "15.09.2026 10:10",
     "isOnlineBtnVisible": true
   },
   "MadMan1408": [
@@ -598,56 +598,6 @@
   ],
   "susgirl1": [
     {
-      "title": "Мальчишник в Вегасе",
-      "year": "2009",
-      "type": "Фильм",
-      "runtime": "1 ч 40 мин",
-      "genres": "комедия",
-      "studios": "🔴 Warner Bros. Pictures | 🟢 Legendary Pictures, 🟢 Green Hat Films",
-      "budget": "35.000.000 $",
-      "revenue": "469.310.836 $",
-      "tmdbRating": "7.337",
-      "overview": "Мальчишник в Лас-Вегасе выходит из-под контроля: жених исчезает, а трое его друзей совершенно не помнят события прошлой ночи.",
-      "poster": "https://image.tmdb.org/t/p/w500/eqfuqXcv0MlbnzihcfsTaTGMbd.jpg",
-      "tagline": "",
-      "backdrop": "https://image.tmdb.org/t/p/original/iuRVt8tFiXDPGgzavhuSa3QHRxD.jpg",
-      "cast": [
-        {
-          "name": "Брэдли Купер",
-          "photo": "https://image.tmdb.org/t/p/w185/sQq0nft6YZmJ7EMQwPcbaxym3AL.jpg"
-        },
-        {
-          "name": "Эд Хелмс",
-          "photo": "https://image.tmdb.org/t/p/w185/gPZ8tZaNQGAc3KZRIPp9rgGbEnN.jpg"
-        },
-        {
-          "name": "Зак Галифианакис",
-          "photo": "https://image.tmdb.org/t/p/w185/ncBSLoNUufKpg7vzx1gCtjhst8i.jpg"
-        },
-        {
-          "name": "Джастин Барта",
-          "photo": "https://image.tmdb.org/t/p/w185/AalKjN8nR8RZ8g6ZdWV2smnQq4d.jpg"
-        }
-      ],
-      "director": {
-        "name": "Тодд Филлипс",
-        "photo": "https://image.tmdb.org/t/p/w185/A6FPht87DiqXzp456WjakLi2AtP.jpg"
-      },
-      "trailer": "",
-      "ageRating": "R",
-      "keywords": "amnesia, blackjack, stag night, lost weekend, chapel",
-      "userAvatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/f9716445-5ace-4b39-83d5-84c012925d11-profile_image-600x600.png",
-      "collection": "Мальчишник в Вегасе (Коллекция)",
-      "id": 28,
-      "dateRequested": "26.07.2026 12:39",
-      "status": "Не смотрели",
-      "ourRating": "Без оценки",
-      "cried": false,
-      "isAuction": false,
-      "kinopoiskId": "426004",
-      "kinopoiskUrl": "https://www.kinopoisk.ru/film/426004/"
-    },
-    {
       "title": "Собачья жизнь",
       "year": "2017",
       "type": "Фильм",
@@ -697,6 +647,66 @@
       "dateWatched": "20.06.2026 16:46",
       "kinopoiskId": "571896",
       "kinopoiskUrl": "https://www.kinopoisk.ru/film/571896/"
+    },
+    {
+      "title": "Мальчишник в Вегасе",
+      "year": "2009",
+      "type": "Фильм",
+      "runtime": "1 ч 40 мин",
+      "genres": "комедия",
+      "studios": "🔴 Warner Bros. Pictures | 🟢 Legendary Pictures, 🟢 Green Hat Films",
+      "budget": "35.000.000 $",
+      "revenue": "469.310.836 $",
+      "tmdbRating": "7.337",
+      "overview": "Мальчишник в Лас-Вегасе выходит из-под контроля: жених исчезает, а трое его друзей совершенно не помнят события прошлой ночи.",
+      "poster": "https://image.tmdb.org/t/p/w500/eqfuqXcv0MlbnzihcfsTaTGMbd.jpg",
+      "tagline": "",
+      "backdrop": "https://image.tmdb.org/t/p/original/iuRVt8tFiXDPGgzavhuSa3QHRxD.jpg",
+      "cast": [
+        {
+          "name": "Брэдли Купер",
+          "photo": "https://image.tmdb.org/t/p/w185/sQq0nft6YZmJ7EMQwPcbaxym3AL.jpg"
+        },
+        {
+          "name": "Эд Хелмс",
+          "photo": "https://image.tmdb.org/t/p/w185/gPZ8tZaNQGAc3KZRIPp9rgGbEnN.jpg"
+        },
+        {
+          "name": "Зак Галифианакис",
+          "photo": "https://image.tmdb.org/t/p/w185/ncBSLoNUufKpg7vzx1gCtjhst8i.jpg"
+        },
+        {
+          "name": "Джастин Барта",
+          "photo": "https://image.tmdb.org/t/p/w185/AalKjN8nR8RZ8g6ZdWV2smnQq4d.jpg"
+        }
+      ],
+      "director": {
+        "name": "Тодд Филлипс",
+        "photo": "https://image.tmdb.org/t/p/w185/A6FPht87DiqXzp456WjakLi2AtP.jpg"
+      },
+      "trailer": "",
+      "ageRating": "R",
+      "keywords": "amnesia, blackjack, stag night, lost weekend, chapel",
+      "userAvatar": "https://static-cdn.jtvnw.net/jtv_user_pictures/f9716445-5ace-4b39-83d5-84c012925d11-profile_image-600x600.png",
+      "collection": "Мальчишник в Вегасе (Коллекция)",
+      "id": 28,
+      "dateRequested": "26.07.2026 12:39",
+      "status": "Не смотрели",
+      "ourRating": "Без оценки",
+      "cried": false,
+      "isAuction": false,
+      "kinopoiskId": "426004",
+      "kinopoiskUrl": "https://www.kinopoisk.ru/film/426004/",
+      "isBanned": false,
+      "isTheme": false,
+      "isWatching": false,
+      "isMarvel": false,
+      "reviewUrl": "https://t.me/cherteyart/803",
+      "reviewText": "Доброе утро 🙂",
+      "tgRecordUrl": "https://t.me/cherteyart/803",
+      "boostyUrl": "https://boosty.to/sarachuma/posts/dfwefeswf",
+      "youtubeUrl": "https://www.youtube.com/watch?v=SDFSDF",
+      "tgRecordUrl2": "https://t.me/cherteyart/808"
     }
   ],
   "cherteya": [
