@@ -509,12 +509,33 @@
             border-color: #ffd700 !important; color: #fff !important; text-shadow: 0 0 10px #ffd700, 0 0 15px #fff !important; font-weight: 900 !important;
         }
 
+
+
+
         /* --- ОПИСАНИЕ (КЛИК-РАСКРЫТИЕ) --- */
         .movie-overview-wrapper { cursor: pointer; user-select: none; -webkit-user-select: none; }
         .movie-overview-wrapper.expanded { max-height: 1500px !important; }
         .movie-overview-wrapper.expanded .movie-overview-text { -webkit-line-clamp: unset !important; color: var(--text-main); }
 
+        /* --- ВКЛАДКИ ОПИСАНИЕ / ОТЗЫВ (СПИСОК) --- */
+        .list-tabs-container { display: flex; gap: 8px; margin-top: 8px; margin-bottom: 4px; }
+        .list-tab-btn { background: rgba(19, 15, 28, 0.6); border: 1px dashed rgba(92, 242, 138, 0.3); color: var(--text-muted); padding: 2px 10px 2px 8px; border-radius: 12px; font-size: 10px; font-family: var(--font-title); font-weight: 700; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; }
+        .list-tab-btn:hover { border-color: var(--mint-main); color: var(--mint-light); }
+        .list-tab-btn.active { background: rgba(92, 242, 138, 0.15); border-color: var(--mint-main); border-style: solid; color: var(--mint-main); box-shadow: 0 0 10px rgba(92, 242, 138, 0.3); }
+
+        /* --- ОТЗЫВ --- */
+        .movie-review-wrapper { margin-top: 4px; max-height: 50px; overflow: hidden; transition: max-height 0.3s ease; cursor: pointer; user-select: none; -webkit-user-select: none; }
+        .movie-review-text { font-size: 14px; line-height: 1.5; color: var(--mint-light); font-style: italic; border-left: 2px solid var(--mint-main); padding: 4px 10px; background: rgba(92, 242, 138, 0.05); border-radius: 0 8px 8px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: color 0.3s, background-color 0.3s; }
+        tr.movie-row:has(.poster-wrapper:hover) .movie-review-wrapper { max-height: 250px; }
+        tr.movie-row:has(.poster-wrapper:hover) .movie-review-text { -webkit-line-clamp: 20; color: #fff; background: rgba(92, 242, 138, 0.1); }
+        .movie-review-wrapper.expanded { max-height: 1500px !important; }
+        .movie-review-wrapper.expanded .movie-review-text { -webkit-line-clamp: unset !important; color: #fff; background: rgba(92, 242, 138, 0.15); }
+
         /* --- МЕДИАТЕКА (МИНИАТЮРЫ) --- */
+		
+		
+		
+		
         .media-grid { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 5px; }
         .media-thumb {
             width: 110px; height: 65px; border-radius: 8px; object-fit: cover;
@@ -704,11 +725,23 @@
                                 </button>
                             </div>
                         </div>
+						
+						
                         <div class="modal-meta-wrapper" id="modalBadges"></div>
                         <div id="modalGenres" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;"></div>
+                        
+                        <!-- ОТЗЫВ СТРИМЕРА -->
+                        <div id="modalReviewBlock" style="display: none; margin-bottom: 25px;">
+                            <div style="font-size: 11px; color: var(--warm-star); text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 8px;">✨ Отзыв от стримера</div>
+                            <div class="modal-review-text" style="font-size: 15px; line-height: 1.6; color: #fff; font-style: italic; border-left: 3px solid var(--warm-star); padding: 12px 16px; background: rgba(252, 232, 161, 0.05); border-radius: 0 12px 12px 0;"></div>
+                        </div>
+
+                        <div style="font-size: 11px; color: var(--mint-main); text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 8px;" id="modalOverviewLabel">📖 Описание</div>
                         <div class="modal-overview" id="modalOverview"></div>
                         <div class="modal-crew-section" id="modalCrewSection"></div>
                         
+						
+						
                         <div class="modal-grid" id="modalMainGrid" style="gap: 0; padding: 0;">
                             
                             <div class="grid-item border-bottom border-right" id="modalRequesterCol">
@@ -844,6 +877,10 @@
     }
 
     function copyMovieNameFromTable(event, title, year, btnElement) { event.stopPropagation(); copyTextToClipboard(`${title} ${year}`, btnElement); }
+	
+	
+	
+	
     function copyMovieNameFromModal() { 
         if (currentModalMovie) {
             const baseTitle = currentModalMovie.title || '';
@@ -851,7 +888,26 @@
         }
     }
 
+    // --- ФУНКЦИИ ДЛЯ ВКЛАДОК И ТЕКСТА ---
+    window.switchListTab = function(event, btn, tabName) {
+        event.stopPropagation();
+        const container = btn.closest('.movie-info');
+        container.querySelectorAll('.list-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        container.querySelectorAll('.movie-content-block').forEach(c => c.style.display = 'none');
+        container.querySelector(`.content-${tabName}`).style.display = 'block';
+    };
+
+    window.toggleTextExpand = function(event, element) {
+        event.stopPropagation();
+        element.classList.toggle('expanded');
+    };
+
     // --- ФУНКЦИИ ЛАЙТБОКСА (ГАЛЕРЕИ) ---
+	
+	
+	
+	
     window.openLightbox = function(index) {
         currentLightboxIndex = index;
         const item = modalMediaItems[index];
@@ -1212,11 +1268,42 @@
                     <div class="movie-info">
                         <div class="movie-header"><span class="movie-title">${cleanTitle}</span><div class="movie-meta-box"><span class="movie-year">${movie.year || '----'}</span><button class="copy-btn" onclick="copyMovieNameFromTable(event, '${safeTitleForCopy}', '${movie.year || ''}', this)" title="Скопировать"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg></button></div></div>
                         <div class="badges-container">${typeLabel} ${tmdbBadge} ${ageRating} <span class="outline-badge">ID №${movie.id || 0}</span></div>
+						
+						
                         <div class="movie-genres">${escapeHTML(movie.genres || '')}</div>
                         ${movie.tagline ? `<div class="movie-tagline">«${escapeHTML(movie.tagline)}»</div>` : ''}
                         ${movie.studios && movie.studios !== "Нет данных" ? `<div class="movie-studios-list">${escapeHTML(movie.studios)}</div>` : ''}
-                        <div class="movie-overview-wrapper"><div class="movie-overview-text">${escapeHTML(movie.overview || '')}</div></div>
+                        
+                        ${(function(){
+                            const hasReview = movie.reviewText && movie.reviewText.trim() !== "";
+                            const cleanReview = hasReview ? escapeHTML(movie.reviewText).replace(/\n/g, '<br>') : "";
+                            const cleanOverview = escapeHTML(movie.overview || 'Описание утеряно во времени...').replace(/&amp;quot;/g, '&quot;');
+                            
+                            let tabsHTML = '<div class="list-tabs-container">';
+                            if (hasReview) tabsHTML += `<button class="list-tab-btn active" onclick="switchListTab(event, this, 'review')">✨ Отзыв</button>`;
+                            tabsHTML += `<button class="list-tab-btn ${!hasReview ? 'active' : ''}" onclick="switchListTab(event, this, 'overview')">📖 Описание</button></div>`;
+                            
+                            let reviewBlock = hasReview ? `
+                                <div class="movie-content-block content-review" style="display: block;">
+                                    <div class="movie-review-wrapper" onclick="toggleTextExpand(event, this)" title="Нажмите, чтобы развернуть/свернуть">
+                                        <div class="movie-review-text">«${cleanReview}»</div>
+                                    </div>
+                                </div>` : '';
+                                
+                            let overviewBlock = `
+                                <div class="movie-content-block content-overview" style="display: ${hasReview ? 'none' : 'block'};">
+                                    <div class="movie-overview-wrapper" style="margin-top: 4px;" onclick="toggleTextExpand(event, this)" title="Нажмите, чтобы развернуть/свернуть">
+                                        <div class="movie-overview-text">${cleanOverview}</div>
+                                    </div>
+                                </div>`;
+                                
+                            return tabsHTML + reviewBlock + overviewBlock;
+                        })()}
+
                         <div class="crew-section">${directorHtml}${castHtml}</div>
+						
+						
+						
                     </div>
                 </td>
                 <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;"><div class="requester-badge" onclick="window.open('https://twitch.tv/${cleanNick}', '_blank'); event.stopPropagation();">${avatarMarkup}<span class="req-name">${cleanNick}</span></div>${movie.dateRequested ? `<div class="date-badge">${movie.dateRequested.split(' ')[0]}</div>` : ''}${auctionHTML}${seasonHTML}</div></td>
@@ -1538,7 +1625,16 @@
         }
         document.getElementById('modalGenres').innerHTML = genresHtml;
 
-        document.getElementById('modalOverview').textContent = movie.overview || 'Содержимое утеряно во времени...';
+        // --- ОТЗЫВ И ОПИСАНИЕ В МОДАЛКЕ ---
+        const reviewBlock = document.getElementById('modalReviewBlock');
+        if (movie.reviewText && movie.reviewText.trim() !== "") {
+            reviewBlock.style.display = 'block';
+            reviewBlock.querySelector('.modal-review-text').innerHTML = escapeHTML(movie.reviewText).replace(/\n/g, '<br>');
+        } else {
+            reviewBlock.style.display = 'none';
+        }
+
+        document.getElementById('modalOverview').innerHTML = escapeHTML(movie.overview || 'Содержимое утеряно во времени...').replace(/\n/g, '<br>');
         
         const isWatched = movie.status === "Смотрели";
         
