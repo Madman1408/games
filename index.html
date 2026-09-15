@@ -1023,6 +1023,14 @@
 
     function getInitials(name) { return (name || '??').replace('@', '').trim().substring(0, 1).toUpperCase(); }
 
+    function getEpisodeWord(count) {
+        let mod10 = count % 10;
+        let mod100 = count % 100;
+        if (mod10 === 1 && mod100 !== 11) return count + ' СЕРИЯ';
+        if ([2, 3, 4].includes(mod10) && ![12, 13, 14].includes(mod100)) return count + ' СЕРИИ';
+        return count + ' СЕРИЙ';
+    }
+
     function parseDateObj(dateStr) {
         if (!dateStr || typeof dateStr !== 'string') return 0;
         const parts = dateStr.split(' '); if (parts.length !== 2) return 0;
@@ -1264,6 +1272,9 @@
             
             const auctionHTML = movie.isAuction ? `<div class="date-badge" style="margin-top: 8px; color: var(--warm-star); border-color: var(--warm-star); background: rgba(34, 24, 54, 0.9); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">✦ Аукцион ✦</div>` : '';
             const seasonHTML = movie.requestedSeason > 0 ? `<div class="date-badge" style="margin-top: 8px; color: #fff; border-color: var(--mint-main); font-size: 13px;">${movie.requestedSeason} сезон</div>` : '';
+            
+            const epsCount = movie.requestedEpisodes || 0;
+            const episodesHTML = epsCount > 0 ? `<div class="date-badge" style="margin-top: 8px; color: #fff; border-color: var(--mint-main); font-size: 13px;">${getEpisodeWord(epsCount)}</div>` : '';
 
             // Генерируем кнопки записей для таблицы
             const playIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
@@ -1315,7 +1326,7 @@
 						
                     </div>
                 </td>
-                <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;"><div class="requester-badge" onclick="window.open('https://twitch.tv/${cleanNick}', '_blank'); event.stopPropagation();">${avatarMarkup}<span class="req-name">${cleanNick}</span></div>${movie.dateRequested ? `<div class="date-badge">${movie.dateRequested.split(' ')[0]}</div>` : ''}${auctionHTML}${seasonHTML}</div></td>
+                <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;"><div class="requester-badge" onclick="window.open('https://twitch.tv/${cleanNick}', '_blank'); event.stopPropagation();">${avatarMarkup}<span class="req-name">${cleanNick}</span></div>${movie.dateRequested ? `<div class="date-badge">${movie.dateRequested.split(' ')[0]}</div>` : ''}${auctionHTML}${seasonHTML}${episodesHTML}</div></td>
                 <td style="vertical-align: top;">
                     ${runtimeDisplay}
                     <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; margin-top: 8px; width: 100%;">
@@ -1397,6 +1408,9 @@
 			
 			if (movie.isBanned) bottomBadges += `<div class="card-mini-badge" style="color: #fff; background: rgba(231, 76, 60, 0.85); border-color: #e74c3c; padding: 1px 8px 1px 4px;">🚫 БАН</div>`;
             if (movie.requestedSeason && movie.requestedSeason > 0) bottomBadges += `<div class="card-mini-badge" style="color: #fff; border-color: var(--mint-main);">СЕЗОН ${movie.requestedSeason}</div>`;
+            
+            const epsCount = movie.requestedEpisodes || 0;
+            if (epsCount > 0) bottomBadges += `<div class="card-mini-badge" style="color: #fff; border-color: var(--mint-main);">${getEpisodeWord(epsCount)}</div>`;
 
             let avatarMarkup = movie.userAvatar && movie.userAvatar.startsWith('http') ? `<img src="${movie.userAvatar}" class="card-user-avatar" alt="">` : `<div class="card-user-avatar" style="background-color: ${userColor}; border-color: ${userColor}; color: var(--bg-deep); font-weight: 900;">${getInitials(cleanNick)}</div>`;
 
@@ -1761,7 +1775,10 @@
         
         let reqInner = `<div class="modal-requester-link hover-active" onclick="window.open('https://twitch.tv/${cleanNick}', '_blank')" style="display:flex; align-items:center; margin-bottom: 8px;">${avatarMarkup}<span class="name-text">${cleanNick}</span></div>`;
         if (movie.isAuction) reqInner += `<div class="modal-grid-box" style="margin-top: 0; margin-bottom: 6px; color: var(--warm-star); border-color: var(--warm-star); background: rgba(34, 24, 54, 0.9); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">✦ Аукцион ✦</div>`;
-        if (movie.requestedSeason > 0) reqInner += `<div class="modal-grid-box" style="margin-top: 0; color: #fff; border-color: var(--mint-main); font-size: 13px;">${movie.requestedSeason} сезон</div>`;
+        if (movie.requestedSeason > 0) reqInner += `<div class="modal-grid-box" style="margin-top: 0; margin-bottom: 6px; color: #fff; border-color: var(--mint-main); font-size: 13px;">${movie.requestedSeason} сезон</div>`;
+        
+        const epsCount = movie.requestedEpisodes || 0;
+        if (epsCount > 0) reqInner += `<div class="modal-grid-box" style="margin-top: 0; color: #fff; border-color: var(--mint-main); font-size: 13px;">${getEpisodeWord(epsCount)}</div>`;
         
         document.getElementById('modalRequesterBlock').innerHTML = reqInner;
         
