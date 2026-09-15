@@ -890,6 +890,64 @@
     };
     // ----------------------------------
 
+    // --- АВТО-ГЕНЕРАТОР КНОПОК ДЛЯ МНОГОСЕРИЙОК (ТГ, Boosty, YouTube) ---
+    window.getMediaButtonHtml = function(movie, baseKey, label, cssClass, svgIcon, styleType) {
+        let parts = [];
+        if (movie[baseKey]) parts.push({ part: 1, url: movie[baseKey] });
+        let i = 2;
+        while (movie[baseKey + i]) { parts.push({ part: i, url: movie[baseKey + i] }); i++; }
+        
+        if (parts.length === 0) return '';
+        
+        const safeTitle = escapeHTML(movie.title || 'Фильм').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        const partsJson = encodeURIComponent(JSON.stringify(parts));
+        
+        if (styleType === 'table') {
+            if (parts.length === 1) return `<a href="${parts[0].url}" target="_blank" class="play-link-btn ${cssClass}" onclick="event.stopPropagation();">${svgIcon} ${label}</a>`;
+            return `<div class="play-link-btn ${cssClass}" onclick="openPartsModal(event, '${label}', '${safeTitle}', '${partsJson}', '${cssClass}')" style="border-style: dashed; cursor: pointer;">${svgIcon} ${label}</div>`;
+        }
+        if (styleType === 'grid') {
+            if (parts.length === 1) return `<a href="${parts[0].url}" target="_blank" class="card-play-btn ${cssClass}" onclick="event.stopPropagation();" title="${label}">${svgIcon}</a>`;
+            return `<div class="card-play-btn ${cssClass}" onclick="openPartsModal(event, '${label}', '${safeTitle}', '${partsJson}', '${cssClass}')" title="${label} (Несколько частей)" style="cursor: pointer; border-style: dashed;">${svgIcon}</div>`;
+        }
+        if (styleType === 'modal') {
+            if (parts.length === 1) return `<a href="${parts[0].url}" target="_blank" class="outline-badge play-modal-badge ${cssClass}" onclick="event.stopPropagation();">${svgIcon} ${label}</a>`;
+            return `<div class="outline-badge play-modal-badge ${cssClass}" onclick="openPartsModal(event, '${label}', '${safeTitle}', '${partsJson}', '${cssClass}')" style="cursor: pointer; border-style: dashed;">${svgIcon} ${label}</div>`;
+        }
+        return '';
+    };
+
+    window.openPartsModal = function(event, platform, title, partsJson, cssClass) {
+        event.stopPropagation();
+        const parts = JSON.parse(decodeURIComponent(partsJson));
+        
+        let color = 'var(--mint-main)';
+        let beautifulPlatformName = 'ЗАПИСИ ПРОСМОТРА';
+        
+        if (cssClass === 'yt') { color = '#ff4a4a'; beautifulPlatformName = 'ЗАПИСИ НА YOUTUBE'; } 
+        else if (cssClass === 'boosty') { color = '#f58220'; beautifulPlatformName = 'ЗАПИСИ НА BOOSTY'; } 
+        else if (cssClass === 'tg' || cssClass === 'tg-rec') { color = '#38bdf8'; beautifulPlatformName = 'ЗАПИСИ В TELEGRAM'; }
+        
+        document.getElementById('partsModalTitle').textContent = title;
+        document.getElementById('partsModalPlatform').textContent = beautifulPlatformName;
+        document.getElementById('partsModalPlatform').style.color = color;
+        
+        document.getElementById('partsContainer').innerHTML = parts.map(p => `
+            <a href="${p.url}" target="_blank" class="part-item-btn" onclick="event.stopPropagation()">
+                <span style="color: ${color};">ЧАСТЬ ${p.part}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+            </a>
+        `).join('');
+        
+        document.getElementById('partsModalOverlay').classList.add('active');
+    };
+
+    window.closePartsModal = function(event) {
+        if (event && event.stopPropagation) event.stopPropagation();
+        document.getElementById('partsModalOverlay').classList.remove('active');
+    };
+    // --------------------------------------------------------------------
+
     async function loadCreatorAvatars() {
         try {
             const res1 = await fetch('https://api.ivr.fi/v2/twitch/user?login=cherteya'); const data1 = await res1.json();
@@ -1133,12 +1191,49 @@
             const userColor = stringToColor(cleanNick);
             let avatarMarkup = movie.userAvatar && movie.userAvatar.startsWith('http') ? `<img src="${movie.userAvatar}" class="req-avatar" alt="">` : `<div class="req-avatar" style="background-color: ${userColor}; border-color: ${userColor};">${getInitials(cleanNick)}</div>`;
             
+			
+			
+			
+			
             const auctionHTML = movie.isAuction ? `<div class="date-badge" style="margin-top: 8px; color: var(--warm-star); border-color: var(--warm-star); background: rgba(34, 24, 54, 0.9); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">✦ Аукцион ✦</div>` : '';
             const seasonHTML = movie.requestedSeason > 0 ? `<div class="date-badge" style="margin-top: 8px; color: #fff; border-color: var(--mint-main); font-size: 13px;">${movie.requestedSeason} сезон</div>` : '';
+
+            // Генерируем кнопки записей для таблицы
+            const playIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
+            let tgRecButtonHTML = getMediaButtonHtml(movie, 'tgRecordUrl', 'ТГ ЗАПИСЬ', 'tg-rec', playIcon, 'table');
+            let boostyButtonHTML = getMediaButtonHtml(movie, 'boostyUrl', 'BOOSTY', 'boosty', playIcon, 'table');
+            let ytButtonHTML = getMediaButtonHtml(movie, 'youtubeUrl', 'YOUTUBE', 'yt', playIcon, 'table');
 
             tr.innerHTML = `
                 <td><div class="poster-wrapper"><img src="${posterUrl}" onerror="handlePosterError(this)" alt=""></div></td>
                 <td>
+                    <div class="movie-info">
+                        <div class="movie-header"><span class="movie-title">${cleanTitle}</span><div class="movie-meta-box"><span class="movie-year">${movie.year || '----'}</span><button class="copy-btn" onclick="copyMovieNameFromTable(event, '${safeTitleForCopy}', '${movie.year || ''}', this)" title="Скопировать"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg></button></div></div>
+                        <div class="badges-container">${typeLabel} ${tmdbBadge} ${ageRating} <span class="outline-badge">ID №${movie.id || 0}</span></div>
+                        <div class="movie-genres">${escapeHTML(movie.genres || '')}</div>
+                        ${movie.tagline ? `<div class="movie-tagline">«${escapeHTML(movie.tagline)}»</div>` : ''}
+                        ${movie.studios && movie.studios !== "Нет данных" ? `<div class="movie-studios-list">${escapeHTML(movie.studios)}</div>` : ''}
+                        <div class="movie-overview-wrapper"><div class="movie-overview-text">${escapeHTML(movie.overview || '')}</div></div>
+                        <div class="crew-section">${directorHtml}${castHtml}</div>
+                    </div>
+                </td>
+                <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;"><div class="requester-badge" onclick="window.open('https://twitch.tv/${cleanNick}', '_blank'); event.stopPropagation();">${avatarMarkup}<span class="req-name">${cleanNick}</span></div>${movie.dateRequested ? `<div class="date-badge">${movie.dateRequested.split(' ')[0]}</div>` : ''}${auctionHTML}${seasonHTML}</div></td>
+                <td style="vertical-align: top;">
+                    ${runtimeDisplay}
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; margin-top: 8px; width: 100%;">
+                        ${tgRecButtonHTML}${boostyButtonHTML}${ytButtonHTML}
+                    </div>
+                </td>
+                <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;">${statusText}${watchedDateHTML}</div></td>
+            `;
+				
+				
+				
+				
+				
+				
+				
+				
                     <div class="movie-info">
                         <div class="movie-header"><span class="movie-title">${cleanTitle}</span><div class="movie-meta-box"><span class="movie-year">${movie.year || '----'}</span><button class="copy-btn" onclick="copyMovieNameFromTable(event, '${safeTitleForCopy}', '${movie.year || ''}', this)" title="Скопировать"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg></button></div></div>
                         <div class="badges-container">${typeLabel} ${tmdbBadge} ${ageRating} <span class="outline-badge">ID №${movie.id || 0}</span></div>
@@ -1235,6 +1330,9 @@
             const hasBannedStudios = movie.studios && movie.studios.includes('🔴');
             const bannedDotMarkup = hasBannedStudios ? `<div class="banned-dot" title="Запрещенная студия!"></div>` : '';
             
+			
+			
+			
             let copyBtnClass = 'card-copy-btn';
             if (hasPost || hasBannedStudios) { copyBtnClass += ' shifted'; }
 
@@ -1244,12 +1342,33 @@
             let movieGenres = escapeHTML(movie.genres || 'Нет жанра');
             let runtimeText = movie.runtime && movie.runtime !== 'Неизвестно' ? escapeHTML(movie.runtime) : '?? мин';
 
+            // Генерируем кнопки записей для карточек
+            const playIconGrid = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
+            let ytGridBtn = getMediaButtonHtml(movie, 'youtubeUrl', 'YOUTUBE', 'yt', playIconGrid, 'grid');
+            let boostyGridBtn = getMediaButtonHtml(movie, 'boostyUrl', 'BOOSTY', 'boosty', playIconGrid, 'grid');
+            let tgRecGridBtn = getMediaButtonHtml(movie, 'tgRecordUrl', 'ТГ ЗАПИСЬ', 'tg', playIconGrid, 'grid');
+
             const card = document.createElement('div');
             card.className = 'card-view-item';
             card.onclick = () => openModal(index);
             
             card.innerHTML = `
                 <div class="card-top">
+                    <img src="${posterUrl}" class="card-poster" onerror="handlePosterError(this)" alt="">
+                    ${bannedDotMarkup}
+                    <div class="card-actions-col">
+                        <button class="${copyBtnClass}" onclick="copyMovieNameFromTable(event, '${safeTitleForCopy}', '${movie.year || ''}', this)" title="Скопировать название">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                        </button>
+                        ${ytGridBtn}
+                        ${boostyGridBtn}
+                        ${tgRecGridBtn}
+                        ${tgBtnMarkup}
+                    </div>
+                    <div class="card-overlay">
+				
+				
+				
                     <img src="${posterUrl}" class="card-poster" onerror="handlePosterError(this)" alt="">
                     ${bannedDotMarkup}
                     <button class="${copyBtnClass}" onclick="copyMovieNameFromTable(event, '${safeTitleForCopy}', '${movie.year || ''}', this)" title="Скопировать название">
