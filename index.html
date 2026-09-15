@@ -851,6 +851,45 @@
         }
     }
 
+    // --- ФУНКЦИИ ЛАЙТБОКСА (ГАЛЕРЕИ) ---
+    window.openLightbox = function(index) {
+        currentLightboxIndex = index;
+        const item = modalMediaItems[index];
+        const lightbox = document.getElementById('lightboxModal');
+        const imgEl = document.getElementById('lightboxImg');
+        const videoEl = document.getElementById('lightboxVideo');
+
+        imgEl.style.display = 'none';
+        videoEl.style.display = 'none';
+        videoEl.pause();
+
+        if (item.type === 'image') {
+            imgEl.src = item.src;
+            imgEl.style.display = 'block';
+        } else if (item.type === 'video') {
+            videoEl.style.display = 'block';
+            videoEl.src = item.src;
+            videoEl.play().catch(e => console.log(e));
+        }
+        lightbox.classList.add('active');
+    };
+
+    window.closeLightbox = function(event) {
+        if (event && event.stopPropagation) event.stopPropagation();
+        document.getElementById('lightboxModal').classList.remove('active');
+        const videoEl = document.getElementById('lightboxVideo');
+        videoEl.pause(); videoEl.removeAttribute('src'); videoEl.load();
+    };
+
+    window.changeLightboxMedia = function(dir, event) {
+        if (event && event.stopPropagation) event.stopPropagation();
+        let newIndex = currentLightboxIndex + dir;
+        if (newIndex < 0) newIndex = modalMediaItems.length - 1;
+        if (newIndex >= modalMediaItems.length) newIndex = 0;
+        openLightbox(newIndex);
+    };
+    // ----------------------------------
+
     async function loadCreatorAvatars() {
         try {
             const res1 = await fetch('https://api.ivr.fi/v2/twitch/user?login=cherteya'); const data1 = await res1.json();
@@ -1506,6 +1545,29 @@
         document.getElementById('modalCrewSection').innerHTML = dirHtml + castHtml;
         document.getElementById('modalStudios').textContent = movie.studios === "Нет данных" || !movie.studios ? "Архив скрыт" : movie.studios;
 
+        // --- МЕДИАТЕКА (КАДРЫ ИЗ ФИЛЬМА) ---
+        const mediaCol = document.getElementById('modalMediaCol');
+        const screenshotsWrapper = document.getElementById('modalScreenshotsWrapper');
+        const screenshotsContainer = document.getElementById('modalScreenshots');
+
+        modalMediaItems = []; // Сбрасываем массив галереи
+
+        let screenshotsHtml = '';
+        if (movie.frames && Array.isArray(movie.frames) && movie.frames.length > 0) {
+            movie.frames.forEach(src => {
+                const index = modalMediaItems.length;
+                modalMediaItems.push({ type: 'image', src: src });
+                screenshotsHtml += `<img src="${src}" class="media-thumb" onclick="openLightbox(${index})" alt="Кадр">`;
+            });
+            screenshotsContainer.innerHTML = screenshotsHtml;
+            screenshotsWrapper.style.display = 'block';
+        } else {
+            screenshotsWrapper.style.display = 'none';
+        }
+
+        mediaCol.style.display = modalMediaItems.length > 0 ? 'block' : 'none';
+        // -----------------------------------
+
         const trailerWrapper = document.getElementById('trailerWrapper'); const trailerIframe = document.getElementById('modalTrailer');
         if (movie.trailer && movie.trailer.includes('youtube.com/watch?v=')) { trailerIframe.src = `https://www.youtube.com/embed/${movie.trailer.split('v=')[1].split('&')[0]}?color=white`; trailerWrapper.style.display = 'block'; } else { trailerIframe.src = ""; trailerWrapper.style.display = 'none'; }
 
@@ -1521,6 +1583,7 @@
         if (arg === true || (arg && arg.target && arg.target.id === 'movieModal')) {
             document.getElementById('movieModal').classList.remove('active'); document.body.style.overflow = ''; 
             setTimeout(() => { document.getElementById('modalTrailer').src = ""; }, 300);
+            if (typeof closeLightbox === "function") closeLightbox(); // Защита: закрываем галерею, если открыта
         }
     }
     loadMovies();
