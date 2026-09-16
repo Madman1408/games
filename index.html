@@ -755,19 +755,26 @@
                 
                 <div class="controls-panel">
                     <input type="text" id="searchInput" class="search-box" placeholder="Поиск..." oninput="applyFilters()">
+                    
                     <select id="userFilter" class="sort-select" onchange="applyFilters()">
                         <option value="all">Все заказчики</option>
                     </select>
+                    
+                    <!-- НОВЫЙ ФИЛЬТР ПО ТИПАМ -->
+                    <select id="typeFilter" class="sort-select" onchange="applyFilters()">
+                        <option value="all">Все типы</option>
+                        <option value="movie">Фильмы</option>
+                        <option value="cartoon">Мультфильмы</option>
+                        <option value="anime">Аниме</option>
+                        <option value="series">Сериалы</option>
+                    </select>
+
                     <select id="sortSelect" class="sort-select" onchange="applyFilters()">
                         <option value="order">По порядку</option>
                         <option value="date_asc">По дате заказов (Старые)</option>
                         <option value="newest">По дате заказов (Новые)</option>
                         <option value="waiting">В ожидании</option>
                         <option value="watched">Смотрели</option>
-                        <option value="type_movie">Фильмы</option>
-                        <option value="type_cartoon">Мультфильмы</option>
-                        <option value="type_anime">Аниме</option>
-                        <option value="type_series">Сериалы</option>
                         <option value="auction">Аукцион</option>
                         <option value="theme">Тем. неделя</option>
                         <option value="marvel">Марвел</option>
@@ -1156,14 +1163,33 @@
         uniqueUsers.forEach(u => { const opt = document.createElement('option'); opt.value = u.toLowerCase(); opt.textContent = `✨ ${u.replace('@', '').trim()}`; filterEl.appendChild(opt); });
     }
 
+
+
+
+
+
+
+
+
     function applyFilters() {
         const searchQuery = document.getElementById('searchInput').value.toLowerCase();
         const sortMode = document.getElementById('sortSelect').value;
         const userFilterVal = document.getElementById('userFilter').value;
+        
+        // Получаем значение нового фильтра
+        const typeFilterVal = document.getElementById('typeFilter') ? document.getElementById('typeFilter').value : 'all';
+        
         localStorage.setItem('movieSortMode', sortMode);
         
         let filtered = [...rawMoviesData];
         if (userFilterVal !== 'all') filtered = filtered.filter(m => m.requestedBy.toLowerCase() === userFilterVal);
+        
+        // Применяем фильтр по типу
+        if (typeFilterVal === 'movie') filtered = filtered.filter(m => m.type && m.type.toLowerCase() === 'фильм');
+        else if (typeFilterVal === 'cartoon') filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('мульт'));
+        else if (typeFilterVal === 'anime') filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('аниме'));
+        else if (typeFilterVal === 'series') filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('сериал'));
+
         if (searchQuery.trim() !== '') filtered = filtered.filter(m => (m.title && m.title.toLowerCase().includes(searchQuery)) || (m.requestedBy && m.requestedBy.toLowerCase().includes(searchQuery)));
 
         const sortByOrder = (a, b) => { 
@@ -1198,10 +1224,6 @@
 
         if (sortMode === 'waiting') { filtered = filtered.filter(m => m.status === 'Не смотрели').sort((a, b) => a.parsedDate - b.parsedDate); } 
         else if (sortMode === 'watched') { filtered = filtered.filter(m => m.status === 'Смотрели').sort(sortByWatchedDateDesc); }
-        else if (sortMode === 'type_movie') { filtered = filtered.filter(m => m.type && m.type.toLowerCase() === 'фильм').sort(sortByOrder); }
-        else if (sortMode === 'type_cartoon') { filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('мульт')).sort(sortByOrder); }
-        else if (sortMode === 'type_anime') { filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('аниме')).sort(sortByOrder); }
-        else if (sortMode === 'type_series') { filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('сериал')).sort(sortByOrder); }
         else if (sortMode === 'auction') { filtered = filtered.filter(m => m.isAuction === true).sort(sortByOrder); }
         else if (sortMode === 'theme') { filtered = filtered.filter(m => m.isTheme === true).sort(sortByOrder); }
         else if (sortMode === 'marvel') { filtered = filtered.filter(m => m.isMarvel === true).sort(sortByOrder); }
@@ -1213,6 +1235,15 @@
         
         currentViewData = filtered; renderView();
     }
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
     function renderView() {
         const renderArea = document.getElementById('render-area');
@@ -1257,7 +1288,7 @@
 
         currentViewData.forEach((movie, index) => {
             
-            if ((sortMode === 'order' || sortMode.startsWith('type_')) && index > 0 && showDivider) {
+            if (sortMode === 'order' && index > 0 && showDivider) {
                 const prevMovie = currentViewData[index - 1];
                 if ((prevMovie.status === 'Не смотрели' || prevMovie.isWatching === true) && movie.status === 'Смотрели') {
                     const dividerTr = document.createElement('tr');
@@ -1450,7 +1481,7 @@
 
         currentViewData.forEach((movie, index) => {
             
-            if ((sortMode === 'order' || sortMode.startsWith('type_')) && index > 0 && showDivider) {
+            if (sortMode === 'order' && index > 0 && showDivider) {
                 const prevMovie = currentViewData[index - 1];
                 if ((prevMovie.status === 'Не смотрели' || prevMovie.isWatching === true) && movie.status === 'Смотрели') {
                     const dividerDiv = document.createElement('div');
