@@ -1232,8 +1232,9 @@
                         <th style="width: 160px; min-width: 160px;">Постер</th>
                         <th style="width: 100%;">Описание</th>
                         <th style="width: 145px; min-width: 145px;">Заказал</th>
-                        <th style="width: 130px; min-width: 130px;">Длительность</th>
-                        <th style="width: 135px; min-width: 135px;">Статус</th>
+                        <th style="width: 120px; min-width: 120px;">Длительность</th>
+                        <th style="width: 150px; min-width: 150px;">Ссылки</th>
+                        <th style="width: 145px; min-width: 145px;">Статус</th>
                     </tr>
                 </thead>
                 <tbody id="table-body">
@@ -1253,7 +1254,7 @@
                 if ((prevMovie.status === 'Не смотрели' || prevMovie.isWatching === true) && movie.status === 'Смотрели') {
                     const dividerTr = document.createElement('tr');
                     dividerTr.innerHTML = `
-                        <td colspan="5" style="padding: 30px 15px; cursor: default; border-bottom: 1px dashed rgba(92, 242, 138, 0.15);">
+                        <td colspan="6" style="padding: 30px 15px; cursor: default; border-bottom: 1px dashed rgba(92, 242, 138, 0.15);">
                             <div style="display: flex; align-items: center; justify-content: center;">
                                 <div style="flex-grow: 1; height: 2px; background: linear-gradient(to right, transparent, var(--mint-main)); opacity: 0.3;"></div>
                                 <span style="padding: 0 20px; font-family: var(--font-title); font-size: 18px; font-weight: 700; color: var(--mint-main); text-shadow: 0 0 10px rgba(92, 242, 138, 0.5); text-transform: uppercase; letter-spacing: 2px;">✨ Просмотрено ✨</span>
@@ -1288,18 +1289,24 @@
             
 			
 			
+			
+			
+			
+			
+			
+			
+			
+			
+            // Собираем кнопки постов отдельно от статуса
+            let tgButtonHTML = '';
             if (movie.postUrl) {
-                watchedDetails += `<a href="${movie.postUrl}" target="_blank" class="tg-link-btn" style="margin-top: 0; width: fit-content; padding: 4px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;" onclick="event.stopPropagation();" title="Открыть основной пост"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ</a>`;
+                tgButtonHTML += `<a href="${movie.postUrl}" target="_blank" class="tg-link-btn" style="margin-top: 4px; width: 100%; box-sizing: border-box; padding: 6px 12px; font-size: 13px;" onclick="event.stopPropagation();" title="Открыть основной пост"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ</a>`;
             }
-            
             if (movie.reviewUrl) {
-                watchedDetails += `<a href="${movie.reviewUrl}" target="_blank" class="tg-link-btn" style="margin-top: 4px; width: fit-content; padding: 4px 12px; font-size: 11px; text-transform: uppercase; letter-spacing: 1px;" onclick="event.stopPropagation();" title="Читать отзыв в Telegram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ</a>`;
+                tgButtonHTML += `<a href="${movie.reviewUrl}" target="_blank" class="tg-link-btn" style="margin-top: 4px; width: 100%; box-sizing: border-box; padding: 6px 12px; font-size: 13px;" onclick="event.stopPropagation();" title="Читать отзыв в Telegram"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> ТГ ОТЗЫВ</a>`;
             }
             
             if (isWatched && movie.dateWatched) {
-			
-			
-			
                 if (movie.ourRating && movie.ourRating !== "Без оценки") {
                     const parsedRating = parseFloat(movie.ourRating);
                     if (parsedRating === 1000) watchedDetails += `<div class="date-badge legendary-badge" style="margin-top: 0; width: fit-content; flex-direction: column; gap: 2px; padding: 4px 14px; line-height: 1.1;"><span style="font-size: 10px; text-transform: uppercase; opacity: 0.9;">Наша Оценка:</span><span style="font-size: 16px;">1000</span></div>`;
@@ -1354,7 +1361,6 @@
             
             const auctionHTML = movie.isAuction ? `<div class="date-badge" style="margin-top: 8px; color: var(--warm-star); border-color: var(--warm-star); background: rgba(34, 24, 54, 0.9); font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 800;">✦ Аукцион ✦</div>` : '';
             const seasonHTML = movie.requestedSeason > 0 ? `<div class="date-badge" style="margin-top: 8px; color: #fff; border-color: var(--mint-main); font-size: 13px;">${movie.requestedSeason} сезон</div>` : '';
-            
             const epsCount = movie.requestedEpisodes || 0;
             const episodesHTML = epsCount > 0 ? `<div class="date-badge" style="margin-top: 8px; color: #fff; border-color: var(--mint-main); font-size: 13px;">${getEpisodeWord(epsCount)}</div>` : '';
 
@@ -1373,7 +1379,6 @@
                         <div class="movie-genres">${escapeHTML(movie.genres || '')}</div>
                         ${movie.tagline ? `<div class="movie-tagline">«${escapeHTML(movie.tagline)}»</div>` : ''}
                         ${movie.studios && movie.studios !== "Нет данных" ? `<div class="movie-studios-list">${escapeHTML(movie.studios)}</div>` : ''}
-                        
                         ${(function(){
                             const hasReview = movie.reviewText && movie.reviewText.trim() !== "";
                             const cleanReview = hasReview ? escapeHTML(movie.reviewText).replace(/\n/g, '<br>') : "";
@@ -1401,21 +1406,28 @@
                         })()}
 
                         <div class="crew-section">${directorHtml}${castHtml}</div>
-						
-						
-						
                     </div>
                 </td>
                 <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;"><div class="requester-badge" onclick="window.open('https://twitch.tv/${cleanNick}', '_blank'); event.stopPropagation();">${avatarMarkup}<span class="req-name">${cleanNick}</span></div>${movie.dateRequested ? `<div class="date-badge">${movie.dateRequested.split(' ')[0]}</div>` : ''}${auctionHTML}${seasonHTML}${episodesHTML}</div></td>
+                <td style="vertical-align: top;">${runtimeDisplay}</td>
                 <td style="vertical-align: top;">
-                    ${runtimeDisplay}
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; margin-top: 8px; width: 100%;">
-                        ${tgRecButtonHTML}${boostyButtonHTML}${ytButtonHTML}
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; height: 100%;">
+                        ${tgButtonHTML}${tgRecButtonHTML}${boostyButtonHTML}${ytButtonHTML}
                     </div>
                 </td>
                 <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;">${statusText}${watchedDateHTML}</div></td>
             `;
             tbody.appendChild(tr);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
         });
         autoResizeTitles();
     }
