@@ -658,16 +658,25 @@
             .modal-poster { width: 180px; }
         }
 
+
+
+
+
+
+
+
+
         /* 6. ПЛАНШЕТЫ (ВЕРТИКАЛЬНО) */
         @media (max-width: 1023px) {
-            .modal-body { flex-direction: column; margin-top: -80px; padding: 20px; }
-            .modal-poster { display: block; width: 160px; margin: 0 auto; }
+            .modal-body { flex-direction: column; align-items: center; margin-top: -80px; padding: 20px; }
+            .modal-body > div:first-child { width: 100%; display: flex; justify-content: center; } /* Центрируем обертку постера */
+            .modal-poster { display: block; width: 160px; margin: 0 auto; align-self: center; }
+            .modal-info-main { width: 100%; box-sizing: border-box; }
             #modalTagsColumn { padding-left: 25px !important; }
         }
 
         /* 7. ТЕЛЕФОНЫ (КРУПНЫЕ) */
         @media (max-width: 768px) {
-            /* Скрываем длительность в таблице, если она была */
             th:nth-child(4), td:nth-child(4) { display: none; } 
             
             .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
@@ -705,7 +714,10 @@
             .modal-title-wrapper { flex-direction: column; align-items: center; text-align: center; }
             .modal-title { font-size: 26px !important; white-space: normal !important; text-align: center; }
             .modal-title-extras { justify-content: center; margin-top: 8px; }
+            
+            /* ЖЕСТКОЕ ЦЕНТРИРОВАНИЕ БЕЙДЖЕЙ И КНОПОК */
             .modal-meta-wrapper { justify-content: center; }
+            .modal-meta-wrapper > div > div { justify-content: center !important; }
             
             #modalGenres { justify-content: center !important; }
             .crew-section { justify-content: center !important; flex-wrap: wrap; }
@@ -716,6 +728,12 @@
             .flex-row-responsive { flex-direction: column; }
             .flex-col-half.border-right-dashed { border-right: none; border-bottom: 1px dashed rgba(92, 242, 138, 0.3); }
         }
+
+
+
+
+
+
 
         /* 9. ОЧЕНЬ УЗКИЕ ЭКРАНЫ */
         @media (max-width: 480px) {
