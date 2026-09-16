@@ -1230,6 +1230,14 @@
             if (!isUnwatchedA && isUnwatchedB) return 1;
 
             if ((isWatchingA && isWatchingB) || (isUnwatchedA && isUnwatchedB)) {
+                // Логика смещения cherteya в конец очереди
+                if (isUnwatchedA && isUnwatchedB) {
+                    let isCherteyaA = a.requestedBy.replace('@', '').trim().toLowerCase() === 'cherteya';
+                    let isCherteyaB = b.requestedBy.replace('@', '').trim().toLowerCase() === 'cherteya';
+                    
+                    if (isCherteyaA && !isCherteyaB) return 1;  // A - cherteya, пускаем вниз
+                    if (!isCherteyaA && isCherteyaB) return -1; // B - cherteya, пускаем вниз
+                }
                 return a.parsedDate - b.parsedDate;
             }
 
@@ -1246,7 +1254,7 @@
             return dateB - dateA; 
         };
 
-        if (sortMode === 'waiting') { filtered = filtered.filter(m => m.status === 'Не смотрели').sort((a, b) => a.parsedDate - b.parsedDate); } 
+        if (sortMode === 'waiting') { filtered = filtered.filter(m => m.status === 'Не смотрели').sort(sortByOrder); } 
         else if (sortMode === 'watched') { filtered = filtered.filter(m => m.status === 'Смотрели').sort(sortByWatchedDateDesc); }
         else if (sortMode === 'auction') { filtered = filtered.filter(m => m.isAuction === true).sort(sortByOrder); }
         else if (sortMode === 'theme') { filtered = filtered.filter(m => m.isTheme === true).sort(sortByOrder); }
