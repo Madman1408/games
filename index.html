@@ -764,7 +764,14 @@
                         <option value="newest">По дате заказов (Новые)</option>
                         <option value="waiting">В ожидании</option>
                         <option value="watched">Смотрели</option>
+                        <option value="type_movie">Фильмы</option>
+                        <option value="type_cartoon">Мультфильмы</option>
+                        <option value="type_anime">Аниме</option>
+                        <option value="type_series">Сериалы</option>
                         <option value="auction">Аукцион</option>
+                        <option value="theme">Тем. неделя</option>
+                        <option value="marvel">Марвел</option>
+                        <option value="banned">Баны</option>
                         <option value="cried">Вызвали слёзы</option>
                     </select>
                     
@@ -1191,6 +1198,10 @@
 
         if (sortMode === 'waiting') { filtered = filtered.filter(m => m.status === 'Не смотрели').sort((a, b) => a.parsedDate - b.parsedDate); } 
         else if (sortMode === 'watched') { filtered = filtered.filter(m => m.status === 'Смотрели').sort(sortByWatchedDateDesc); }
+        else if (sortMode === 'type_movie') { filtered = filtered.filter(m => m.type && m.type.toLowerCase() === 'фильм').sort(sortByOrder); }
+        else if (sortMode === 'type_cartoon') { filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('мульт')).sort(sortByOrder); }
+        else if (sortMode === 'type_anime') { filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('аниме')).sort(sortByOrder); }
+        else if (sortMode === 'type_series') { filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('сериал')).sort(sortByOrder); }
         else if (sortMode === 'auction') { filtered = filtered.filter(m => m.isAuction === true).sort(sortByOrder); }
         else if (sortMode === 'theme') { filtered = filtered.filter(m => m.isTheme === true).sort(sortByOrder); }
         else if (sortMode === 'marvel') { filtered = filtered.filter(m => m.isMarvel === true).sort(sortByOrder); }
@@ -1246,7 +1257,7 @@
 
         currentViewData.forEach((movie, index) => {
             
-            if (sortMode === 'order' && index > 0 && showDivider) {
+            if ((sortMode === 'order' || sortMode.startsWith('type_')) && index > 0 && showDivider) {
                 const prevMovie = currentViewData[index - 1];
                 if ((prevMovie.status === 'Не смотрели' || prevMovie.isWatching === true) && movie.status === 'Смотрели') {
                     const dividerTr = document.createElement('tr');
@@ -1439,7 +1450,7 @@
 
         currentViewData.forEach((movie, index) => {
             
-            if (sortMode === 'order' && index > 0 && showDivider) {
+            if ((sortMode === 'order' || sortMode.startsWith('type_')) && index > 0 && showDivider) {
                 const prevMovie = currentViewData[index - 1];
                 if ((prevMovie.status === 'Не смотрели' || prevMovie.isWatching === true) && movie.status === 'Смотрели') {
                     const dividerDiv = document.createElement('div');
