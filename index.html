@@ -65,13 +65,13 @@
             border-bottom: 2px solid rgba(92, 242, 138, 0.2); 
             background: radial-gradient(circle at 50% 0%, rgba(92, 242, 138, 0.05) 0%, transparent 80%);
             border-top-left-radius: 18px; border-top-right-radius: 18px;
-            z-index: 30; /* Поднимаем главную шапку над таблицей */
+            z-index: 30;
         }
         .header::after {
             content: '✨'; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
             color: var(--mint-main); font-size: 20px; background: var(--bg-deep); padding: 0 15px;
             border-radius: 20px; border: 1px solid rgba(92, 242, 138, 0.3); text-shadow: 0 0 10px var(--mint-main);
-            z-index: 31; /* Звездочки гарантированно поверх всего */
+            z-index: 31; 
         }
 
         .header-top h1 { 
@@ -465,18 +465,18 @@
             border-color: #ffd700 !important; color: #fff !important; text-shadow: 0 0 10px #ffd700, 0 0 15px #fff !important; font-weight: 900 !important;
         }
 
-        /* --- ОПИСАНИЕ (КЛИК-РАСКРЫТИЕ) --- */
+        
         .movie-overview-wrapper { cursor: pointer; user-select: none; -webkit-user-select: none; }
         .movie-overview-wrapper.expanded { max-height: 1500px !important; }
         .movie-overview-wrapper.expanded .movie-overview-text { -webkit-line-clamp: unset !important; color: var(--text-main); }
 
-        /* --- ВКЛАДКИ ОПИСАНИЕ / ОТЗЫВ (СПИСОК) --- */
+        
         .list-tabs-container { display: flex; gap: 8px; margin-top: 8px; margin-bottom: 4px; }
         .list-tab-btn { background: rgba(19, 15, 28, 0.6); border: 1px dashed rgba(92, 242, 138, 0.3); color: var(--text-muted); padding: 2px 10px 2px 8px; border-radius: 12px; font-size: 10px; font-family: var(--font-title); font-weight: 700; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; }
         .list-tab-btn:hover { border-color: var(--mint-main); color: var(--mint-light); }
         .list-tab-btn.active { background: rgba(92, 242, 138, 0.15); border-color: var(--mint-main); border-style: solid; color: var(--mint-main); box-shadow: 0 0 10px rgba(92, 242, 138, 0.3); }
 
-        /* --- ОТЗЫВ --- */
+        
         .movie-review-wrapper { margin-top: 4px; max-height: 50px; overflow: hidden; transition: max-height 0.3s ease; cursor: pointer; user-select: none; -webkit-user-select: none; }
         .movie-review-text { font-size: 14px; line-height: 1.5; color: var(--mint-light); font-style: italic; border-left: 2px solid var(--mint-main); padding: 4px 10px; background: rgba(92, 242, 138, 0.05); border-radius: 0 8px 8px 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: color 0.3s, background-color 0.3s; }
         tr.movie-row:has(.poster-wrapper:hover) .movie-review-wrapper { max-height: 250px; }
@@ -484,7 +484,7 @@
         .movie-review-wrapper.expanded { max-height: 1500px !important; }
         .movie-review-wrapper.expanded .movie-review-text { -webkit-line-clamp: unset !important; color: #fff; background: rgba(92, 242, 138, 0.15); }
 
-        /* --- МЕДИАТЕКА (МИНИАТЮРЫ) --- */
+        
         .media-grid { display: flex; flex-wrap: wrap; gap: 10px; padding-bottom: 5px; }
         .media-thumb {
             width: 110px; height: 65px; border-radius: 8px; object-fit: cover;
@@ -494,7 +494,7 @@
         }
         .media-thumb:hover { border-color: var(--mint-main); transform: scale(1.05); box-shadow: 0 5px 15px rgba(0,0,0,0.5); z-index: 2; }
         
-        /* Иконка PLAY поверх миниатюры видео */
+        
         .video-thumb::after {
             content: '▶'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             font-size: 14px; color: var(--bg-deep); background: rgba(92, 242, 138, 0.9); 
@@ -502,7 +502,7 @@
         }
         .video-thumb:hover::after { background: #fff; transform: translate(-50%, -50%) scale(1.15); box-shadow: 0 0 15px rgba(92, 242, 138, 0.8); }
 
-        /* --- ЛАЙТБОКС (ГАЛЕРЕЯ НА ВЕСЬ ЭКРАН) --- */
+        
         .lightbox-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(19, 15, 28, 0.95); backdrop-filter: blur(10px); z-index: 2000; 
@@ -530,7 +530,7 @@
         .lightbox-next { right: 20px; }
         @media (max-width: 768px) { .lightbox-nav { display: none; } }
         
-        /* --- ОКНО ВЫБОРА ЧАСТЕЙ (МНОГОСЕРИЙКИ) --- */
+        
         #partsModalOverlay { z-index: 3000; }
         .parts-modal-content {
             background: var(--bg-deep); padding: 25px 20px 20px; border-radius: 20px;
@@ -552,7 +552,7 @@
         #partsContainer::-webkit-scrollbar-track { background: rgba(19, 15, 28, 0.5); border-radius: 4px; }
         #partsContainer::-webkit-scrollbar-thumb { background: var(--mint-dark); border-radius: 4px; }
 
-        /* --- НОВЫЕ КНОПКИ (ЗАПИСИ) --- */
+        
         .play-link-btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 6px;
             padding: 3px 12px 2px 10px; border-radius: 12px; text-decoration: none; font-family: var(--font-text);
@@ -586,11 +586,6 @@
         .card-play-btn.tg { border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; }
         .card-play-btn.tg:hover { background: #38bdf8; color: var(--bg-deep); box-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
 
-        /* ======================================================= */
-        /* --- НАЧАЛО АДАПТИВА --- */
-        /* ======================================================= */
-
-        /* 1. БОЛЬШИЕ ЭКРАНЫ (2K / 1440p и выше) */
         @media (min-width: 1920px) {
             .container { max-width: 1450px; }
             .movies-grid { grid-template-columns: repeat(7, 1fr); gap: 20px; }
@@ -599,7 +594,7 @@
             .header-top h1 { font-size: 54px; }
         }
 
-        /* 2. СВЕРХШИРОКИЕ ЭКРАНЫ (2K / 1440p и выше) */
+
         @media (min-width: 2560px) {
             .container { max-width: 1900px; }
             .movies-grid { grid-template-columns: repeat(9, 1fr); }
@@ -624,7 +619,7 @@
             .date-badge { white-space: nowrap !important; }
         }
 
-        /* 3. НЕБОЛЬШИЕ НОУТБУКИ (1280px - 1400px) - Баланс колонок */
+
         @media (max-width: 1400px) {
             th { font-size: 11px !important; letter-spacing: 0 !important; padding-left: 5px !important; padding-right: 5px !important; }
             
@@ -643,13 +638,13 @@
             .badge-status { font-size: 11px !important; padding: 4px 10px !important; width: 100% !important; max-width: 125px !important; box-sizing: border-box !important; }
         }
 
-        /* 4. НЕБОЛЬШИЕ НОУТБУКИ И ПЛАНШЕТЫ (ГОРИЗОНТАЛЬНО) */
+
         @media (max-width: 1279px) {
             #viewToggleBtn { display: none !important; }
             .movies-grid { grid-template-columns: repeat(4, 1fr); }
         }
 
-        /* 5. ПЛАНШЕТЫ (iPad Pro и схожие) - перестройка шапки */
+
         @media (max-width: 1024px) {
             .header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 25px 20px 20px; }
             .back-btn, .creator-badge { position: relative; top: auto; left: auto; right: auto; order: 1; }
@@ -662,23 +657,15 @@
         }
 
 
-
-
-
-
-
-
-
-        /* 6. ПЛАНШЕТЫ (ВЕРТИКАЛЬНО) */
         @media (max-width: 1023px) {
             .modal-body { flex-direction: column; align-items: center; margin-top: -80px; padding: 20px; }
-            .modal-body > div:first-child { width: 100%; display: flex; justify-content: center; } /* Центрируем обертку постера */
+            .modal-body > div:first-child { width: 100%; display: flex; justify-content: center; } 
             .modal-poster { display: block; width: 160px; margin: 0 auto; align-self: center; }
             .modal-info-main { width: 100%; box-sizing: border-box; }
             #modalTagsColumn { padding-left: 25px !important; }
         }
 
-        /* 7. ТЕЛЕФОНЫ (КРУПНЫЕ) */
+        
         @media (max-width: 768px) {
             th:nth-child(4), td:nth-child(4) { display: none; } 
             
@@ -695,7 +682,7 @@
             .search-box, .sort-select { width: 100%; max-width: 100%; margin: 0; box-sizing: border-box; }
         }
 
-        /* 8. ТЕЛЕФОНЫ И ПЛАНШЕТЫ (Строго до 768px) - всё по центру */
+        
         @media (max-width: 767px) {
             .modal-grid { grid-template-columns: 1fr !important; }
             .grid-item.border-right { border-right: none !important; }
@@ -718,7 +705,7 @@
             .modal-title { font-size: 26px !important; white-space: normal !important; text-align: center; }
             .modal-title-extras { justify-content: center; margin-top: 8px; }
             
-           /* ЖЕСТКОЕ ЦЕНТРИРОВАНИЕ БЕЙДЖЕЙ И КНОПОК */
+           
             .modal-meta-wrapper { justify-content: center; }
             .modal-meta-wrapper > div > div { justify-content: center !important; }
             
@@ -728,7 +715,7 @@
             .modal-crew-group { align-items: center; }
             .modal-crew-list { justify-content: center; }
             
-            /* ЦЕНТРИРУЕМ КАДРЫ */
+            
             .media-grid { justify-content: center; }
             
             .flex-row-responsive { flex-direction: column; }
@@ -737,20 +724,13 @@
 
 
 
-
-
-
-
-        /* 9. ОЧЕНЬ УЗКИЕ ЭКРАНЫ */
         @media (max-width: 480px) {
             .movies-grid { grid-template-columns: 1fr; } 
             .header-top h1 { font-size: 24px; line-height: 1.2; }
             .modal-title { font-size: 24px !important; }
             .modal-poster { width: 120px; }
         }
-        /* ======================================================= */
-        /* --- КОНЕЦ АДАПТИВА --- */
-        /* ======================================================= */
+        
     </style>
 </head>
 <body>
@@ -784,7 +764,7 @@
                         <option value="all">Все заказчики</option>
                     </select>
                     
-                    <!-- НОВЫЙ ФИЛЬТР ПО ТИПАМ -->
+                    
                     <select id="typeFilter" class="sort-select" onchange="applyFilters()">
                         <option value="all">Все типы</option>
                         <option value="movie">Фильмы</option>
@@ -855,7 +835,7 @@
                         <div class="modal-meta-wrapper" id="modalBadges"></div>
                         <div id="modalGenres" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;"></div>
                         
-                        <!-- ОТЗЫВ СТРИМЕРА -->
+                        
                         <div id="modalReviewBlock" style="display: none; margin-bottom: 25px;">
                             <div style="font-size: 11px; color: var(--warm-star); text-transform: uppercase; font-weight: 800; letter-spacing: 1px; margin-bottom: 8px;">✨ Отзыв от стримера</div>
                             <div class="modal-review-text" style="font-size: 15px; line-height: 1.6; color: #fff; font-style: italic; border-left: 3px solid var(--warm-star); padding: 12px 16px; background: rgba(252, 232, 161, 0.05); border-radius: 0 12px 12px 0;"></div>
@@ -894,7 +874,7 @@
 
                             <div id="modalRow3Wrapper" class="grid-item full-width border-bottom" style="padding: 0;"></div>
 
-                            <!-- МЕДИАТЕКА (Кадры из фильма) -->
+                            
                             <div class="grid-item full-width border-bottom" id="modalMediaCol" style="display: none; padding: 20px 25px;">
                                 <div id="modalScreenshotsWrapper" style="display: none;">
                                     <div class="grid-label" style="margin-bottom: 12px;">Кадры</div>
@@ -922,7 +902,7 @@
     </div>
 </div>
 
-<!-- ЛАЙТБОКС (ОКНО ГАЛЕРЕИ) -->
+
 <div class="lightbox-overlay" id="lightboxModal" onclick="closeLightbox(event)">
     <div class="lightbox-nav lightbox-prev" onclick="changeLightboxMedia(-1, event)">&#10094;</div>
     <div class="lightbox-content" onclick="event.stopPropagation()">
@@ -935,7 +915,7 @@
     <div class="lightbox-nav lightbox-next" onclick="changeLightboxMedia(1, event)">&#10095;</div>
 </div>
 
-<!-- ОКНО ВЫБОРА ЧАСТЕЙ ПРОХОЖДЕНИЯ -->
+
 <div class="lightbox-overlay" id="partsModalOverlay" onclick="closePartsModal(event)">
     <div class="parts-modal-content" onclick="event.stopPropagation()">
         <div class="close-btn" onclick="closePartsModal(event)" style="top: -15px; right: -15px; width: 34px; height: 34px; background: var(--mint-main); color: var(--bg-deep); border-color: transparent;">
@@ -954,8 +934,8 @@
     let currentModalMovie = null; 
     let viewMode = localStorage.getItem('siteViewMode') || 'grid'; 
     let isOnlineBtnVisible = true;
-    let modalMediaItems = []; // Массив медиа для галереи
-    let currentLightboxIndex = 0; // Текущий слайд
+    let modalMediaItems = []; 
+    let currentLightboxIndex = 0; 
 
     const fallbackImage = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='185' height='278' viewBox='0 0 185 278'%3E%3Crect width='185' height='278' fill='%23221836'/%3E%3Cpath d='M92.5 130c19.3 0 35-15.7 35-35s-15.7-35-35-35-35 15.7-35 35 15.7 35 35 35zm0 15c-23.3 0-70 11.7-70 35v25h140v-25c0-23.3-46.7-35-70-35z' fill='%2338255c'/%3E%3C/svg%3E";
     const fallbackPoster = "data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='750' viewBox='0 0 500 750'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23221836'/%3E%3Cstop offset='100%25' stop-color='%23130f1c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='500' height='750' fill='url(%23bg)'/%3E%3Cg transform='translate(0, -20)'%3E%3Crect x='160' y='270' width='180' height='250' rx='15' fill='%2338255c' stroke='%235cf28a' stroke-width='6'/%3E%3Crect x='195' y='270' width='110' height='250' fill='%23221836'/%3E%3Crect x='172' y='290' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='172' y='330' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='172' y='370' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='172' y='410' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='172' y='450' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='172' y='490' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='316' y='290' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='316' y='330' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='316' y='370' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='316' y='410' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='316' y='450' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Crect x='316' y='490' width='12' height='16' rx='3' fill='%235cf28a'/%3E%3Cpolygon points='230,365 230,425 275,395' fill='%23ff8fa3'/%3E%3Ccircle cx='345' cy='250' r='14' fill='%23ff8fa3'/%3E%3Ccircle cx='375' cy='280' r='10' fill='%23fce8a1'/%3E%3Ccircle cx='145' cy='520' r='12' fill='%23fce8a1'/%3E%3C/g%3E%3C/svg%3E";
@@ -1013,7 +993,7 @@
         }
     }
 
-    // --- ФУНКЦИИ ДЛЯ ВКЛАДОК И ТЕКСТА ---
+    
     window.switchListTab = function(event, btn, tabName) {
         event.stopPropagation();
         const container = btn.closest('.movie-info');
@@ -1028,9 +1008,6 @@
         element.classList.toggle('expanded');
     };
 
-    // --- ФУНКЦИИ ЛАЙТБОКСА (ГАЛЕРЕИ) ---
-	
-	
 	
 	
     window.openLightbox = function(index) {
@@ -1069,9 +1046,8 @@
         if (newIndex >= modalMediaItems.length) newIndex = 0;
         openLightbox(newIndex);
     };
-    // ----------------------------------
 
-    // --- АВТО-ГЕНЕРАТОР КНОПОК ДЛЯ МНОГОСЕРИЙОК (ТГ, Boosty, YouTube) ---
+
     window.getMediaButtonHtml = function(movie, baseKey, label, cssClass, svgIcon, styleType) {
         let parts = [];
         if (movie[baseKey]) parts.push({ part: 1, url: movie[baseKey] });
@@ -1127,7 +1103,7 @@
         if (event && event.stopPropagation) event.stopPropagation();
         document.getElementById('partsModalOverlay').classList.remove('active');
     };
-    // --------------------------------------------------------------------
+    
 
     async function loadCreatorAvatars() {
         try {
@@ -1188,19 +1164,12 @@
     }
 
 
-
-
-
-
-
-
-
     function applyFilters() {
         const searchQuery = document.getElementById('searchInput').value.toLowerCase();
         const sortMode = document.getElementById('sortSelect').value;
         const userFilterVal = document.getElementById('userFilter').value;
         
-        // Получаем значение нового фильтра
+        
         const typeFilterVal = document.getElementById('typeFilter') ? document.getElementById('typeFilter').value : 'all';
         
         localStorage.setItem('movieSortMode', sortMode);
@@ -1208,7 +1177,7 @@
         let filtered = [...rawMoviesData];
         if (userFilterVal !== 'all') filtered = filtered.filter(m => m.requestedBy.toLowerCase() === userFilterVal);
         
-        // Применяем фильтр по типу
+        
         if (typeFilterVal === 'movie') filtered = filtered.filter(m => m.type && m.type.toLowerCase() === 'фильм');
         else if (typeFilterVal === 'cartoon') filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('мульт'));
         else if (typeFilterVal === 'anime') filtered = filtered.filter(m => m.type && m.type.toLowerCase().includes('аниме'));
@@ -1230,13 +1199,13 @@
             if (!isUnwatchedA && isUnwatchedB) return 1;
 
             if ((isWatchingA && isWatchingB) || (isUnwatchedA && isUnwatchedB)) {
-                // Логика смещения cherteya в конец очереди
+                
                 if (isUnwatchedA && isUnwatchedB) {
                     let isCherteyaA = a.requestedBy.replace('@', '').trim().toLowerCase() === 'cherteya';
                     let isCherteyaB = b.requestedBy.replace('@', '').trim().toLowerCase() === 'cherteya';
                     
-                    if (isCherteyaA && !isCherteyaB) return 1;  // A - cherteya, пускаем вниз
-                    if (!isCherteyaA && isCherteyaB) return -1; // B - cherteya, пускаем вниз
+                    if (isCherteyaA && !isCherteyaB) return 1;  
+                    if (!isCherteyaA && isCherteyaB) return -1; 
                 }
                 return a.parsedDate - b.parsedDate;
             }
@@ -1267,13 +1236,6 @@
         
         currentViewData = filtered; renderView();
     }
-	
-	
-	
-	
-	
-	
-	
 	
 	
 
@@ -1358,17 +1320,7 @@
                 watchedDetails += `<div class="date-badge" style="margin-top: 0; width: fit-content;">${movie.dateWatched.split(' ')[0]}</div>`;
             }
             
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-            // Собираем кнопки постов отдельно от статуса
+            
             let tgButtonHTML = '';
             if (movie.postUrl) {
                 tgButtonHTML += `<a href="${movie.postUrl}" target="_blank" class="tg-link-btn" style="margin-top: 4px; width: 100%; box-sizing: border-box; padding: 6px 12px; font-size: 13px;" onclick="event.stopPropagation();" title="Открыть основной пост"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ</a>`;
@@ -1435,11 +1387,25 @@
             const epsCount = movie.requestedEpisodes || 0;
             const episodesHTML = epsCount > 0 ? `<div class="date-badge" style="margin-top: 8px; color: #fff; border-color: var(--mint-main); font-size: 13px;">${getEpisodeWord(epsCount)}</div>` : '';
 
-            // Генерируем кнопки записей для таблицы
+
+
             const playIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
             let tgRecButtonHTML = getMediaButtonHtml(movie, 'tgRecordUrl', 'ТГ ЗАПИСЬ', 'tg-rec', playIcon, 'table');
             let boostyButtonHTML = getMediaButtonHtml(movie, 'boostyUrl', 'BOOSTY', 'boosty', playIcon, 'table');
             let ytButtonHTML = getMediaButtonHtml(movie, 'youtubeUrl', 'YOUTUBE', 'yt', playIcon, 'table');
+
+            let allLinksHTML = tgButtonHTML + tgRecButtonHTML + boostyButtonHTML + ytButtonHTML;
+            if (!allLinksHTML) {
+                allLinksHTML = `
+                    <div style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 5px 12px; background: rgba(181, 173, 196, 0.05); border: 1px dashed rgba(181, 173, 196, 0.4); border-radius: 12px; font-family: var(--font-text); font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; opacity: 0.8; width: 100%; max-width: 140px; box-sizing: border-box;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="4" y1="4" x2="20" y2="20"></line>
+                            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+                        </svg>
+                        Нет ссылок
+                    </div>`;
+            }
 
             tr.innerHTML = `
                 <td><div class="poster-wrapper"><img src="${posterUrl}" onerror="handlePosterError(this)" alt=""></div></td>
@@ -1482,21 +1448,14 @@
                 <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;"><div class="requester-badge" onclick="window.open('https://twitch.tv/${cleanNick}', '_blank'); event.stopPropagation();">${avatarMarkup}<span class="req-name">${cleanNick}</span></div>${movie.dateRequested ? `<div class="date-badge">${movie.dateRequested.split(' ')[0]}</div>` : ''}${auctionHTML}${seasonHTML}${episodesHTML}</div></td>
                 <td style="vertical-align: top;">${runtimeDisplay}</td>
                 <td style="vertical-align: top;">
-                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; height: 100%;">
-                        ${tgButtonHTML}${tgRecButtonHTML}${boostyButtonHTML}${ytButtonHTML}
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 4px; height: 100%;">
+                        ${allLinksHTML}
                     </div>
                 </td>
                 <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;">${statusText}${watchedDateHTML}</div></td>
             `;
             tbody.appendChild(tr);
-			
-			
-			
-			
-			
-			
-			
-			
+
 			
 			
         });
@@ -1597,7 +1556,7 @@
 
 
             const hasBannedStudios = movie.studios && movie.studios.includes('🔴');
-            // Оборачиваем красную точку в такой же темный квадрат, как и остальные кнопки
+            
             const bannedDotMarkup = hasBannedStudios ? `
                 <div title="Запрещенная студия!" style="background: rgba(19, 15, 28, 0.85); border: 1px solid rgba(255, 71, 87, 0.4); padding: 6px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 0;">
                     <div style="width: 14px; height: 14px; background-color: #ff4757; border-radius: 50%; box-shadow: 0 0 8px rgba(255, 71, 87, 0.8);"></div>
@@ -1612,7 +1571,7 @@
             let movieGenres = escapeHTML(movie.genres || 'Нет жанра');
             let runtimeText = movie.runtime && movie.runtime !== 'Неизвестно' ? escapeHTML(movie.runtime) : '?? мин';
 
-            // Генерируем кнопки записей для карточек
+            
             const playIconGrid = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
             let ytGridBtn = getMediaButtonHtml(movie, 'youtubeUrl', 'YOUTUBE', 'yt', playIconGrid, 'grid');
             let boostyGridBtn = getMediaButtonHtml(movie, 'boostyUrl', 'BOOSTY', 'boosty', playIconGrid, 'grid');
@@ -1859,7 +1818,7 @@
         }
         document.getElementById('modalGenres').innerHTML = genresHtml;
 
-        // --- ОТЗЫВ И ОПИСАНИЕ В МОДАЛКЕ ---
+        
         const reviewBlock = document.getElementById('modalReviewBlock');
         if (movie.reviewText && movie.reviewText.trim() !== "") {
             reviewBlock.style.display = 'block';
@@ -1976,12 +1935,12 @@
         document.getElementById('modalCrewSection').innerHTML = dirHtml + castHtml;
         document.getElementById('modalStudios').textContent = movie.studios === "Нет данных" || !movie.studios ? "Архив скрыт" : movie.studios;
 
-        // --- МЕДИАТЕКА (КАДРЫ ИЗ ФИЛЬМА) ---
+        
         const mediaCol = document.getElementById('modalMediaCol');
         const screenshotsWrapper = document.getElementById('modalScreenshotsWrapper');
         const screenshotsContainer = document.getElementById('modalScreenshots');
 
-        modalMediaItems = []; // Сбрасываем массив галереи
+        modalMediaItems = []; 
 
         let screenshotsHtml = '';
         if (movie.frames && Array.isArray(movie.frames) && movie.frames.length > 0) {
@@ -1997,7 +1956,7 @@
         }
 
         mediaCol.style.display = modalMediaItems.length > 0 ? 'block' : 'none';
-        // -----------------------------------
+        
 
         const trailerWrapper = document.getElementById('trailerWrapper'); const trailerIframe = document.getElementById('modalTrailer');
         if (movie.trailer && movie.trailer.includes('youtube.com/watch?v=')) { trailerIframe.src = `https://www.youtube.com/embed/${movie.trailer.split('v=')[1].split('&')[0]}?color=white`; trailerWrapper.style.display = 'block'; } else { trailerIframe.src = ""; trailerWrapper.style.display = 'none'; }
@@ -2014,7 +1973,7 @@
         if (arg === true || (arg && arg.target && arg.target.id === 'movieModal')) {
             document.getElementById('movieModal').classList.remove('active'); document.body.style.overflow = ''; 
             setTimeout(() => { document.getElementById('modalTrailer').src = ""; }, 300);
-            if (typeof closeLightbox === "function") closeLightbox(); // Защита: закрываем галерею, если открыта
+            if (typeof closeLightbox === "function") closeLightbox(); 
         }
     }
     loadMovies();
