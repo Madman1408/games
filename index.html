@@ -641,7 +641,7 @@
         }
 
         /* 4. НЕБОЛЬШИЕ НОУТБУКИ И ПЛАНШЕТЫ (ГОРИЗОНТАЛЬНО) */
-        @media (max-width: 1150px) {
+        @media (max-width: 1279px) {
             #viewToggleBtn { display: none !important; }
             .movies-grid { grid-template-columns: repeat(4, 1fr); }
         }
@@ -1275,7 +1275,7 @@
             return;
         }
 
-        if (window.innerWidth <= 768) {
+        if (window.innerWidth < 1280) {
             renderGridMode(renderArea);
         } else {
             if (viewMode === 'list') renderTableMode(renderArea);
