@@ -563,33 +563,77 @@
 
         @media (max-width: 1550px) { .girl-col { display: none; } }
 
+
+
+
+
+
+
+
+
+
+
         /* --- АДАПТИВ ДЛЯ БОЛЬШИХ ЭКРАНОВ (2K / 1440p и выше) --- */
         @media (min-width: 1920px) {
-            .container { max-width: 1600px; }
+            .container { max-width: 1450px; }
             .movies-grid { grid-template-columns: repeat(7, 1fr); gap: 20px; }
-            .modal-content { max-width: 1300px; }
+            .modal-content { max-width: 1150px; }
             .modal-poster { width: 250px; }
-            .header-top h1 { font-size: 64px; }
+            .header-top h1 { font-size: 54px; }
         }
 
         @media (min-width: 2560px) {
-            .container { max-width: 2100px; }
-            .movies-grid { grid-template-columns: repeat(10, 1fr); }
-            .modal-content { max-width: 1600px; }
+            .container { max-width: 1900px; }
+            .movies-grid { grid-template-columns: repeat(9, 1fr); }
+            .modal-content { max-width: 1500px; }
             .modal-poster { width: 300px; }
+            
+            body::before {
+                content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                background: rgba(3, 6, 36, 0); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: -2; pointer-events: none;
+            }
+
+            th:nth-child(1), td:nth-child(1) { width: 200px !important; min-width: 200px !important; }
+            .poster-wrapper { width: 170px !important; height: 255px !important; } 
+            
+            th:nth-child(3), td:nth-child(3) { width: 220px !important; min-width: 220px !important; }
+            th:nth-child(4), td:nth-child(4) { width: 220px !important; min-width: 220px !important; }
+            th:nth-child(5), td:nth-child(5) { width: 220px !important; min-width: 220px !important; }
+            th:nth-child(6), td:nth-child(6) { width: 220px !important; min-width: 220px !important; }
+            
+            .movie-overview-text { font-size: 16px; line-height: 1.6; }
+            .tg-link-btn, .play-link-btn { width: 140px !important; max-width: 140px !important; }
+            .date-badge { white-space: nowrap !important; }
         }
 
-        /* --- НАЧАЛО АДАПТИВА --- */
-        @media (max-width: 1150px) {
+        @media (max-width: 1400px) {
+            th { font-size: 11px !important; letter-spacing: 0 !important; padding-left: 5px !important; padding-right: 5px !important; }
+            
+            th:nth-child(1), td:nth-child(1) { width: 120px !important; min-width: 120px !important; padding-left: 5px !important; padding-right: 5px !important; }
+            .poster-wrapper { width: 105px !important; height: 160px !important; } 
+            
+            th:nth-child(3), td:nth-child(3) { width: 110px !important; min-width: 110px !important; padding-left: 5px !important; padding-right: 5px !important; }
+            th:nth-child(4), td:nth-child(4) { width: 140px !important; min-width: 140px !important; padding-left: 5px !important; padding-right: 5px !important; }
+            th:nth-child(5), td:nth-child(5) { width: 130px !important; min-width: 130px !important; padding-left: 5px !important; padding-right: 5px !important; }
+            th:nth-child(6), td:nth-child(6) { width: 130px !important; min-width: 130px !important; padding-left: 5px !important; padding-right: 5px !important; }
+            
+            .tg-link-btn, .play-link-btn { width: 100% !important; max-width: 120px !important; font-size: 11px !important; padding: 4px !important; box-sizing: border-box !important; }
+            .time-box { white-space: nowrap !important; padding: 6px 10px !important; font-size: 13px !important; }
+            
+            .date-badge { width: 100% !important; max-width: 125px !important; font-size: 11px !important; padding: 4px 6px !important; box-sizing: border-box !important; white-space: normal !important; text-align: center !important; line-height: 1.1 !important; }
+            .badge-status { font-size: 11px !important; padding: 4px 10px !important; width: 100% !important; max-width: 125px !important; box-sizing: border-box !important; }
+        }
+
+        @media (max-width: 1279px) {
             #viewToggleBtn { display: none !important; }
-            .movies-grid { grid-template-columns: repeat(3, 1fr); }
+            .movies-grid { grid-template-columns: repeat(4, 1fr); }
         }
 
         @media (max-width: 1024px) {
             .header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; padding: 25px 20px 20px; }
             .back-btn, .creator-badge { position: relative; top: auto; left: auto; right: auto; order: 1; }
             .header-top { width: 100%; order: 2; margin-top: 15px; }
-            .header-top h1 { font-size: 42px; }
+            .header-top h1 { font-size: 38px; }
             .controls-panel { width: 100%; order: 3; margin-top: 10px; }
 
             .modal-body { padding: 0 20px 30px 20px; gap: 20px; }
@@ -597,45 +641,64 @@
         }
 
         @media (max-width: 1023px) {
-            .modal-body { flex-direction: column; margin-top: -150px; padding: 20px; }
-            .modal-poster { display: block; width: 160px; margin: 0 auto; }
+            .modal-body { flex-direction: column; align-items: center; margin-top: -80px; padding: 20px; }
+            .modal-body > div:first-child { width: 100%; display: flex; justify-content: center; } 
+            .modal-poster { display: block; width: 160px; margin: 0 auto; align-self: center; }
+            .modal-info-main { width: 100%; box-sizing: border-box; }
             #modalTagsColumn { padding-left: 25px !important; }
         }
 
         @media (max-width: 768px) {
+            th:nth-child(4), td:nth-child(4) { display: none; } 
+            
             .movies-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
             .modal-poster { width: 140px; } 
             
             .header { flex-direction: column; justify-content: center; align-items: center; gap: 15px; padding: 20px 15px; box-sizing: border-box; }
             .back-btn { width: auto; margin: 0; order: 1; justify-content: center; }
             .creator-badge { order: 2; margin: 0; }
-            .header-top { order: 3; width: 100%; margin-top: 5px; }
-            .header-top h1 { font-size: 32px; margin: 0 0 10px 0; text-align: center; }
+            .header-top { order: 3; width: 100%; margin-top: 5px; text-align: center;}
+            .header-top h1 { font-size: 28px; margin: 0 0 10px 0; text-align: center; }
             .header-top h1::before, .header-top h1::after { display: none; }
             .controls-panel { order: 4; flex-direction: column; align-items: center; width: 100%; gap: 10px; margin-top: 0; box-sizing: border-box; }
             .search-box, .sort-select { width: 100%; max-width: 100%; margin: 0; box-sizing: border-box; }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 767px) {
             .modal-grid { grid-template-columns: 1fr !important; }
             .grid-item.border-right { border-right: none !important; }
             .grid-item { border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
-            #modalTagsColumn { grid-row: auto !important; grid-column: 1 / -1 !important; border-bottom: 1px solid rgba(254, 0, 0, 0.3); padding-left: 0 !important;}
+            
+            #modalTagsColumn { grid-row: auto !important; grid-column: 1 / -1 !important; border-bottom: 1px solid rgba(254, 0, 0, 0.3); padding: 20px 25px !important;}
             .grid-item.full-width { border-bottom: none; }
-            .flex-row-responsive { flex-direction: column; }
-            .flex-col-half.border-right-dashed { border-right: none; border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
 
-            .modal-crew-section { justify-content: center; text-align: center; }
-            .modal-crew-group { align-items: center; }
-            .modal-crew-list { justify-content: center; max-width: 175px; }
-            #modalGenres { justify-content: center !important; }
-
-            .grid-item, .flex-col-half { align-items: center !important; text-align: center; }
-            #modalRequesterBlock, #modalTagsBlock, #modalDateWatched > div { align-items: center !important; }
+            .grid-item { align-items: center !important; text-align: center; }
+            
+            #modalRequesterBlock, #modalTagsBlock, #modalDateWatched > div, .flex-col-half, #modalRow3Wrapper > div { 
+                align-items: center !important; justify-content: center !important; width: 100% !important; 
+            }
+            
+            #modalTagsBlock .modal-grid-box, #modalRequesterBlock .modal-requester-link { 
+                align-self: center !important; margin-left: auto !important; margin-right: auto !important; 
+            }
 
             .modal-title-wrapper { flex-direction: column; align-items: center; text-align: center; }
             .modal-title { font-size: 26px !important; white-space: normal !important; text-align: center; }
+            .modal-title-extras { justify-content: center; margin-top: 8px; }
+            
             .modal-meta-wrapper { justify-content: center; }
+            .modal-meta-wrapper > div > div { justify-content: center !important; }
+            
+            #modalGenres { justify-content: center !important; }
+            .crew-section { justify-content: center !important; flex-wrap: wrap; }
+            .modal-crew-section { justify-content: center !important; text-align: center;}
+            .modal-crew-group { align-items: center; }
+            .modal-crew-list { justify-content: center; }
+            
+            .media-grid { justify-content: center; }
+            
+            .flex-row-responsive { flex-direction: column; }
+            .flex-col-half.border-right-dashed { border-right: none; border-bottom: 1px solid rgba(254, 0, 0, 0.3); }
         }
 
         @media (max-width: 480px) {
@@ -645,6 +708,12 @@
             .modal-poster { width: 120px; }
         }
         /* --- КОНЕЦ АДАПТИВА --- */
+
+
+
+
+
+
 
         .legendary-badge {
             box-shadow: 0 5px 15px rgba(0,0,0,0.9), inset 0 0 20px #ffd700, 0 0 30px rgba(255, 215, 0, 0.5) !important;
@@ -763,11 +832,11 @@
                         <div id="modalGenres" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;"></div>
                         
                         <div id="modalReviewBlock" style="display: none; margin-bottom: 25px;">
-                            <div style="font-size: 11px; color: var(--warm-star); text-transform: uppercase; font-family: var(--font-title); font-weight: 800; letter-spacing: 1px; margin-bottom: 8px;">✦ Отзыв от стримера</div>
-                            <div class="modal-review-text" style="font-size: 15px; line-height: 1.6; color: #fff; font-style: italic; border-left: 3px solid var(--warm-star); padding: 12px 16px; background: rgba(252, 232, 161, 0.05); border-radius: 0 4px 4px 0;"></div>
+                            <div class="text-3d-effect" style="font-size: 11px; color: #ffffff; text-transform: uppercase; font-family: var(--font-title); font-weight: 800; letter-spacing: 1px; margin-bottom: 8px;">✦ Отзыв от стримера</div>
+                            <div class="modal-review-text" style="font-size: 15px; line-height: 1.6; color: #fff; font-style: italic; border-left: 3px solid var(--accent-main); padding: 12px 16px; background: rgba(254, 0, 0, 0.05); border-radius: 0 4px 4px 0;"></div>
                         </div>
 
-                        <div style="font-size: 11px; color: var(--accent-main); text-transform: uppercase; font-family: var(--font-title); font-weight: 800; letter-spacing: 1px; margin-bottom: 8px;" id="modalOverviewLabel">♦ Описание</div>
+                        <div class="text-3d-effect" style="font-size: 11px; color: #ffffff; text-transform: uppercase; font-family: var(--font-title); font-weight: 800; letter-spacing: 1px; margin-bottom: 8px;" id="modalOverviewLabel">♦ Описание</div>
                         <div class="modal-overview" id="modalOverview"></div>
                         <div class="modal-crew-section" id="modalCrewSection"></div>
                         
@@ -1173,7 +1242,7 @@
             return;
         }
 
-        if (window.innerWidth <= 1150) {
+        if (window.innerWidth < 1280) {
             renderGridMode(renderArea);
         } else {
             if (viewMode === 'list') renderTableMode(renderArea);
