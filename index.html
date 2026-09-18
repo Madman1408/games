@@ -710,11 +710,6 @@
         /* --- КОНЕЦ АДАПТИВА --- */
 
 
-
-
-
-
-
         .legendary-badge {
             box-shadow: 0 5px 15px rgba(0,0,0,0.9), inset 0 0 20px #ffd700, 0 0 30px rgba(255, 215, 0, 0.5) !important;
             border-color: #ffd700 !important; color: #130f1c !important; font-weight: 900 !important; background: #ffd700 !important;
@@ -1526,7 +1521,11 @@
             ` : '';
 
             const hasBannedStudios = movie.studios && movie.studios.includes('🔴');
-            const bannedDotMarkup = hasBannedStudios ? `<div class="banned-dot" title="Запрещенная студия!"></div>` : '';
+            const bannedDotMarkup = hasBannedStudios ? `
+                <div title="Запрещенная студия!" style="background: rgba(3, 6, 36, 0.9); border: 1px solid rgba(254, 0, 0, 0.4); width: 30px; height: 30px; border-radius: 2px; display: flex; align-items: center; justify-content: center; margin: 0; box-sizing: border-box;">
+                    <div style="width: 14px; height: 14px; background-color: var(--accent-main); border-radius: 50%; box-shadow: 0 0 10px var(--accent-main);"></div>
+                </div>
+            ` : '';
             
             let displayType = escapeHTML(movie.type || 'Фильм');
             if (displayType.toLowerCase().includes('мульт')) displayType = 'Мульт';
@@ -1724,14 +1723,14 @@
         }
         if (movie.postUrl) {
             badgesBottomRow += `
-            <a href="${escapeHTML(movie.postUrl)}" target="_blank" class="outline-badge tg-modal-badge" onclick="event.stopPropagation();" title="Перейти к посту">
+            <a href="${escapeHTML(movie.postUrl)}" target="_blank" class="outline-badge play-modal-badge tg-rec" onclick="event.stopPropagation();" title="Перейти к посту">
                 <svg class="icon-3d-effect" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 ТГ ПОСТ
             </a>`;
         }
         if (movie.reviewUrl) {
             badgesBottomRow += `
-            <a href="${escapeHTML(movie.reviewUrl)}" target="_blank" class="outline-badge tg-modal-badge" onclick="event.stopPropagation();" title="Перейти к отзыву">
+            <a href="${escapeHTML(movie.reviewUrl)}" target="_blank" class="outline-badge play-modal-badge tg-rec" onclick="event.stopPropagation();" title="Перейти к отзыву">
                 <svg class="icon-3d-effect" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 ТГ ПОСТ
             </a>`;
