@@ -93,11 +93,13 @@
             padding: 35px 30px 25px; text-align: center; position: relative;
             border-bottom: 2px solid rgba(254, 0, 0, 0.3); 
             background: radial-gradient(circle at 50% 0%, rgba(254, 0, 0, 0.15) 0%, transparent 80%);
+            z-index: 30; /* Чтобы таблица не перекрывала шапку */
         }
         .header::after {
             content: '✦'; position: absolute; bottom: -14px; left: 50%; transform: translateX(-50%);
             color: var(--accent-main); font-size: 20px; background: var(--bg-deep); padding: 0 15px;
             border: 1px solid rgba(254, 0, 0, 0.4); text-shadow: 0 0 10px var(--accent-main);
+            z-index: 31; /* Звезда поверх всего */
         }
 
         .header-top h1 { 
@@ -158,7 +160,15 @@
         .view-toggle-btn:hover, .wishlist-link-btn:hover { background: var(--accent-main); color: #ffffff; box-shadow: 0 0 20px rgba(254, 0, 0, 0.5); text-shadow: none; }
 
         table { width: 100%; border-collapse: separate; border-spacing: 0; text-align: left; table-layout: fixed; }
-        th { text-align: center; color: #ffffff; text-shadow: 2px 2px 0px var(--accent-dark), 0 0 15px var(--accent-main); font-weight: 700; font-size: 18px; text-transform: uppercase; padding: 25px 12px 15px; border-bottom: 2px solid rgba(254, 0, 0, 0.3); font-family: var(--font-title); letter-spacing: 2px; position: sticky; top: 0; z-index: 20; background: rgba(12, 30, 91, 0.95); backdrop-filter: blur(10px); }
+        
+        /* Заголовки таблицы возвращены к виду из Кинотеатра со стики позиционированием и фоном */
+        th { 
+            text-align: center; color: #ffffff; text-shadow: 2px 2px 0px var(--accent-dark), 0 0 15px var(--accent-main); 
+            font-weight: 700; font-size: 18px; text-transform: uppercase; padding: 25px 12px 15px; 
+            border-bottom: 2px solid rgba(254, 0, 0, 0.3); font-family: var(--font-title); letter-spacing: 2px; 
+            position: sticky; top: 0; z-index: 20; background: rgba(12, 30, 91, 0.95); backdrop-filter: blur(10px); 
+        }
+        
         td { padding: 20px 15px; vertical-align: top; border-bottom: 1px solid rgba(254, 0, 0, 0.15); }
         tr:last-child td { border-bottom: none; }
         td:nth-child(1), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6) { text-align: center; }
@@ -219,6 +229,7 @@
         
         .badge-status { font-size: 12px; font-weight: 900; text-align: center; display: inline-flex; justify-content: center; align-items: center; text-transform: uppercase; letter-spacing: 2px; font-family: var(--font-title); color: var(--bg-deep); border-radius: 2px; padding: 4px 12px; margin-bottom: 8px; box-shadow: 0 4px 15px rgba(254, 0, 0, 0.5); min-width: 85px; }
 
+        /* КНОПКИ ССЫЛОК */
         .play-link-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 3px 12px 2px 10px; border-radius: 2px; text-decoration: none; font-family: var(--font-title); font-size: 13px; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.5); width: 100%; max-width: 140px !important; box-sizing: border-box; margin-top: 4px; }
         .play-link-btn.tg-rec { background: rgba(56, 189, 248, 0.1); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
         .play-link-btn.tg-rec:hover { background: #38bdf8; color: var(--bg-deep); box-shadow: 0 0 12px rgba(56, 189, 248, 0.5); transform: translateY(-2px); }
@@ -370,7 +381,8 @@
         .modal-girl-img { position: absolute; height: 650px; filter: drop-shadow(0 15px 40px rgba(0,0,0,0.9)) contrast(1.1) brightness(0.9); }
         .modal-left-img { right: -185px; }
         .modal-right-img { left: -176px; }
-        
+        @media (max-width: 1550px) { .modal-girl-col { display: none; } }
+
         .modal-content {
             background: var(--bg-deep); width: 90%; max-width: 1000px; max-height: 85vh; overflow-y: auto; position: relative;
             box-shadow: 0 0 60px rgba(0, 0, 0, 1), 0 0 40px rgba(254, 0, 0, 0.2); border: 2px solid var(--accent-main); padding: 4px; 
@@ -461,7 +473,6 @@
         ::-webkit-scrollbar-thumb { background: var(--accent-dark); border-radius: 0; }
         ::-webkit-scrollbar-thumb:hover { background: var(--accent-main); }
 
-
         .price-badge {
             background: rgba(254, 0, 0, 0.05);
             border: 1px solid rgba(254, 0, 0, 0.3);
@@ -549,7 +560,6 @@
         #partsContainer::-webkit-scrollbar-track { background: rgba(3, 6, 36, 0.5); border-radius: 0; }
         #partsContainer::-webkit-scrollbar-thumb { background: var(--accent-dark); border-radius: 0; }
 
-        /* ИСПРАВЛЕННЫЙ БЛОК АДАПТИВНОСТИ КАК У CHERTEYA */
         @media (min-width: 1920px) {
             .container { max-width: 1450px; }
             .movies-grid { grid-template-columns: repeat(7, 1fr); gap: 20px; }
@@ -567,10 +577,10 @@
             th:nth-child(1), td:nth-child(1) { width: 200px !important; min-width: 200px !important; }
             .poster-wrapper { width: 170px !important; height: 255px !important; } 
             
-            th:nth-child(3), td:nth-child(3) { width: 220px !important; min-width: 220px !important; } /* Заказал */
-            th:nth-child(4), td:nth-child(4) { width: 220px !important; min-width: 220px !important; } /* Цена */
-            th:nth-child(5), td:nth-child(5) { width: 220px !important; min-width: 220px !important; } /* Ссылки */
-            th:nth-child(6), td:nth-child(6) { width: 220px !important; min-width: 220px !important; } /* Статус */
+            th:nth-child(3), td:nth-child(3) { width: 220px !important; min-width: 220px !important; } 
+            th:nth-child(4), td:nth-child(4) { width: 220px !important; min-width: 220px !important; } 
+            th:nth-child(5), td:nth-child(5) { width: 220px !important; min-width: 220px !important; } 
+            th:nth-child(6), td:nth-child(6) { width: 220px !important; min-width: 220px !important; } 
             
             .movie-overview-text { font-size: 16px; line-height: 1.6; }
             
@@ -583,18 +593,16 @@
             }
         }
 
-        @media (max-width: 1550px) { 
-            .girl-col, .modal-girl-col { display: none; } 
-        }
+        @media (max-width: 1550px) { .girl-col, .modal-girl-col { display: none; } }
 
         @media (max-width: 1400px) {
             th:nth-child(1), td:nth-child(1) { width: 120px !important; min-width: 120px !important; padding-left: 5px !important; padding-right: 5px !important; }
             .poster-wrapper { width: 105px !important; height: 160px !important; } 
             
-            th:nth-child(3), td:nth-child(3) { width: 110px !important; min-width: 110px !important; padding-left: 5px !important; padding-right: 5px !important; } /* Заказал */
-            th:nth-child(4), td:nth-child(4) { width: 120px !important; min-width: 120px !important; padding-left: 5px !important; padding-right: 5px !important; } /* Цена */
-            th:nth-child(5), td:nth-child(5) { width: 140px !important; min-width: 140px !important; padding-left: 5px !important; padding-right: 5px !important; } /* Ссылки */
-            th:nth-child(6), td:nth-child(6) { width: 135px !important; min-width: 135px !important; padding-left: 5px !important; padding-right: 5px !important; } /* Статус */
+            th:nth-child(3), td:nth-child(3) { width: 110px !important; min-width: 110px !important; padding-left: 5px !important; padding-right: 5px !important; } 
+            th:nth-child(4), td:nth-child(4) { width: 120px !important; min-width: 120px !important; padding-left: 5px !important; padding-right: 5px !important; } 
+            th:nth-child(5), td:nth-child(5) { width: 140px !important; min-width: 140px !important; padding-left: 5px !important; padding-right: 5px !important; } 
+            th:nth-child(6), td:nth-child(6) { width: 135px !important; min-width: 135px !important; padding-left: 5px !important; padding-right: 5px !important; } 
             
             .steam-link-btn, .play-link-btn { 
                 width: 90% !important; 
@@ -824,11 +832,6 @@
                         
                         <div id="modalGenres" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;"></div>
 
-                        <div id="modalReviewBlock" style="display: none; margin-bottom: 25px;">
-                            <div style="font-size: 11px; color: var(--warm-star); text-transform: uppercase; font-family: var(--font-title); font-weight: 800; letter-spacing: 1px; margin-bottom: 8px;">✦ Отзыв от стримера</div>
-                            <div class="modal-review-text" style="font-size: 15px; line-height: 1.6; color: #fff; font-style: italic; font-family: var(--font-text); border-left: 3px solid var(--warm-star); padding: 12px 16px; background: rgba(252, 232, 161, 0.05); border-radius: 0 4px 4px 0;"></div>
-                        </div>
-                        
                         <div class="modal-grid" id="modalMainGrid" style="gap: 0; padding: 0;">
                             
                             <div class="grid-item border-bottom border-right" id="modalRequesterCol">
@@ -903,6 +906,11 @@
                         <div class="modal-overview-container">
                             <div class="modal-overview-label">Описание</div>
                             <div class="modal-overview" id="modalOverview">Описание игры...</div>
+                        </div>
+
+                        <div id="modalReviewBlock" style="display: none; margin-top: 25px; margin-bottom: 10px;">
+                            <div class="text-3d-effect" style="font-size: 11px; color: #ffffff; text-transform: uppercase; font-family: var(--font-title); font-weight: 800; letter-spacing: 1px; margin-bottom: 8px;">✦ Отзыв от стримера</div>
+                            <div class="modal-review-text" style="font-size: 15px; line-height: 1.6; color: #fff; font-style: italic; font-family: var(--font-text); border-left: 3px solid var(--accent-main); padding: 12px 16px; background: rgba(254, 0, 0, 0.05); border-radius: 0 4px 4px 0;"></div>
                         </div>
                         
                     </div>
@@ -1478,16 +1486,19 @@
             let boostyButtonHTML = getMediaButtonHtml(movie, 'boostyUrl', 'BOOSTY', 'boosty', playIcon, 'table');
             let ytButtonHTML = getMediaButtonHtml(movie, 'youtubeUrl', 'YOUTUBE', 'yt', playIcon, 'table');
 
-            let tgButtonHTML = '';
+            let allLinksHTML = '';
+            if (tgRecButtonHTML) allLinksHTML += tgRecButtonHTML;
+            if (boostyButtonHTML) allLinksHTML += boostyButtonHTML;
+            if (ytButtonHTML) allLinksHTML += ytButtonHTML;
+            
             if (telegramLink) {
-                tgButtonHTML += `<a href="${escapeHTML(telegramLink)}" target="_blank" class="play-link-btn tg-rec" onclick="event.stopPropagation();"><svg class="icon-3d-effect" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ </a>`;
+                allLinksHTML += `<a href="${escapeHTML(telegramLink)}" target="_blank" class="play-link-btn tg-rec" onclick="event.stopPropagation();"><svg class="icon-3d-effect" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ </a>`;
             }
 
             if (movie.reviewUrl) {
-                tgButtonHTML += `<a href="${escapeHTML(movie.reviewUrl)}" target="_blank" class="play-link-btn tg-rec" onclick="event.stopPropagation();" title="Читать отзыв"><svg class="icon-3d-effect" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ </a>`;
+                allLinksHTML += `<a href="${escapeHTML(movie.reviewUrl)}" target="_blank" class="play-link-btn tg-rec" onclick="event.stopPropagation();" title="Читать отзыв"><svg class="icon-3d-effect" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg> ТГ ПОСТ </a>`;
             }
             
-            let allLinksHTML = tgButtonHTML + tgRecButtonHTML + boostyButtonHTML + ytButtonHTML;
             if (allLinksHTML) linksHTML += allLinksHTML;
             linksHTML += '</div>';
 
@@ -1637,6 +1648,15 @@
                 <svg class="icon-3d-effect" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
             </button>`;
 
+            const playIconGrid = `<svg class="icon-3d-effect" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
+            let ytGridBtn = getMediaButtonHtml(movie, 'youtubeUrl', 'YOUTUBE', 'yt', playIconGrid, 'grid');
+            let boostyGridBtn = getMediaButtonHtml(movie, 'boostyUrl', 'BOOSTY', 'boosty', playIconGrid, 'grid');
+            let tgRecGridBtn = getMediaButtonHtml(movie, 'tgRecordUrl', 'ТГ ЗАПИСЬ', 'tg', playIconGrid, 'grid');
+
+            if (ytGridBtn) rightStackHTML += ytGridBtn;
+            if (boostyGridBtn) rightStackHTML += boostyGridBtn;
+            if (tgRecGridBtn) rightStackHTML += tgRecGridBtn;
+
             const telegramLink = movie.postUrl || movie.tgPost;
             if (telegramLink) {
                 rightStackHTML += `<a href="${escapeHTML(telegramLink)}" target="_blank" class="card-tg-btn" title="Telegram Пост" onclick="event.stopPropagation();">
@@ -1645,19 +1665,10 @@
             }
 
             if (movie.reviewUrl) {
-                rightStackHTML += `<a href="${escapeHTML(movie.reviewUrl)}" target="_blank" class="card-tg-btn" title="Читать отзыв в Telegram" onclick="event.stopPropagation();">
+                rightStackHTML += `<a href="${escapeHTML(movie.reviewUrl)}" target="_blank" class="card-tg-btn" title="Читать отзыв" onclick="event.stopPropagation();">
                     <svg class="icon-3d-effect" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
                 </a>`;
             }
-            
-            const playIconGrid = `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
-            let ytGridBtn = getMediaButtonHtml(movie, 'youtubeUrl', 'YOUTUBE', 'yt', playIconGrid, 'grid');
-            let boostyGridBtn = getMediaButtonHtml(movie, 'boostyUrl', 'BOOSTY', 'boosty', playIconGrid, 'grid');
-            let tgRecGridBtn = getMediaButtonHtml(movie, 'tgRecordUrl', 'ТГ ЗАПИСЬ', 'tg-rec', playIconGrid, 'grid');
-
-            if (ytGridBtn) rightStackHTML += ytGridBtn;
-            if (boostyGridBtn) rightStackHTML += boostyGridBtn;
-            if (tgRecGridBtn) rightStackHTML += tgRecGridBtn;
 
             rightStackHTML += '</div>';
             
@@ -1865,6 +1876,11 @@
             </a>`;
         }
 
+        const playIconModal = `<svg class="icon-3d-effect" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
+        badgesHtml += getMediaButtonHtml(movie, 'youtubeUrl', 'YOUTUBE', 'yt', playIconModal, 'modal');
+        badgesHtml += getMediaButtonHtml(movie, 'boostyUrl', 'BOOSTY', 'boosty', playIconModal, 'modal');
+        badgesHtml += getMediaButtonHtml(movie, 'tgRecordUrl', 'ТГ ЗАПИСЬ', 'tg-rec', playIconModal, 'modal');
+
         const telegramLink = movie.postUrl || movie.tgPost;
         if (telegramLink) {
             badgesHtml += `
@@ -1881,11 +1897,6 @@
                 ТГ ПОСТ
             </a>`;
         }
-        
-        const playIconModal = `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px;"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
-        badgesHtml += getMediaButtonHtml(movie, 'youtubeUrl', 'YOUTUBE', 'yt', playIconModal, 'modal');
-        badgesHtml += getMediaButtonHtml(movie, 'boostyUrl', 'BOOSTY', 'boosty', playIconModal, 'modal');
-        badgesHtml += getMediaButtonHtml(movie, 'tgRecordUrl', 'ТГ ЗАПИСЬ', 'tg-rec', playIconModal, 'modal');
 
         document.getElementById('modalBadges').innerHTML = badgesHtml;
         
@@ -1899,14 +1910,6 @@
             genresHtml = `<span class="outline-badge">Нет жанра</span>`;
         }
         document.getElementById('modalGenres').innerHTML = genresHtml;
-
-        const reviewBlock = document.getElementById('modalReviewBlock');
-        if (movie.reviewText && movie.reviewText.trim() !== "") {
-            reviewBlock.style.display = 'block';
-            reviewBlock.querySelector('.modal-review-text').innerHTML = escapeHTML(movie.reviewText).replace(/\n/g, '<br>');
-        } else {
-            reviewBlock.style.display = 'none';
-        }
 
         document.getElementById('modalOverview').innerHTML = escapeHTML(movie.overview || 'Данные об игре утеряны...').replace(/\n/g, '<br>');
         
@@ -2086,6 +2089,14 @@
         updateCmdEl.textContent = `!gz ${titleForCmd} (data)`;
 
         document.getElementById('modalStudios').textContent = movie.studios === "Нет данных" || !movie.studios ? "Архив скрыт" : movie.studios;
+
+        const reviewBlock = document.getElementById('modalReviewBlock');
+        if (movie.reviewText && movie.reviewText.trim() !== "") {
+            reviewBlock.style.display = 'block';
+            reviewBlock.querySelector('.modal-review-text').innerHTML = escapeHTML(movie.reviewText).replace(/\n/g, '<br>');
+        } else {
+            reviewBlock.style.display = 'none';
+        }
 
         modal.classList.add('active'); document.body.style.overflow = 'hidden'; 
     }
