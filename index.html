@@ -195,7 +195,6 @@
         .outline-badge { border: 1px solid rgba(254, 0, 0, 0.5); color: var(--text-main); padding: 3px 10px; font-size: 11px; font-weight: 700; background: rgba(254, 0, 0, 0.05); border-radius: 2px; font-family: var(--font-title); letter-spacing: 1px; text-transform: uppercase; }
 
         .movie-genres { font-size: 12px; color: var(--text-main); font-weight: 600; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px; font-family: var(--font-title); }
-        .movie-studios-list { font-size: 14px; color: var(--accent-light); font-weight: 600; letter-spacing: 1px; margin-top: 2px; font-family: var(--font-title); }
 
         .movie-overview-wrapper { margin-top: 8px; max-height: 48px; overflow: hidden; transition: max-height 0.4s ease; cursor: pointer; user-select: none; -webkit-user-select: none; }
         .movie-overview-wrapper.expanded { max-height: 1500px !important; }
@@ -1472,9 +1471,6 @@
             const hasReview = movie.reviewText && movie.reviewText.trim() !== ""; 
             const cleanReview = hasReview ? escapeHTML(movie.reviewText).replace(/\n/g, '<br>') : "";
 
-            let displayStudios = movie.studios && movie.studios !== "Нет данных" ? movie.studios : "";
-            const studiosHTML = displayStudios ? `<div class="movie-studios-list text-3d-effect">${escapeHTML(displayStudios)}</div>` : '';
-
             let tabsHTML = '<div class="list-tabs-container">';
             if (hasReview) tabsHTML += `<button class="list-tab-btn text-3d-effect active" onclick="switchListTab(event, this, 'review')">✦ Отзыв</button>`;
             tabsHTML += `<button class="list-tab-btn text-3d-effect ${!hasReview ? 'active' : ''}" onclick="switchListTab(event, this, 'overview')">♦ Описание</button></div>`;
@@ -1564,7 +1560,6 @@
                         </div>
                         <div class="badges-container" style="${idBadge ? '' : 'display: none;'}">${idBadge}</div>
                         <div class="movie-genres">${escapeHTML(movie.genres || '')}</div>
-                        ${studiosHTML}
                         ${tabsHTML}
                         ${reviewBlock}
                         ${overviewBlock}
