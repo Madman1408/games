@@ -561,17 +561,8 @@
         #partsContainer::-webkit-scrollbar-track { background: rgba(3, 6, 36, 0.5); border-radius: 0; }
         #partsContainer::-webkit-scrollbar-thumb { background: var(--accent-dark); border-radius: 0; }
 
+
         @media (max-width: 1550px) { .girl-col { display: none; } }
-
-
-
-
-
-
-
-
-
-
 
         /* --- АДАПТИВ ДЛЯ БОЛЬШИХ ЭКРАНОВ (2K / 1440p и выше) --- */
         @media (min-width: 1920px) {
@@ -588,7 +579,8 @@
             .modal-content { max-width: 1500px; }
             .modal-poster { width: 300px; }
             
-            body::before {
+            /* Стеклянный фон, который не стирает слой со звездами */
+            body::after {
                 content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
                 background: rgba(3, 6, 36, 0); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); z-index: -2; pointer-events: none;
             }
@@ -602,7 +594,7 @@
             th:nth-child(6), td:nth-child(6) { width: 220px !important; min-width: 220px !important; }
             
             .movie-overview-text { font-size: 16px; line-height: 1.6; }
-            .tg-link-btn, .play-link-btn { width: 140px !important; max-width: 140px !important; }
+            .play-link-btn { width: 140px !important; max-width: 140px !important; }
             .date-badge { white-space: nowrap !important; }
         }
 
@@ -617,7 +609,7 @@
             th:nth-child(5), td:nth-child(5) { width: 130px !important; min-width: 130px !important; padding-left: 5px !important; padding-right: 5px !important; }
             th:nth-child(6), td:nth-child(6) { width: 130px !important; min-width: 130px !important; padding-left: 5px !important; padding-right: 5px !important; }
             
-            .tg-link-btn, .play-link-btn { width: 100% !important; max-width: 120px !important; font-size: 11px !important; padding: 4px !important; box-sizing: border-box !important; }
+            .play-link-btn { width: 100% !important; max-width: 120px !important; font-size: 11px !important; padding: 4px !important; box-sizing: border-box !important; }
             .time-box { white-space: nowrap !important; padding: 6px 10px !important; font-size: 13px !important; }
             
             .date-badge { width: 100% !important; max-width: 125px !important; font-size: 11px !important; padding: 4px 6px !important; box-sizing: border-box !important; white-space: normal !important; text-align: center !important; line-height: 1.1 !important; }
@@ -707,6 +699,8 @@
             .modal-title { font-size: 24px !important; }
             .modal-poster { width: 120px; }
         }
+		
+		
         /* --- КОНЕЦ АДАПТИВА --- */
 
 
