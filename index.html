@@ -161,7 +161,7 @@
         th { text-align: center; color: #ffffff; text-shadow: 2px 2px 0px var(--accent-dark), 0 0 15px var(--accent-main); font-weight: 700; font-size: 18px; text-transform: uppercase; padding: 25px 12px 15px; border-bottom: 2px solid rgba(254, 0, 0, 0.3); font-family: var(--font-title); letter-spacing: 2px; position: sticky; top: 0; z-index: 20; background: rgba(12, 30, 91, 0.95); backdrop-filter: blur(10px); }
         td { padding: 20px 15px; vertical-align: top; border-bottom: 1px solid rgba(254, 0, 0, 0.15); }
         tr:last-child td { border-bottom: none; }
-        td:nth-child(1), td:nth-child(3), td:nth-child(4), td:nth-child(5) { text-align: center; }
+        td:nth-child(1), td:nth-child(3), td:nth-child(4), td:nth-child(5), td:nth-child(6) { text-align: center; }
         tr.movie-row { cursor: pointer; transition: all 0.3s ease; position: relative; }
         tr.movie-row:hover { background-color: rgba(254, 0, 0, 0.05); } 
         td:nth-child(2) { text-align: left; position: relative; z-index: 1; overflow: hidden; }
@@ -568,8 +568,9 @@
             .poster-wrapper { width: 170px !important; height: 255px !important; } 
             
             th:nth-child(3), td:nth-child(3) { width: 220px !important; min-width: 220px !important; } /* Заказал */
-            th:nth-child(4), td:nth-child(4) { width: 220px !important; min-width: 220px !important; } /* Ссылки */
-            th:nth-child(5), td:nth-child(5) { width: 220px !important; min-width: 220px !important; } /* Статус */
+            th:nth-child(4), td:nth-child(4) { width: 220px !important; min-width: 220px !important; } /* Цена */
+            th:nth-child(5), td:nth-child(5) { width: 220px !important; min-width: 220px !important; } /* Ссылки */
+            th:nth-child(6), td:nth-child(6) { width: 220px !important; min-width: 220px !important; } /* Статус */
             
             .movie-overview-text { font-size: 16px; line-height: 1.6; }
             
@@ -591,8 +592,9 @@
             .poster-wrapper { width: 105px !important; height: 160px !important; } 
             
             th:nth-child(3), td:nth-child(3) { width: 110px !important; min-width: 110px !important; padding-left: 5px !important; padding-right: 5px !important; } /* Заказал */
-            th:nth-child(4), td:nth-child(4) { width: 120px !important; min-width: 120px !important; padding-left: 5px !important; padding-right: 5px !important; } /* Ссылки */
-            th:nth-child(5), td:nth-child(5) { width: 140px !important; min-width: 140px !important; padding-left: 5px !important; padding-right: 5px !important; } /* Статус */
+            th:nth-child(4), td:nth-child(4) { width: 120px !important; min-width: 120px !important; padding-left: 5px !important; padding-right: 5px !important; } /* Цена */
+            th:nth-child(5), td:nth-child(5) { width: 140px !important; min-width: 140px !important; padding-left: 5px !important; padding-right: 5px !important; } /* Ссылки */
+            th:nth-child(6), td:nth-child(6) { width: 135px !important; min-width: 135px !important; padding-left: 5px !important; padding-right: 5px !important; } /* Статус */
             
             .steam-link-btn, .play-link-btn { 
                 width: 90% !important; 
@@ -1347,6 +1349,7 @@
                         <th style="width: 160px; min-width: 160px;">Постер</th>
                         <th style="width: 100%;">Описание</th>
                         <th style="width: 145px; min-width: 145px;">Заказал</th>
+                        <th style="width: 160px; min-width: 160px;">Цена</th>
                         <th style="width: 130px; min-width: 130px;">Ссылки</th>
                         <th style="width: 135px; min-width: 135px;">Статус</th>
                     </tr>
@@ -1367,7 +1370,7 @@
                 if (getGroup(prevStatus) !== getGroup(currStatus)) {
                     const dividerTr = document.createElement('tr');
                     dividerTr.innerHTML = `
-                        <td colspan="5" style="padding: 30px 15px; cursor: default; border-bottom: 1px solid rgba(254, 0, 0, 0.3);">
+                        <td colspan="6" style="padding: 30px 15px; cursor: default; border-bottom: 1px solid rgba(254, 0, 0, 0.3);">
                             <div style="display: flex; align-items: center; justify-content: center;">
                                 <div style="flex-grow: 1; height: 2px; background: linear-gradient(to right, transparent, var(--accent-main)); opacity: 0.5;"></div>
                                 <span style="padding: 0 20px; font-family: var(--font-title); font-size: 24px; font-weight: 700; color: #ffffff; text-shadow: 0 0 15px rgba(254, 0, 0, 0.8); text-transform: uppercase; letter-spacing: 2px;">✦ Пройдено / Брошено ✦</span>
@@ -1496,6 +1499,26 @@
 
             const auctionHTML = movie.isAuction ? `<div class="date-badge" style="margin-top: 8px; color: var(--warm-star); border-color: var(--warm-star); background: rgba(3, 6, 36, 0.9); font-size: 11px; text-transform: uppercase; letter-spacing: 2px; font-weight: 900;">✦ Аукцион ✦</div>` : '';
 
+            const datePriceText = movie.datePriceUpdated ? movie.datePriceUpdated.split(' ')[0] : 'неизвестно';
+            const priceText = movie.price && movie.price !== "Неизвестно" ? movie.price : "Цена скрыта";
+            
+            let tablePriceBadgesMarkup = '';
+            if (priceText !== "Цена скрыта") {
+                const prices = priceText.split('/').map(p => p.trim());
+                tablePriceBadgesMarkup = prices.map(p => `<span class="price-badge text-3d-effect" style="display: block; width: 75%; max-width: 120px; margin: 0 auto 4px auto; padding: 6px 4px; font-size: 15px; cursor: default; box-sizing: border-box;">${escapeHTML(p)}</span>`).join('');
+            } else {
+                tablePriceBadgesMarkup = `<span class="price-badge text-3d-effect" style="display: block; width: 75%; max-width: 120px; margin: 0 auto 4px auto; opacity: 0.6; padding: 6px 4px; font-size: 14px; cursor: default; box-sizing: border-box;">Нет цены</span>`;
+            }
+            
+            const priceColumnHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: flex-start; width: 100%;">
+                    <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-family: var(--font-title); font-weight: 800; letter-spacing: 1px; margin-bottom: 8px; text-align: center;">Обновлено:<br><span style="color: var(--text-main); font-size: 13px;">${datePriceText}</span></div>
+                    <div style="width: 100%;">
+                        ${tablePriceBadgesMarkup}
+                    </div>
+                </div>
+            `;
+
             tr.innerHTML = `
                 <td><div class="poster-wrapper"><img src="${posterUrl}" onerror="handlePosterError(this)" alt=""></div></td>
                 <td>
@@ -1518,6 +1541,7 @@
                     </div>
                 </td>
                 <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;"><div class="requester-badge" onclick="window.open('https://twitch.tv/${cleanNick}', '_blank'); event.stopPropagation();">${avatarMarkup}<span class="req-name resize-list-username text-3d-effect" style="display: block; max-width: 115px; white-space: nowrap; overflow: hidden; text-overflow: clip;">${cleanNick}</span></div>${movie.dateRequested ? `<div class="date-badge"><span class="text-3d-effect">${movie.dateRequested.split(' ')[0]}</span></div>` : ''}${auctionHTML}</div></td>
+                <td style="vertical-align: top;">${priceColumnHTML}</td>
                 <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%;">${linksHTML}</div></td>
                 <td style="vertical-align: top;"><div style="display: flex; flex-direction: column; align-items: center;">${statusText}${watchedDateHTML}</div></td>
             `;
